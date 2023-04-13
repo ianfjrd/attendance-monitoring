@@ -21,18 +21,18 @@
             }
         </style>
     </head>
-    <body class="bg-no-repeat bg-cover min-h-screen" style="background-image: url('images/landing.jpg');">
+    <body class="bg-no-repeat bg-cover min-h-screen overflow-hidden" style="background-image: url('images/landing.jpg');">
         <div class="relative flex items-start my-40 justify-center ">
             {{-- @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}} --}}
 
                         {{-- @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif --}}
+                        @endif  --}}
                     {{-- @endauth
                 </div>
             @endif --}}
@@ -46,17 +46,17 @@
                     </svg>
                 </div>--}}
 
-        <div class="text-sm md:text-5xl text-white w-[500px] justify-center text-center">
-            <p>Current Time</p>
+        <div class="text-sm md:text-5xl text-white w-[350px] justify-center text-center">
+            <p class="font-light text-2xl leading-loose">Current time in the PH:</p>
             <h3 id="clock"></h3>
         </div>
-        <div class="text-sm md:text-5xl text-white w-[500px] justify-center text-center">
-            <p>Current Date</p>
+        <div class="text-sm md:text-5xl text-white w-[350px] justify-center text-center">
+            <p class="font-light text-2xl leading-loose">Current date in the PH:</p>
             <h3 id="date-today"></h3>
         </div>
 
     </div>
-    <img src="images/char2.png" alt="Your Image Description" class="absolute w-[512px] h-[484px] left-[68.75rem] top-[25.875rem]">
+    <img src="images/char2.png" alt="char2" class="absolute w-[512px] h-[484px] left-[60.75rem] top-[25.875rem]">
     <div class="w-[648px] h-[200px] absolute left-[calc(50%-648px/2-289px)] top-[calc(50%-105px/2+156.5px)] font-inter font-bold text-[35px] text-center text-white">
         All Employees Must Time In and Out for Accurate Attendance Records
     </div>
