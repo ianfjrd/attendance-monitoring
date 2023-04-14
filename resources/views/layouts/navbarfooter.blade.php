@@ -40,14 +40,14 @@
                                     @auth
                                         <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4">Contact</a>
                                         <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4">Attendance</a>
-                                        <a href="{{ url('/Profile') }}" class="text-[#FFFFFF] ml-4">Profile</a>
+                                        <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4">Profile</a>
                                         <a href="{{ url('/dashboard') }}"><x-button class="ml-4">Dashboard</x-button></a>
                                         {{-- <a href="{{ url('/Profile') }}">Profile</a> --}}
                             @else
                                         {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
                                         <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4">Contact</a>
                                         <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4">Attendance</a>
-                                        <a href="{{ url('/Profile') }}" class="text-[#FFFFFF] ml-4">Profile</a>
+                                        <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4">Profile</a>
                                         <a href="{{ route('login') }}"><x-button class="ml-4">Log In</x-button></a>
                                     @endauth
                             @endif
