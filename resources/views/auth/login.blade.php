@@ -5,10 +5,11 @@
         </div>
     @endif
         <body class="bg-no-repeat bg-cover min-h-screen overflow-hidden" style="background-image: url('./images/landing.jpg');">
-            <a href="/"><img class="absolute top-28 ml-44 left-0 transform -translate-y-1/2 w-[485px] h-[67px]" src="./images/logologin.png" alt="Image description"></a>
+            <div class="top-96 container relative mx-auto w-auto h-auto">
+            <a href="/"><img class="absolute ml-44 transform mt-[-230px] -translate-y-1/2 w-[485px] h-[67px]" src="./images/logologin.png" alt="Image description"></a>
             <img class="absolute top-1/2 ml-44 mt-10 left-0 transform -translate-y-1/2 w-[423px] h-[424px]" src="./images/Char1.png" alt="Image description">
             <img class="absolute top-1/2 right-0 transform -translate-y-1/2 mx-1 md:mr-44 w-[600px] h-[700px]" src="./images/cardlogin.png" alt="Image description">
-                <div class="absolute top-1/2 right-0 transform -translate-y-1/2 mx-1 md:mr-72 w-full max-w-sm p-4 bg-transparent sm:p-6 md:p-8">
+            <div class="absolute top-1/2 right-0 transform -translate-y-1/2 mx-1 md:mr-72 w-full max-w-sm p-4 bg-transparent sm:p-6 md:p-8">
                 <form class="space-y-6" method="POST" action="{{ route('login') }}">
                     @csrf
 
@@ -45,6 +46,8 @@
                     </button>
                 </form>
             </div>
+            </div>
+
         </body>
 </x-guest-layout>
 {{-- bivafig294@ippals.com
