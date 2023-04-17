@@ -33,7 +33,7 @@
         </div>
 
     </div>
-    <img src="images/char2.png" alt="char2" class="absolute w-[512px] h-[484px] left-[60.75rem] top-[25.875rem]">
+    <img src="images/char2.png" alt="char2" class="absolute w-[512px] h-[484px] left-[60.75rem] top-[25.875rem] center">
     <div class="w-[648px] h-[200px] absolute left-[calc(50%-648px/2-289px)] top-[calc(50%-105px/2+156.5px)] font-inter font-bold text-[35px] text-center text-white">
         All Employees Must Time In and Out for Accurate Attendance Records
     </div>
