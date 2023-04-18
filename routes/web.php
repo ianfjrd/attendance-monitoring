@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TimestampController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/csrf', function () {
+    return  csrf_token();
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,4 +31,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+
+Route::prefix('admin')->group(function(){
+    Route::resource('timestamp', TimestampController::class );
 });
