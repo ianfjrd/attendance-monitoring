@@ -22,9 +22,9 @@
         </style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="bg-no-repeat bg-fixed bg-cover min-h-screen overflow-hidden" style="background-image: url('images/landing.jpg');">
-        <div>
-            <div class="relative flex items-start mt-40 mb-10 justify-center">
+    <body class="bg-no-repeat bg-fixed bg-cover min-h-screen" style="background-image: url('images/landing.jpg');">
+        <div class="pt-40">
+            <div class="relative flex items-start mb-10 justify-center">
                 <div class="text-sm md:text-5xl text-white w-[350px] justify-center text-center">
                     <p class="font-light text-2xl leading-loose">Current time in the PH:</p>
                     <h3 id="clock"></h3>
