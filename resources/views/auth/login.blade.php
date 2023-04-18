@@ -17,48 +17,58 @@
             </div>
             <div class="h-full flex items-center">
                 <div>
-                        <div class="top-1/2 right-0 mx-1 md:mr-72 w-full h-contain flex justify-center bg-cover max-w-xl p-4 sm:p-6 md:py-32" style="background-image: url('./images/cardlogin.png');">
-                            <form class=" h-fit w-[350px] space-y-6" method="POST" action="{{ route('login') }}">
-                                @csrf
+                    <div class="top-1/2 right-0 mx-1 md:mr-72 w-full h-contain flex justify-center bg-cover max-w-xl p-4 sm:p-6 md:py-32"
+                        style="background-image: url('./images/cardlogin.png');">
+                        <form class=" h-fit w-[350px] space-y-6" method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                                <div class="flex">
-                                <img class="w-[140px] h-[20px] mt-[6px]" src="./images/WelcomeTo.png" alt="Image description">
+                            <div class="flex">
+                                <img class="w-[140px] h-[20px] mt-[6px]" src="./images/WelcomeTo.png"
+                                    alt="Image description">
                                 <img class="w-[221px] h-[33px]" src="./images/logo.png" alt="Image description">
-                                </div>
+                            </div>
 
-                                <h5 class="text-xl font-medium text-white dark:text-white text-center">Fill up form below</h5>
-                                <x-validation-errors class="mb-4" />
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white" value="{{ __('Email') }}">E-mail</label>
-                                    <input type="email" name="email" :value="old('email')" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required>
-                                </div>
+                            <h5 class="text-xl font-medium text-white dark:text-white text-center">Fill up form below
+                            </h5>
+                            <x-validation-errors class="mb-4" />
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white"
+                                    value="{{ __('Email') }}">E-mail</label>
+                                <input type="email" name="email" :value="old('email')" id="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="name@company.com" required>
+                            </div>
 
-                                <div>
-                                    <label for="password" class="block mb-2 text-sm font-medium text-white dark:text-white" value="{{ __('Password') }}">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-                                </div>
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-white dark:text-white"
+                                    value="{{ __('Password') }}">Password</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    required>
+                            </div>
+                            <div class="flex items-start">
                                 <div class="flex items-start">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
-                                        </div>
-                                        <label for="remember" class="ml-2 text-sm font-medium text-white">{{ __('Remember me') }}</label>
+                                    <div class="flex items-center h-5">
+                                        <input id="remember" type="checkbox" value=""
+                                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
                                     </div>
-                                    @if (Route::has('password.request'))
-                                    <a class="ml-auto text-sm text-white text-opacity-50 hover:underline" href="{{ route('password.request') }}">{{ __('Forgot your password?') }}
-                                    </a>
-                                    @endif
+                                    <label for="remember"
+                                        class="ml-2 text-sm font-medium text-white">{{ __('Remember me') }}</label>
                                 </div>
-                                <button type="submit" class="w-2/5 block mx-auto text-white bg-[#8EC33F] hover:bg-opacity-50 focus:ring-4 focus:outline-none focus:ring-white font-bold rounded-full text-lg px-5 py-2.5 text-center">
-                                    {{ __('Log in') }}
-                                </button>
-                            </form>
-                        </div>
+                                @if (Route::has('password.request'))
+                                    <a class="ml-auto text-sm text-white text-opacity-50 hover:underline"
+                                        href="{{ route('password.request') }}">{{ __('Forgot your password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                            <button type="submit"
+                                class="w-2/5 block mx-auto text-white bg-[#8EC33F] hover:bg-opacity-50 focus:ring-4 focus:outline-none focus:ring-white font-bold rounded-full text-lg px-5 py-2.5 text-center">
+                                {{ __('Log in') }}
+                            </button>
+                        </form>
+                    </div>
                 </div>
-
-
             </div>
-
         </div>
 
     </body>

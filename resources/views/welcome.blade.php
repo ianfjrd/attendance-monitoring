@@ -22,7 +22,7 @@
         </style>
     </head>
     <body class="bg-no-repeat bg-cover min-h-screen overflow-hidden" style="background-image: url('images/landing.jpg');">
-        <div class="relative flex items-start my-40 justify-center ">
+    <div class="relative flex items-start my-40 justify-center">
         <div class="text-sm md:text-5xl text-white w-[350px] justify-center text-center">
             <p class="font-light text-2xl leading-loose">Current time in the PH:</p>
             <h3 id="clock"></h3>
@@ -33,12 +33,24 @@
         </div>
 
     </div>
-    <img src="images/char2.png" alt="char2" class="absolute w-[512px] h-[484px] left-[60.75rem] top-[25.875rem]">
-    <div class="w-[648px] h-[200px] absolute left-[calc(50%-648px/2-289px)] top-[calc(50%-105px/2+156.5px)] font-inter font-bold text-[35px] text-center text-white">
-        All Employees Must Time In and Out for Accurate Attendance Records
+    {{-- <div class="relative flex items-start my-40 justify-center">
+        <div class="w-[648px] h-[200px] left-[calc(50%-648px/2-289px)] top-[calc(50%-105px/2+156.5px)] font-inter font-bold text-[35px] text-center text-white mt-[10%] mr-[5%]">
+            All Employees Must Time In and Out for Accurate Attendance Records
+            <a href="{{ url('/dashboard') }}"><button type="submit" class="h-[44px] text-white text-lg font-bold w-[134px] h-[44px] left-[380px] top-[721px] bg-[#8EC33F] shadow-md rounded-3xl text-center">TIME IN</button></a>
+            <a href="{{ url('/dashboard') }}"><button type="submit" class="h-[44px] text-[#8EC33F] text-lg font-bold w-[134px] h-[44px] left-[380px] top-[721px] bg-transparent border border-solid border-[#8EC33F] shadow-md rounded-3xl text-center">TIME OUT</button></a>
+        </div>
+        <img src="images/char2.png" alt="char2" class="w-[512px] h-[484px]">
+    </div> --}}
+    <div class="flex justify-center items-center place-content-stretch gap-48">
+        <div class="text-center font-inter font-bold text-[35px] text-white w-[38%]">
+            All Employees Must Time In and Out for Accurate Attendance Records<br>
+            <a href="{{ url('/dashboard') }}"><button type="submit" class="text-white text-lg font-bold w-[134px] h-[44px] bg-[#8EC33F] shadow-md rounded-3xl text-center">TIME IN</button></a>
+            <a href="{{ url('/dashboard') }}"><button type="submit" class="text-[#8EC33F] text-lg font-bold w-[134px] h-[44px] bg-transparent border border-solid border-[#8EC33F] shadow-md rounded-3xl text-center">TIME OUT</button></a>
+        </div>
+        <div class="text-center">
+            <img src="images/char2.png" alt="char2" class="w-[512px] h-[484px]">
+        </div>
     </div>
-    <div><a href="{{ url('/dashboard') }}"><button type="submit" class="h-[44px] text-white text-lg font-bold leading-[44px] absolute w-[134px] h-[44px] left-[380px] top-[721px] bg-[#8EC33F] shadow-md rounded-3xl text-center">TIME IN</button></a></div>
-    <div><a href="{{ url('/dashboard') }}"><button type="submit" class="absolute w-[134px] h-[44px] left-[557px] top-[721px] bg-transparent border border-solid border-[#8EC33F] shadow-md rounded-3xl text-center leading-[44px] text-[#8EC33F] font-bold">TIME OUT</button></a></div>
     {{-- <div class="absolute w-[134px] h-[44px] left-[557px] top-[721px] bg-transparent border border-solid border-[#8EC33F] shadow-md rounded-3xl text-center"><a class="leading-[44px] text-[#8EC33F] font-bold" href="login">TIME OUT</a></div> --}}
     </body>
     <script type="text/javascript">
