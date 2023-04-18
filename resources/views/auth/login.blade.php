@@ -49,7 +49,7 @@
                                     </a>
                                     @endif
                                 </div>
-                                <button type="submit" class="w-2/5 block mx-auto text-white bg-[#8EC33F] hover:bg-opacity-50 focus:ring-4 focus:outline-none focus:ring-white font-bold rounded-full text-lg px-5 py-2.5 text-center">
+                                <button type="submit" class="w-2/5 block mx-auto text-white bg-[#8EC33F] hover:opacity-80 ease-in duration-200 focus:ring-4 focus:outline-none focus:ring-white font-bold rounded-full text-lg px-5 py-2.5 text-center">
                                     {{ __('Log in') }}
                                 </button>
                             </form>

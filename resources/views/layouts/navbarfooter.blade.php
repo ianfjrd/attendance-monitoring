@@ -45,10 +45,10 @@
                                         {{-- <a href="{{ url('/Profile') }}">Profile</a> --}}
                             @else
                                         {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
-                                        <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4">Contact</a>
-                                        <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4">Attendance</a>
-                                        <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4">Profile</a>
-                                        <a href="{{ route('login') }}"><x-button class="ml-4">Log In</x-button></a>
+                                        <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Contact</a>
+                                        <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Attendance</a>
+                                        <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Profile</a>
+                                        <a href="{{ route('login') }}"><x-button class="ml-4 hover:opacity-80 ease-in duration-200">Log In</x-button></a>
                                     @endauth
                             @endif
                 </div>
