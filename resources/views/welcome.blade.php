@@ -33,13 +33,7 @@
                     <p class="font-light text-2xl leading-loose">Current date in the PH:</p>
                     <h3 id="date-today"></h3>
                 </div>
-            </div>
 
-            <div class="flex justify-center items-center place-content-stretch gap-48">
-                <div class="text-center font-inter font-bold text-[35px] text-white w-[38%]">
-                    All Employees Must Time In and Out for Accurate Attendance Records<br>
-                    <a href="{{ url('/dashboard') }}"><button type="submit" class="text-white text-lg font-bold w-[134px] h-[44px] bg-[#8EC33F] shadow-md rounded-3xl text-center hover:opacity-80 ease-in duration-200">TIME IN</button></a>
-                    <a href="{{ url('/dashboard') }}"><button type="submit" class="text-[#8EC33F] text-lg font-bold w-[134px] h-[44px] bg-transparent border border-solid border-[#8EC33F] shadow-md rounded-3xl text-center hover:opacity-80 ease-in duration-200 hover:bg-[#7cb62f] hover:text-white">TIME OUT</button></a>
                 </div>
                 <div class="text-center">
                     <img src="images/char2.png" alt="char2" class="w-[512px] h-[484px] max-w-fit">

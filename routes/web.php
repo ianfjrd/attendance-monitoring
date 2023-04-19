@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TimestampController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/csrf', function () {
+    return  csrf_token();
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +33,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+Route::prefix('admin')->group(function () {
+    Route::resource('timestamp', TimestampController::class);
+
+    Route::resource('user', UserController::class);
+    Route::get('user/update-role', [UserController::class, 'updateRole']);
+
+
+});
+
+// 
