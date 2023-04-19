@@ -18,10 +18,10 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="bg-no-repeat bg-fixed bg-cover min-h-screen font-sans antialiased" style="background-image: url('images/landing.jpg');">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
