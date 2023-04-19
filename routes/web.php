@@ -44,4 +44,14 @@ Route::prefix('admin')->group(function () {
 
 });
 
-// 
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/timein', function () {
+        return view('timestamp.timeIn');
+    })->name('timeIn');
+    Route::get('/timeout', function () {
+        return view('timestamp.timeOut');
+    })->name('timeOut');
+});
+
+

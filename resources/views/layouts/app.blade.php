@@ -18,7 +18,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="bg-no-repeat bg-fixed bg-cover min-h-screen font-sans antialiased" style="background-image: url('images/landing.jpg');">
+    <body class="bg-no-repeat bg-fixed bg-cover min-h-screen font-sans antialiased" style="background-image: url(' {{asset('images/landing.jpg')}}');">
         <x-banner />
 
         <div class="min-h-screen">
