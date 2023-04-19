@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function timestamp()
     {
-        return $this->belongsToMany(Timestamp::class, 'timestamp_user', 'user_id', 'timestamp_id' );
+        return $this->belongsToMany(Timestamp::class, 'timestamp_user', 'user_id', 'timestamp_id' )->withPivot(['date','halfDayRequest', 'halfDayRequestStatus']);
     }
 
 

@@ -44,7 +44,7 @@
                         </g>
                     </svg>
                 </div>
-
+<x-sample type="nice1" />
                 <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">

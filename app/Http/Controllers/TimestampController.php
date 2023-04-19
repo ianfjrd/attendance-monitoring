@@ -49,10 +49,8 @@ class TimestampController extends Controller
         
 
         //change code below to Get id of authenticated user 
-        $user_id = 1;
-        // $user_id = Auth::user();
-
-        
+        // $user_id = 1;
+        $user_id = Auth::user()->id;
 
         $validated = $request->validated();
 
@@ -86,7 +84,7 @@ class TimestampController extends Controller
             $timestamp->imageIn = $imageName;
             $timestamp->save();
 
-            $user = User::find($user_id)->first();
+            $user = User::where('id', '=', $user_id)->first();
             $user->timestamp()->attach($timestamp, ['date' => $dateNow]);
             $createdTimestamp = Timestamp::where('id','=', $timestamp->id)->first();
             return $timestamp;

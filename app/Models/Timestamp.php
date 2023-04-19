@@ -10,7 +10,7 @@ class Timestamp extends Model
     use HasFactory;
 
 
- public function user(): BelongsToMany
+ public function user()
  {
      return $this->belongsToMany(User::class, 'timestamp_user', 'timestamp_id', 'user_id');
  }
