@@ -9,7 +9,7 @@
         <div class="h-screen container relative items-center mx-auto w-auto grid grid-cols-2">
             <div class=" h-full flex items-center">
                 <div>
-                    <a href="/"><img class=" ml-44 w-[485px] h-[67px]" src="./images/logologin.png"
+                    <a href="/"><img class="ml-44 w-[485px] h-[67px]" src="./images/logologin.png"
                             alt="Image description"></a>
                     <img class=" top-1/2 ml-44 mt-10 left-0 w-[423px] h-[424px]" src="./images/Char1.png"
                         alt="Image description">
@@ -18,7 +18,7 @@
             <div class="h-full flex items-center">
                 <div>
                         <div class="top-1/2 right-0 mx-1 md:mr-72 w-full h-contain flex justify-center bg-cover max-w-xl p-4 sm:p-6 md:py-32" style="background-image: url('./images/cardlogin.png');">
-                            <form class=" h-fit w-[350px] space-y-6" method="POST" action="{{ route('login') }}">
+                            <form class="h-[420px] w-[350px] space-y-6" method="POST" action="{{ route('login') }}">
                                 @csrf
 
                                 <div class="flex">
@@ -27,7 +27,7 @@
                                 </div>
 
                                 <h5 class="text-xl font-medium text-white dark:text-white text-center">Fill up form below</h5>
-                                <x-validation-errors class="mb-4" />
+                                <x-validation-errors class="mb-4 border" />
                                 <div>
                                     <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white" value="{{ __('Email') }}">E-mail</label>
                                     <input type="email" name="email" :value="old('email')" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@company.com" required>
