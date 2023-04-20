@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTimestampRequest;
+use App\Http\Requests\TimeStampFormRequest;
 use App\Models\Timestamp;
 use App\Models\User;
 use Carbon\Carbon;
@@ -10,9 +10,14 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class TimestampController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +26,7 @@ class TimestampController extends Controller
     public function index()
     {
         //
-
+        
     }
 
     /**
@@ -31,8 +36,10 @@ class TimestampController extends Controller
      */
     public function create()
     {
-        //
-
+        return view('timestamp.create', [
+            'status' => Auth::user()->status(),
+            'timestamp_name' => Auth::user()->nextTimestampName(),
+        ]);
     }
 
     /**
@@ -41,58 +48,16 @@ class TimestampController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTimestampRequest $request)
+    public function store(Request $request)
     {
-        date_default_timezone_set('Asia/Manila');
-        $dateTimeNow =  date('Y-m-d H:i:s', time());
-        $dateNow =  date('Y-m-d');
+        $name = Auth::user()->nextTimestampName();
+
+        $timestamp = Timestamp::create([
+            'name' => Auth::user()->nextTimestampName(),
+            'user_id' => Auth::id(),
+        ]);
         
-
-        //change code below to Get id of authenticated user 
-        $user_id = 1;
-        // $user_id = Auth::user();
-
-        
-
-        $validated = $request->validated();
-
-        $timestamp_user = DB::table('timestamp_user')->where('user_id', '=', $user_id)->where('date', '=', $dateNow)->get()->first();
-        
-       
-        if ($timestamp_user) {
-           
-            $timestamp = Timestamp::where('id', '=', $timestamp_user->timestamp_id)->first();
-          
-            if ($timestamp->breakTime == null) {
-                $timestamp->breakTime = $dateTimeNow;
-                $timestamp->save();
-            } elseif ($timestamp->timeOut == null) {
-                $image = $validated['image']->store('public/images');
-                $imageName = explode('/', $image)[2];
-
-                $timestamp->timeOut = $dateTimeNow;
-                $timestamp->imageOut = $imageName;
-                $timestamp->save();
-            }
-            $createdTimestamp = Timestamp::where('id','=', $timestamp->id)->first();
-            return $createdTimestamp;
-
-        } else {
-            $image = $validated['image']->store('public/images');
-            $imageName = explode('/', $image)[2];
-
-            $timestamp = new Timestamp();
-            $timestamp->user_id = $user_id;
-            $timestamp->imageIn = $imageName;
-            $timestamp->save();
-
-            $user = User::find($user_id)->first();
-            $user->timestamp()->attach($timestamp, ['date' => $dateNow]);
-            $createdTimestamp = Timestamp::where('id','=', $timestamp->id)->first();
-            return $timestamp;
-           
-        }
-
+        return redirect(route('timestamp.create'));
     }
 
     /**
@@ -139,4 +104,5 @@ class TimestampController extends Controller
     {
         //
     }
+
 }

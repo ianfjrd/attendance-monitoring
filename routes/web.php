@@ -33,7 +33,8 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
-Route::prefix('admin')->group(function(){
-    Route::resource('timestamp', TimestampController::class );
+// POST
+Route::prefix('attend')->group(function () {
+    Route::get('/', [TimestampController::class, 'create'])->name('timestamp.create');
+    Route::post('/store', [TimestampController::class, 'store'])->name('timestamp.store');
 });
