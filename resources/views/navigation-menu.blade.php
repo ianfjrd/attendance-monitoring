@@ -4,11 +4,16 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                {{-- <div class="shrink-0 flex items-center">
+                <div class="absolute left-6 top-5 shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{asset('images/logo.png')}}" class="h-6 mr-3 sm:h-7" alt="Marvill Logo" />
                     </a>
-                </div> --}}
+                </div>
+
+                {{-- @if ()
+
+                @endif
+                {{print_r(Request::path())}} --}}
 
                 <!-- Navigation Links -->
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

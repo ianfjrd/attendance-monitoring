@@ -52,6 +52,21 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/timeout', function () {
         return view('timestamp.timeOut');
     })->name('timeOut');
+    Route::get('/breaktime', function () {
+        return view('timestamp.break');
+    })->name('breakTime');
+    Route::get('/leaves', function () {
+        return view('timestamp.leaves');
+    })->name('leaves');
+    Route::get('/employeedocs', function () {
+        return view('timestamp.employeedocs');
+    })->name('employeeDocs');
+    Route::get('/summaryattendance', function () {
+        return view('timestamp.summaryattendance');
+    })->name('summaryAttendance');
+    Route::get('/reqleave', function () {
+        return view('timestamp.reqleave');
+    })->name('reqLeave');
 });
 
 
