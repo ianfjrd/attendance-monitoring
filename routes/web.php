@@ -36,7 +36,6 @@ Route::middleware([
 
 
 Route::prefix('admin')->group(function () {
-    Route::resource('timestamp', TimestampController::class);
 
     Route::resource('user', UserController::class);
     Route::get('user/update-role', [UserController::class, 'updateRole']);
@@ -58,3 +57,8 @@ Route::prefix('dashboard')->group(function () {
 });
 
 
+// POST
+Route::prefix('attend')->group(function () {
+    Route::get('/', [TimestampController::class, 'create'])->name('timestamp.create');
+    Route::post('/store', [TimestampController::class, 'store'])->name('timestamp.store');
+});
