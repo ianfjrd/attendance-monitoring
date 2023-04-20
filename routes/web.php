@@ -30,7 +30,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard.home');
     })->name('dashboard');
 });
 
@@ -52,6 +52,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/timeout', function () {
         return view('timestamp.timeOut');
     })->name('timeOut');
+    Route::get('/breakTime', function () {
+        return view('timestamp.break');
+    })->name('breakTime');
 });
 
 
