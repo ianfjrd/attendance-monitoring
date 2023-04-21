@@ -4,6 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
+                @if (Request::path() != 'user/profile')
                 <div class="h-6 mr-3 sm:ml-auto sm:h-7 sm:hidden">
                     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-3">
                         <span class="sr-only">Open sidebar</span>
@@ -12,6 +13,8 @@
                         </svg>
                      </button>
                 </div>
+                @endif
+
                 <div class="sm:absolute left-6 top-5 shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <img src="{{asset('images/logo.png')}}" class="h-6 mr-3 sm:ml-auto sm:h-7" alt="Marvill Logo" />
