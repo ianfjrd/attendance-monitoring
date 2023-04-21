@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Timestamp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,14 @@ class UserController extends Controller
         $users = User::all();
 
         return $users;
+    }
+
+
+    // Route for user's Dashboard or Home (Get user attendace history)
+    public function userDashboard(){
+        $attendanceHistory = User::where('id', '=', Auth::user()->id)->with('timestamps')->first();
+    //    dd($attendanceHistory;
+        return view('dashboard.home', ['attendanceHistory'=>$attendanceHistory]);
     }
 
     /**
@@ -141,6 +150,8 @@ class UserController extends Controller
         return $user;
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -149,6 +160,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('id', '=', $id)->delete();
+        return 'deleted successfully';
+    }
+
+    public function usersDeleted(){
+        $users = User::withTrashed()->where('deleted_at', '!=', null)->get();
+        return $users;
+    }
+
+    public function userRestore($id){
+        $user = User::withTrashed()->where('id', '=', $id)->restore();
+        return "restore successfully";
     }
 }

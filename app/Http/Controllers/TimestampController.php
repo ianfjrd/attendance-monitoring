@@ -36,9 +36,17 @@ class TimestampController extends Controller
      */
     public function create()
     {
+
+
+        $dayStart = date('Y/m/d').' 00:00:01';
+        $dayEnd = date('Y/m/d').' 23:59:00';
+        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->get();  
+        $timestamp_count = count( $user_timestamp->all());
+
         return view('timestamp.create', [
             'status' => Auth::user()->status(),
             'timestamp_name' => Auth::user()->nextTimestampName(),
+            'timestamp_count' => $timestamp_count 
         ]);
     }
 

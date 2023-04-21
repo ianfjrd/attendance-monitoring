@@ -2,15 +2,16 @@
 
 @section('content')
     <div class=" relative pt-28 ">
-        <form>
+        <form action={{ route('timestamp.store') }} method="POST">
+            @csrf
             <div class=" mx-auto  flex justify-center flex-col items-center max-w-md gap-8 ">
                 <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] ">
                     TIME IN
                 </div>
-               
+
                 <div class=" flex justify-center  w-full flex-col ">
-                    <div class=" text-center text-xl font-semibold mb-3 " >
-                        {{date("M d, Y")}}
+                    <div class=" text-center text-xl font-semibold mb-3 ">
+                        {{ date('M d, Y') }}
                     </div>
                     <div class="relative flex items-start mb-10 justify-center">
                         <div class="text-sm md:text-5xl text-white w-[350px] justify-center text-center">
@@ -22,7 +23,8 @@
                 <div class=" flex gap-4 w-full justify-center ">
 
 
-                    <div class=" hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full grow text-center transition-all hover:scale-110 hover:translate-x-2  ">
+                    <div
+                        class=" hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full grow text-center transition-all hover:scale-110 hover:translate-x-2  ">
                         <button class=" p-1 w-full " type="submit">Present!</button>
                     </div>
                 </div>

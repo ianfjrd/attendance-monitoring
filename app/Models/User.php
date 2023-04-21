@@ -12,6 +12,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -20,6 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    use SoftDeletes;
 
     public const STATUS = [
         'off_duty' => 'Off Duty',
@@ -72,9 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function timestamps()
     {
-
         return $this->hasMany(Timestamp::class);
-
     }
 
     public function status()

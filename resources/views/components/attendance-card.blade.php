@@ -1,4 +1,4 @@
-<div class=" w-full bg-slate-950 bg-opacity-30 shadow-lg backdrop-blur-md rounded-xl shadow-gray-900 md:p-6 ">
+<div class=" w-full bg-slate-950 bg-opacity-30 shadow-lg backdrop-blur-md rounded-xl shadow-slate-950 md:p-6 ">
     <div class=" text-center text-xl mb-4 font-semibold ">Date: April 04, 2023</div>
 
     <div class=" md:flex w-full ">

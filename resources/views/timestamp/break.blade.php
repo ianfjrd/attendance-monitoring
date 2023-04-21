@@ -2,7 +2,7 @@
 
 @section('content')
     <div class=" relative pt-28 ">
-        <form>
+        <form action={{ route('timestamp.store') }}>
             <div class=" mx-auto  flex justify-center flex-col items-center max-w-md gap-8 ">
                 <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] ">
                     BREAK TIME

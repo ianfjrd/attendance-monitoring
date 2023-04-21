@@ -29,18 +29,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard.home');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'userDashboard'] )->name('dashboard');
 });
 
 
 Route::prefix('admin')->group(function () {
-
     Route::resource('user', UserController::class);
-    Route::get('user/update-role', [UserController::class, 'updateRole']);
-
-
+    Route::get('user/update-role', [UserController::class, 'updateRole'])->name('updateRole');
+    Route::delete('user,',[UserController::class, 'destroy'])->name('userDestroy');
+    Route::get('users/deleted', [UserController::class, 'usersDeleted'])->name('usersDeleted');
+    Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
 });
 
 
@@ -54,11 +52,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/breakTime', function () {
         return view('timestamp.break');
     })->name('breakTime');
-});
 
-
-// POST
-Route::prefix('attend')->group(function () {
-    Route::get('/', [TimestampController::class, 'create'])->name('timestamp.create');
-    Route::post('/store', [TimestampController::class, 'store'])->name('timestamp.store');
+    // POST
+    Route::prefix('attend')->group(function () {
+        Route::get('/', [TimestampController::class, 'create'])->name('timestamp.create');
+        Route::post('/store', [TimestampController::class, 'store'])->name('timestamp.store');
+    });
 });
