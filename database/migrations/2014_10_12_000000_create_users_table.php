@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('valid_id_number');
             $table->string('role');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

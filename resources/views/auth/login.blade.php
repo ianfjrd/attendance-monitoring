@@ -63,5 +63,3 @@
 
     </body>
 </x-guest-layout>
-{{-- bivafig294@ippals.com
-bivafig294 --}}
