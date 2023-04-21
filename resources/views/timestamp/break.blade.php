@@ -1,10 +1,7 @@
 @extends('dashboard')
 
 @section('content')
-<<<<<<< HEAD
 
-    <h2>BreakTime</h2>
-=======
     <div class=" relative pt-28 ">
         <form action={{ route('timestamp.store') }}>
             <div class=" mx-auto  flex justify-center flex-col items-center max-w-md gap-8 ">
@@ -71,5 +68,5 @@
         let year = today.getFullYear();
         dateToday.textContent = `${day}-${month}-${year}`;
     </script>
->>>>>>> origin/justine-dev
+
 @endsection
