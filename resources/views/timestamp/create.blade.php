@@ -106,11 +106,11 @@
         <form action={{route('timestamp.store')}}
             method="POST"
             enctype="multipart/form-data"
-            class="flex flex-col justify-center items-center bg-red-100 gap-2" 
+            class="flex flex-col justify-center items-center bg-red-100 gap-2"
         >
             @csrf
             <button type="submit" class="rounded-full bg-blue-300 min-w-[150px] px-3 py-3">
-                {{$timestamp_name}}
+                {{$action}}
             </button>
             <p> User Status -> {{$status}}</p>
         </form>
