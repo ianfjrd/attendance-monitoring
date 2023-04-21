@@ -24,7 +24,7 @@ class User extends Authenticatable
     public const STATUS = [
         'off_duty' => 'Off Duty',
         'on_duty' => 'On Duty',
-        'break' => 'break',
+        'on_break' => 'On Break',
     ];
 
     /**
@@ -77,70 +77,90 @@ class User extends Authenticatable
 
     public function status()
     {
-        if ($this->isTimeOutToday()) {
+        if ($this->isOnBreak()) {
+            return User::STATUS['on_break'];
+        }
+
+        if ($this->isTimeOut()) {
             return User::STATUS['off_duty'];
         }
 
-        if ($this->isTimeInToday()) {
+        if ($this->isTimeIn()) {
             return User::STATUS['on_duty'];
         }
 
         return User::STATUS['off_duty'];
     }
 
-    public function isTimeInToday()
+    public function isTimeIn()
     {
-        return $this->isTimeIn(Carbon::today());
+        return $this->hasTimeIn(Carbon::today());
     }
 
-    public function isTimeIn($date)
+    public function hasTimeIn($date)
     {
-        return $this->hasTimestamp(Timestamp::NAMES['time_in'], $date);
+        return $this->hasTimestamp('time_in', $date);
     }
 
-    public function isTimeOutToday()
+    public function isTimeOut()
     {
-        return $this->isTimeOut(Carbon::today());
+        return $this->hasTimeOut(Carbon::today());
     }
 
-    public function isTimeOut($date)
+    public function hasTimeOut($date)
     {
-        return $this->hasTimestamp(Timestamp::NAMES['time_out'], $date);
+        return $this->hasTimestamp('time_out', $date);
     }
 
-    public function hasTimeStamp($name, $date)
+    public function isOnBreak()
     {
         return Timestamp::where([
-            ['name', $name],
             ['user_id', $this->id],
-        ])->whereDate('created_at', $date)
+        ])->whereDate('break_in', Carbon::today())
+        ->whereNull('break_out')
         ->exists();
     }
 
-    public function canHaveABreak()
+    public function hasTimeStamp($column, $date)
     {
-        $startingLunch = Carbon::now()->midDay()->addHour();
-        $endLunch = Carbon::create($startingLunch)->endOfHour();
-        // Debugbar::info(Carbon::now()->between($startingLunch, $endLunch));
-        // Debugbar::info($endLunch);
-        // && Carbon::now()->between($startingLunch, $endLunch);
-        return $this->status() == User::STATUS['on_duty'];
+        return Timestamp::where([
+            ['user_id', $this->id],
+        ])->whereDate($column, $date)
+        ->exists();
     }
 
-    public function nextTimestampName()
+    // public function canHaveABreak()
+    // {
+    //     $startingLunch = Carbon::now()->midDay()->addHour();
+    //     $endLunch = Carbon::create($startingLunch)->endOfHour();
+    //     // Debugbar::info(Carbon::now()->between($startingLunch, $endLunch));
+    //     // Debugbar::info($endLunch);
+    //     // && Carbon::now()->between($startingLunch, $endLunch);
+    //     return $this->status() == User::STATUS['on_duty'];
+    // }
+
+    public function nextTimestampColumn()
     {
         $status = $this->status();
 
-        if ($status == User::STATUS['on_duty'] && $this->hasTimeStamp(Timestamp::NAMES['break'], Carbon::today())) {
-            return Timestamp::NAMES['time_out'];
+        if ($status == User::STATUS['on_duty']
+            && Timestamp::where('user_id', $this->id)
+                ->whereDate('break_in', Carbon::today())
+                ->whereDate('break_out', Carbon::today())
+                ->exists()) {
+            return 'time_out';
         }
 
-        if ($this->canHaveABreak()) {
-            return Timestamp::NAMES['break'];
+        if ($status == User::STATUS['on_break']) {
+            return 'break_out';
+        }
+
+        if ($status == User::STATUS['on_duty']) {
+            return 'break_in';
         }
 
         
-        return Timestamp::NAMES['time_in'];
+        return 'time_in';
     }
 
 }

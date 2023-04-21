@@ -9,15 +9,11 @@ class Timestamp extends Model
 {
     use HasFactory;
 
-    public const NAMES = [
-        'time_in' => 'Time In',
-        'time_out' => 'Time Out',
-        'break' => 'Break',
-    ];
-
     protected $fillable = [
-        'name',
-        'photo_url',
+        'time_in',
+        'time_out',
+        'break_in',
+        'break_out',
         'user_id'
     ];
 
@@ -27,9 +23,11 @@ class Timestamp extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function isExistsByCustomWhere(array $customWhere) {
-        return Timestamp::where($customWhere)->exists();
+    public static function findByTimeInToday($user_id) {
+        return Timestamp::where('user_id', $user_id)
+            ->whereDate('time_in', today())
+            ->latest('time_in')
+            ->first();
     }
-
     
 }

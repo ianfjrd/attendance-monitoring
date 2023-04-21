@@ -22,7 +22,7 @@
         >
             @csrf
             <button type="submit" class="rounded-full bg-blue-300 min-w-[150px] px-3 py-3">
-                {{$timestamp_name}}
+                {{$action}}
             </button>
             <p> User Status -> {{$status}}</p>
         </form>
