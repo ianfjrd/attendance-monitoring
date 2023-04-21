@@ -1,31 +1,66 @@
 @extends('dashboard')
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+@section('style')
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"></script>
+@endsection
+
 @section('content')
-    <div class="text-center dark:text-white border">
+
+    <div class="text-center dark:text-white">
         <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span
                 class="text-transparent bg-clip-text bg-gradient-to-r to-[#02d397] from-[#06679b]">REQUEST LEAVE</span>
             FORM</h1>
     </div>
-    <div class="text-center pt-8 grid grid-cols-2 border">
-        <div class="border">
-            <h2>Type of Leave</h2>
+
+    <div class="grid grid-cols-2 gap-28">
+        <div class="grid justify-items-center place-self-end pb-4">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                class="dark:text-white bg-gray-50 hover:bg-gray-300 text-gray-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-800"
+                type="button">Type of Leave<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg></button>
+            <!-- Dropdown menu -->
+            <div id="dropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="border">
-            <h2>Remaining Days</h2>
+        <div class="grid justify-items-center place-self-start">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remaining
+                Days</label>
+            <p class="text-4xl font-black text-gray-900 dark:text-white">4</p>
         </div>
+
     </div>
-    <div class="text-center grid grid-cols-2 border">
-        <div class="border">
-            <h2>Type of Leave</h2>
-        </div>
-        <div class="border">
-            <h2>Remaining Days</h2>
-        </div>
-    </div>
-    <div class="border flex justify-center">
+
+    <div class="flex justify-center my-12">
         <div date-rangepicker class="flex items-center w-fit">
             <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pt-7 pointer-events-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -33,13 +68,18 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </div>
+
+                <label for="default-input"
+                    class="text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
                 <input name="start" type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Select date start">
             </div>
-            <span class="mx-4 text-gray-500">to</span>
+
+            <span class="mx-4 pt-7 text-gray-500">to</span>
+
             <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pt-7 pointer-events-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -47,10 +87,23 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </div>
+                <label for="default-input"
+                    class="text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
                 <input name="end" type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Select date end">
             </div>
         </div>
     </div>
+
+    <div class="justify-center items-center flex flex-col text-center my-12">
+        <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reason</label>
+        <textarea type="text" id="large-input"
+            class="block w-96 p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+    </div>
+
+    <div class="flex justify-center">
+        <x-button>Submit Form</x-button>
+    </div>
+
 @endsection
