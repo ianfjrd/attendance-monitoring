@@ -42,6 +42,30 @@ Route::prefix('admin')->group(function () {
     Route::get('/admindashboard', function () {
         return view('admin.admindashboard');
     })->name('admindashboard');
+    Route::get('/forgottotimeout', function () {
+        return view('admin.forgot-timeout');
+    })->name('forgottotimeout');
+    Route::get('/reqovertime', function () {
+        return view('admin.request-overtime');
+    })->name('reqovertime');
+    Route::get('/employeelist', function () {
+        return view('admin.admin-employeeList');
+    })->name('employeelist');
+    Route::get('/addnewuser', function () {
+        return view('admin.admin-addUser');
+    })->name('addnewuser');
+    Route::get('/employeeleaves', function () {
+        return view('admin.admin-employeeLeaves');
+    })->name('employeeleaves');
+    Route::get('/employeedep', function () {
+        return view('admin.admin-employeeDepart');
+    })->name('employeeDep');
+    Route::get('/employeedeleted', function () {
+        return view('admin.admin-employeeDeleted');
+    })->name('employeeDeleted');
+    Route::get('/admintimestamp', function () {
+        return view('admin.admin-timestamp');
+    })->name('admintimestamp');
 });
 
 
