@@ -28,10 +28,22 @@ class UserController extends Controller
 
 
     // Route for user's Dashboard or Home (Get user attendace history)
-    public function userDashboard(){
-        $attendanceHistory = User::where('id', '=', Auth::user()->id)->with('timestamps')->first();
-    //    dd($attendanceHistory;
-        return view('dashboard.home', ['attendanceHistory'=>$attendanceHistory]);
+    public function userDashboard($sort = 'all')
+    {
+
+
+        if ($sort == 'time_in') {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'time_in'])->get();
+        } elseif ($sort == 'break_in') {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'break_in'])->get();
+        } elseif ($sort == 'break_out') {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'break_out'])->get();
+        } else {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->get();
+        }
+
+
+        return view('dashboard.home', ['attendanceHistory' => $attendanceHistory, 'sort' => $sort]);
     }
 
     /**
@@ -150,8 +162,6 @@ class UserController extends Controller
         return $user;
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -164,12 +174,14 @@ class UserController extends Controller
         return 'deleted successfully';
     }
 
-    public function usersDeleted(){
+    public function usersDeleted()
+    {
         $users = User::withTrashed()->where('deleted_at', '!=', null)->get();
         return $users;
     }
 
-    public function userRestore($id){
+    public function userRestore($id)
+    {
         $user = User::withTrashed()->where('id', '=', $id)->restore();
         return "restore successfully";
     }

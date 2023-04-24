@@ -27,10 +27,12 @@ Route::get('/', function () {
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
+    'nextTimestamp'
 ])->group(function () {
-    Route::get('/dashboard', [UserController::class, 'userDashboard'] )->name('dashboard');
+    Route::get('/dashboard/history/{sort?}', [UserController::class, 'userDashboard'] )->name('dashboard');
 });
+
 
 
 Route::prefix('admin')->group(function () {
@@ -42,7 +44,8 @@ Route::prefix('admin')->group(function () {
 });
 
 
-Route::prefix('dashboard')->group(function () {
+
+Route::prefix('dashboard')->middleware('nextTimestamp')->group(function () {
     Route::get('/timein', function () {
         return view('timestamp.timeIn');
     })->name('timeIn');

@@ -21,90 +21,66 @@
                     ATTENDANCE HISTORY
                 </div>
                 {{-- <x-attendance-card/> --}}
-
                 <table id="example" class="table is-striped text-white " style="width:100%">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Time In</th>
-                            <th>Break Time</th>
-                            <th>Time Out</th>
+                            @if ($sort == 'all' || $sort == 'time_in')
+                                <th>Time In</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'break_in')
+                                <th>Break In</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'break_out')
+                                <th>Break Out</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'time_out')
+                                <th>Time Out</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
-                        <tr>
-                            <td>April 21, 2023</td>
-                            <td>9:00 AM</td>
-                            <td>11:00 AM</td>
-                            <td>6:00 PM</td>
-                        </tr>
+
+                        @foreach ($attendanceHistory as $attendance)
+                            <tr>
+                                <td>{{ date_format(date_create($attendance->created_at), 'M d, Y') }}</td>
+
+                                @if ($sort == 'all' || $sort == 'time_in')
+                                    <td>{{ $attendance->time_in != null ? date_format(date_create($attendance->time_in), 'H:i:s a') : '--:--:--' }}
+                                    </td>
+                                @endif
+                                @if ($sort == 'all' || $sort == 'break_in')
+                                    <td>{{ $attendance->break_in != null ? date_format(date_create($attendance->break_in), 'H:i:s a') : '--:--:--' }}
+                                    </td>
+                                @endif
+                                @if ($sort == 'all' || $sort == 'break_out')
+                                    <td>{{ $attendance->break_out != null ? date_format(date_create($attendance->break_out), 'H:i:s a') : '--:--:--' }}
+                                    </td>
+                                @endif
+                                @if ($sort == 'all' || $sort == 'time_out')
+                                    <td>{{ $attendance->time_out != null ? date_format(date_create($attendance->time_out), 'H:i:s a') : '--:--:--' }}
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+
+
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>Date</th>
-                            <th>Time In</th>
-                            <th>Break Time</th>
-                            <th>Time Out</th>
+                            @if ($sort == 'all' || $sort == 'time_in')
+                                <th>Time In</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'break_in')
+                                <th>Break In</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'break_out')
+                                <th>Break Out</th>
+                            @endif
+                            @if ($sort == 'all' || $sort == 'time_out')
+                                <th>Time Out</th>
+                            @endif
                         </tr>
                     </tfoot>
                 </table>
@@ -118,19 +94,33 @@
                 dom: 'Bfrtip',
                 buttons: [{
                         text: 'All',
-                        action: function() {}
+                        action: function() {
+                            window.location.href = "/dashboard/history/all";
+                        }
                     },
                     {
                         text: 'Time In',
-                        action: function() {}
+                        action: function() {
+                            window.location.href = "/dashboard/history/time_in";
+                        }
                     },
                     {
-                        text: 'Break Time',
-                        action: function() {}
+                        text: 'Break In',
+                        action: function() {
+                            window.location.href = "/dashboard/history/break_in";
+                        }
+                    },
+                    {
+                        text: 'Break Out',
+                        action: function() {
+                            window.location.href = "/dashboard/history/break_out";
+                        }
                     },
                     {
                         text: 'Time Out',
-                        action: function() {}
+                        action: function() {
+                            window.location.href = "/dashboard/history/time_out";
+                        }
                     },
                     'copyHtml5',
                     {

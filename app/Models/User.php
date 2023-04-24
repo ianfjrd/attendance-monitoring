@@ -13,6 +13,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
