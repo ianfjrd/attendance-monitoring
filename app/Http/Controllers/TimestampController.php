@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TimeStampFormRequest;
 use App\Models\Timestamp;
 use App\Models\User;
-use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +13,13 @@ use Barryvdh\Debugbar\Facades\Debugbar;
 
 class TimestampController extends Controller
 {
+
+    public const OUTPUT_TIMESTAMP_COLUMNS = [
+        'time_in' => 'Time In',
+        'time_out' => 'Time Out',
+        'break_in' => 'Break In',
+        'break_out' => 'Break Out'
+    ];
     public function __construct()
     {
         $this->middleware('auth');
@@ -40,13 +46,14 @@ class TimestampController extends Controller
 
         $dayStart = date('Y/m/d').' 00:00:01';
         $dayEnd = date('Y/m/d').' 23:59:00';
-        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->get();  
+        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->get();
         $timestamp_count = count( $user_timestamp->all());
 
         return view('timestamp.create', [
             'status' => Auth::user()->status(),
-            'timestamp_name' => Auth::user()->nextTimestampName(),
-            'timestamp_count' => $timestamp_count 
+
+            'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
+
         ]);
     }
 
@@ -58,12 +65,21 @@ class TimestampController extends Controller
      */
     public function store(Request $request)
     {
-        $name = Auth::user()->nextTimestampName();
+        $nextColumn = Auth::user()->nextTimestampColumn();
+        $timestamp = Timestamp::findByTimeInToday(Auth::id());
 
-        $timestamp = Timestamp::create([
-            'name' => Auth::user()->nextTimestampName(),
-            'user_id' => Auth::id(),
-        ]);
+
+        if ($timestamp && $timestamp->$nextColumn == null) {
+            $timestamp->update([$nextColumn => now()]);
+        } else {
+            $timestamp = Timestamp::create([
+                Auth::user()->nextTimestampColumn() => now(),
+                'user_id' => 1,
+            ]);
+        }
+
+
+
 
         return redirect(route('timestamp.create'));
 
