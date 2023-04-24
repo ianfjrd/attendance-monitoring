@@ -39,6 +39,9 @@ Route::prefix('admin')->group(function () {
     Route::delete('user,',[UserController::class, 'destroy'])->name('userDestroy');
     Route::get('users/deleted', [UserController::class, 'usersDeleted'])->name('usersDeleted');
     Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
+    Route::get('/admindashboard', function () {
+        return view('admin.admindashboard');
+    })->name('admindashboard');
 });
 
 
