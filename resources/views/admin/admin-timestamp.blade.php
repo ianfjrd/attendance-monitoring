@@ -30,9 +30,7 @@
                             <th>Break In</th>
                             <th>Break Out</th>
                             <th>Employee</th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +40,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Ian</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -50,7 +50,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Pat</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -58,7 +60,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Justine</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -66,7 +70,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Benjie</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -74,7 +80,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Drei</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -82,7 +90,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Lana Rhodes</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -90,7 +100,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>Eva Elfie</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>9:00 AM</td>
@@ -98,7 +110,9 @@
                             <td>12:00 PM</td>
                             <td>1:00 PM</td>
                             <td>HongKong Doll</td>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -108,7 +122,9 @@
                             <th>Break In</th>
                             <th>Break Out</th>
                             <th>Employee</th>
-                            <td class="underline">Update</td>
+                            <td>
+                                <a href="#" class="underline">Update</a>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
