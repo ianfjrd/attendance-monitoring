@@ -66,6 +66,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/admintimestamp', function () {
         return view('admin.admin-timestamp');
     })->name('admintimestamp');
+    Route::get('/admintimestamp/create', function () {
+        return view('admin.timestamp-create');
+    })->name('timestampCreate');
+    Route::get('/admintimestamp/update', function () {
+        return view('admin.timestamp-update');
+    })->name('timestampEdit');
 });
 
 

@@ -41,7 +41,7 @@
                             <td>1:00 PM</td>
                             <td>Ian</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -51,7 +51,7 @@
                             <td>1:00 PM</td>
                             <td>Pat</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -61,7 +61,7 @@
                             <td>1:00 PM</td>
                             <td>Justine</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -71,7 +71,7 @@
                             <td>1:00 PM</td>
                             <td>Benjie</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -81,7 +81,7 @@
                             <td>1:00 PM</td>
                             <td>Drei</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -91,7 +91,7 @@
                             <td>1:00 PM</td>
                             <td>Lana Rhodes</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -101,7 +101,7 @@
                             <td>1:00 PM</td>
                             <td>Eva Elfie</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                         <tr>
@@ -111,7 +111,7 @@
                             <td>1:00 PM</td>
                             <td>HongKong Doll</td>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                     </tbody>
@@ -123,7 +123,7 @@
                             <th>Break Out</th>
                             <th>Employee</th>
                             <td>
-                                <a href="#" class="underline">Update</a>
+                                <a href="{{ route('timestampEdit') }}" class="underline">Update</a>
                             </td>
                         </tr>
                     </tfoot>
@@ -138,7 +138,9 @@
                 dom: 'Bfrtip',
                 buttons: [{
                         text: '➕timestamp',
-                        action: function() {}
+                        action: function() {
+                            window.location.href = "/admin/admintimestamp/create";
+                        }
                     },
                     {
                         text: 'Time In',
