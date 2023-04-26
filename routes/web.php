@@ -49,28 +49,28 @@ Route::prefix('admin')->group(function () {
         return view('admin.request-overtime');
     })->name('reqovertime');
     Route::get('/employeelist', function () {
-        return view('admin.admin-employeeList');
+        return view('admin.employee.admin-employeeList');
     })->name('employeelist');
     Route::get('/addnewuser', function () {
-        return view('admin.admin-addUser');
+        return view('admin.employee.admin-addUser');
     })->name('addnewuser');
     Route::get('/employeeleaves', function () {
-        return view('admin.admin-employeeLeaves');
+        return view('admin.employee.admin-employeeLeaves');
     })->name('employeeleaves');
     Route::get('/employeedep', function () {
-        return view('admin.admin-employeeDepart');
+        return view('admin.employee.admin-employeeDepart');
     })->name('employeeDep');
     Route::get('/employeedeleted', function () {
-        return view('admin.admin-employeeDeleted');
+        return view('admin.employee.admin-employeeDeleted');
     })->name('employeeDeleted');
     Route::get('/admintimestamp', function () {
-        return view('admin.admin-timestamp');
+        return view('admin.timestamp.admin-timestamp');
     })->name('admintimestamp');
     Route::get('/admintimestamp/create', function () {
-        return view('admin.timestamp-create');
+        return view('admin.timestamp.timestamp-create');
     })->name('timestampCreate');
     Route::get('/admintimestamp/update', function () {
-        return view('admin.timestamp-update');
+        return view('admin.timestamp.timestamp-update');
     })->name('timestampEdit');
 });
 
