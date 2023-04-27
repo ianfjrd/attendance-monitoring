@@ -111,37 +111,14 @@
             <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-10">User Schedule</label>
         </div>
 
-        <div class="grid grid-cols-3">
-            <div class="flex flex-col text-center items-center justify-center">
-                <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
-                <input type="time"
-                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
-            </div>
-
-            <div class="flex flex-col text-center items-center justify-center">
-                <label class="text-[#8EC33F] font-bold text-2xl">Break Duration (mins)</label>
-                <input type="number" name="idNumber"
-                    class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
-                    placeholder="--" required />
-            </div>
-
-            <div class="flex flex-col text-center items-center justify-center">
-                <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
-                <input type="time"
-                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
-            </div>
-        </div>
-
-        <div class="flex justify-center items-center">
-            <label for="title" class="text-4xl font-bold dark:text-white pt-20 pb-10">Day</label>
-        </div>
-        <ul
-            class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-            <li class="w-full dark:border-gray-600">
+        <div class=" mx-12">
+            <ul
+            class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-transparent dark:border-gray-600 dark:text-white">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center pl-3">
-                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                    <input id="react-checkbox-list" type="checkbox" value=""
                         class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="laravel-checkbox-list"
+                    <label for="react-checkbox-list"
                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sunday</label>
                 </div>
             </li>
@@ -169,32 +146,60 @@
                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Wednesday</label>
                 </div>
             </li>
-            <li class="w-full dark:border-gray-600">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center pl-3">
-                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                    <input id="react-checkbox-list" type="checkbox" value=""
                         class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="laravel-checkbox-list"
+                    <label for="react-checkbox-list"
                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Thursday</label>
                 </div>
             </li>
 
-            <li class="w-full dark:border-gray-600">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center pl-3">
-                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                    <input id="react-checkbox-list" type="checkbox" value=""
                         class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="laravel-checkbox-list"
+                    <label for="react-checkbox-list"
                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Friday</label>
                 </div>
             </li>
-            <li class="w-full dark:border-gray-600">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center pl-3">
-                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                    <input id="react-checkbox-list" type="checkbox" value=""
                         class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="laravel-checkbox-list"
+                    <label for="react-checkbox-list"
                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Saturday</label>
                 </div>
             </li>
         </ul>
+        </div>
+
+
+        <div class="grid grid-cols-3 pt-5 ">
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
+                <input type="time"
+                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+            </div>
+
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Break Duration (mins)</label>
+                <input type="number" name="idNumber"
+                    class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
+                    placeholder="--" required />
+            </div>
+
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
+                <input type="time"
+                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+            </div>
+        </div>
+
+        {{-- <div class="flex justify-center items-center">
+            <label for="title" class="text-4xl font-bold dark:text-white pt-20 pb-10">Day</label>
+        </div> --}}
+
 
 
         <div class="flex justify-center items-center py-10">
