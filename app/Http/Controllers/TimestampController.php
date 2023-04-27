@@ -42,18 +42,16 @@ class TimestampController extends Controller
      */
     public function create()
     {
-
-
-        $dayStart = date('Y/m/d').' 00:00:01';
-        $dayEnd = date('Y/m/d').' 23:59:00';
-        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->get();
-        $timestamp_count = count( $user_timestamp->all());
+        $dayStart = date('Y/m/d') . ' 00:00:01';
+        $dayEnd = date('Y/m/d') . ' 23:59:00';
+        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->first();
+        //    dd($user_timestamp);
+        // $timestamp_count = count( $user_timestamp->all());
 
         return view('timestamp.create', [
             'status' => Auth::user()->status(),
-
             'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
-
+            'user_timestamp' => $user_timestamp
         ]);
     }
 
@@ -78,12 +76,20 @@ class TimestampController extends Controller
             ]);
         }
 
+        $status = "";
+        if($nextColumn == "time_in"){
+            $status = "Time in has been recorded successfully.";
+        }elseif($nextColumn == "break_in"){
+            $status = "Break time has been recorded successfully.";
+        }elseif($nextColumn == "break_out"){
+            $status = "The end of break time has been recorded successfully.";
+        }elseif($nextColumn == "time_out"){
+            $status = "Time out has been recorded successfully.";
+        }
 
-
-
-        return redirect(route('timestamp.create'));
-
+        return redirect(route('dashboard'))->with('status', $status);
     }
+
 
     /**
      * Display the specified resource.
@@ -129,5 +135,4 @@ class TimestampController extends Controller
     {
         //
     }
-
 }

@@ -2,16 +2,17 @@
 
 @section('content')
     <div class=" relative pt-28 ">
-        {{-- @if ($timestamp_count >= 3)
-            <div class=" text-center text-2xl ">
+        @if ($user_timestamp&&$user_timestamp->time_out != null)
+            <div class=" text-center text-4
+            xl ">
                 Your work is already done. Have a nice day!
             </div>
-        @else --}}
+        @else
             <form action={{ route('timestamp.store') }} method="POST">
                 @csrf
                 <div class=" mx-auto  flex justify-center flex-col items-center max-w-md gap-8 ">
                     <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] ">
-                        {{-- {{ $timestamp_name }} --}}
+                        {{ $action }}
                     </div>
 
                     <div class=" flex justify-center  w-full flex-col ">
@@ -31,19 +32,23 @@
                         <div
                             class=" hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full grow text-center transition-all hover:scale-110 hover:translate-x-2  ">
                             <button class=" p-1 w-full " type="submit">
-                                {{-- @if ($timestamp_name == 'Time In')
+                                @if ($action == 'Time In')
                                     Present!
-                                @elseif ($timestamp_name == 'Break')
+                                @elseif ($action == 'Break In')
                                     Take a break
+                                @elseif ($action == 'Break Out')
+                                    Break done
                                 @else
                                     Goodbye!
-                                @endif --}}
+                                @endif
                             </button>
+                            
                         </div>
                     </div>
                 </div>
+                
             </form>
-        {{-- @endif --}}
+        @endif
     </div>
 
     <script type="text/javascript">
