@@ -87,7 +87,7 @@ class TimestampController extends Controller
             $status = "Time out has been recorded successfully.";
         }
 
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard'))->with('status', $status);
     }
 
 

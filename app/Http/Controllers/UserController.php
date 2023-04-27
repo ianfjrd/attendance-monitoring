@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Timestamp;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -28,22 +29,56 @@ class UserController extends Controller
 
 
     // Route for user's Dashboard or Home (Get user attendace history)
-    public function userDashboard($sort = 'all')
+    public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
 
-
-        if ($sort == 'time_in') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'time_in'])->get();
-        } elseif ($sort == 'break_in') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'break_in'])->get();
-        } elseif ($sort == 'break_out') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->select(['created_at', 'break_out'])->get();
+        // dd($filter);
+        if ($sort == 'time_in_out') {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'time_in', 'time_out']);
+        } elseif ($sort == 'break_in_out') {
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'break_in', 'break_out']);
         } else {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->get();
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         }
 
 
-        return view('dashboard.home', ['attendanceHistory' => $attendanceHistory, 'sort' => $sort]);
+        // dd($filterExploded);
+        // For Filter
+        // $startDate = $filterExploded[1] . ' 00:00:00';
+        // $endDate = $filterExploded[1] . '23:59:00';
+        // $attendanceHistory->whereBetween('created_at', [$startDate, $endDate]);
+
+
+        if ($filter != '') {
+            // $startDate = date_format(date_create($filterExploded[1].' 00:00:00'), 'Y-m-d H:i:s');
+            // $endDate = date_format(date_create($filterExploded[2].' 23:59:00'), 'Y-m-d H:i:s');
+            // dd($filterExploded[2]);
+            // dd(DateTime::createFromFormat($filterExploded[2], "F d, Y"));
+            $filterExploded = explode("_", $filter);
+            $startDateFormat = date_create_from_format('m-d-Y', $filterExploded[1]);
+            $startDate = date_format($startDateFormat, 'Y-m-d 00:00:00');
+
+
+            $endDateFormat = date_create_from_format('m-d-Y', $filterExploded[2]);
+            $endDate = date_format($endDateFormat, 'Y-m-d 23:59:00');
+
+            $attendanceHistory->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+
+
+
+        $dayStart = date('Y/m/d') . ' 00:00:01';
+        $dayEnd = date('Y/m/d') . ' 23:59:00';
+        $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->first();
+
+
+        return view('dashboard.home', [
+            'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
+            'status' => Auth::user()->status(),
+            'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
+            'user_timestamp' => $user_timestamp
+        ])->with('status', $request->session()->get('status'));
     }
 
     /**

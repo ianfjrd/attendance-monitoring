@@ -30,7 +30,7 @@ Route::middleware([
     'verified',
     'nextTimestamp'
 ])->group(function () {
-    Route::get('/dashboard/history/{sort?}', [UserController::class, 'userDashboard'] )->name('dashboard');
+    Route::get('/dashboard/history/{sort?}/{filter?}', [UserController::class, 'userDashboard'] )->name('dashboard');
 });
 
 
