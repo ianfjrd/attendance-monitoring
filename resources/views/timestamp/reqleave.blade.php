@@ -109,7 +109,9 @@
     </div>
 
     <div class="flex justify-center">
-        <x-button>Submit Form</x-button>
+        <button class="bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+            Submit Form
+        </button>
     </div>
 
 @endsection

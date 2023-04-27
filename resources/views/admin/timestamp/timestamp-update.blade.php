@@ -43,7 +43,9 @@
     </div>
 
     <div class="flex justify-center items-center py-10">
-        <x-button>Update Form</x-button>
+        <button class="text-xl bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+            Update
+        </button>
     </div>
 
 @endsection

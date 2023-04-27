@@ -1,7 +1,13 @@
 @extends('admin.admindashboard')
-
+@section('style')
+    <style>
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(100%) brightness(95%) contrast(80%);
+        }
+    </style>
+@endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 @endsection
 @section('content')
     <form action="POST" action="{{ route('register') }}">
@@ -49,56 +55,24 @@
 
         <div class="grid grid-cols-2 py-5">
             <div class="flex flex-col justify-center items-center text-center">
-                <select id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                    class="text-2xl border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:ring-0 focus:border-[#8EC33F] text-center inline-flex items-center py-2 px-4 text-gray-800 font-semibold focus:outline-none"
-                    type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Department&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg
-                        class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                <!-- Dropdown menu -->
-                <div id="dropdown"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    {{-- <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton"> --}}
-                        <option>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">IT Department</a>
-                        </option>
-                        <option>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Marketing Department</a>
-                        </option>
-                    {{-- </ul> --}}
-                </div>
-            </select>
+                <label class=" text-[#8EC33F] font-bold text-2xl">Department</label>
+                <select id="countries"
+                    class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#8EC33F] dark:focus:border-[#8EC33F]">
+                    <option selected>Choose a Department</option>
+                    <option>IT Department</option>
+                    <option>Marketing Department</option>
+                </select>
             </div>
 
             <div class="flex flex-col justify-center items-center text-center">
-                <button id="dropdownRole" data-dropdown-toggle="dropdown"
-                    class="text-2xl border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:ring-0 focus:border-[#8EC33F] text-center inline-flex items-center py-2 px-4 text-gray-800 font-semibold focus:outline-none"
-                    type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Role&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg class="w-4 h-4 ml-2"
-                        aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg></button>
-                <!-- Dropdown menu -->
-                <div id="dropdownRole"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Programmer</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Designer</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Marketing</a>
-                        </li>
-                    </ul>
-                </div>
+                <label class=" text-[#8EC33F] font-bold text-2xl">Role</label>
+                <select id="countries"
+                    class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#8EC33F] dark:focus:border-[#8EC33F]">
+                    <option selected>Choose a Role</option>
+                    <option>Programmer</option>
+                    <option>Designer</option>
+                    <option>Marketing</option>
+                </select>
             </div>
 
         </div>
@@ -126,14 +100,110 @@
 
                 <input id="address"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
-                    type="text" name="address" required placeholder="Unit ### Tower #, ** Condominium, St. Paul Street, San Antonio Village, Makati 1203" />
+                    type="text" name="address" required
+                    placeholder="Unit ### Tower #, ** Condominium, St. Paul Street, San Antonio Village, Makati 1203" />
+            </div>
+        </div>
+
+        <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+        <div class="flex justify-center items-center">
+            <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-10">User Schedule</label>
+        </div>
+
+        <div class="grid grid-cols-3">
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
+                <input type="time"
+                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
             </div>
 
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Break Duration (mins)</label>
+                <input type="number" name="idNumber"
+                    class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
+                    placeholder="--" required />
+            </div>
 
+            <div class="flex flex-col text-center items-center justify-center">
+                <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
+                <input type="time"
+                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+            </div>
         </div>
+
+        <div class="flex justify-center items-center">
+            <label for="title" class="text-4xl font-bold dark:text-white pt-20 pb-10">Day</label>
+        </div>
+        <ul
+            class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <li class="w-full dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="laravel-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sunday</label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="vue-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="vue-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Monday</label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="react-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="react-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tuesday</label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="angular-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="angular-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Wednesday</label>
+                </div>
+            </li>
+            <li class="w-full dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="laravel-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Thursday</label>
+                </div>
+            </li>
+
+            <li class="w-full dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="laravel-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Friday</label>
+                </div>
+            </li>
+            <li class="w-full dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                    <input id="laravel-checkbox-list" type="checkbox" value=""
+                        class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="laravel-checkbox-list"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Saturday</label>
+                </div>
+            </li>
+        </ul>
+
 
         <div class="flex justify-center items-center py-10">
-            <x-button>{{ __('Register') }}</x-button>
+            <button class="text-xl bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+                Submit
+            </button>
         </div>
+
+
+
     </form>
 @endsection

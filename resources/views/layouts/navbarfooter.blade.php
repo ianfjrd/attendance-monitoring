@@ -41,14 +41,19 @@
                                         {{-- <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4">Contact</a> --}}
                                         {{-- <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4">Attendance</a> --}}
                                         {{-- <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4">Profile</a> --}}
-                                        <a href="{{ url('/dashboard') }}"><x-button class="ml-4">Dashboard</x-button></a>
+                                        <a href="{{ url('/dashboard') }}"><button class="ml-4 bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+                                            Dashboard
+                                        </button></a>
                                         {{-- <a href="{{ url('/Profile') }}">Profile</a> --}}
                             @else
                                         {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
                                         {{-- <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Contact</a> --}}
                                         {{-- <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Attendance</a> --}}
                                         {{-- <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4 hover:text-[#8EC33F] ease-in duration-200">Profile</a> --}}
-                                        <a href="{{ route('login') }}"><x-button class="ml-4 hover:opacity-80 ease-in duration-200">Log In</x-button></a>
+                                        <a href="{{ route('login') }}"><button class="ml-4 text-sm hover:opacity-80 ease-in duration-200 bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+                                            LOG IN
+                                        </button>
+                                            </a>
                                     @endauth
                             @endif
                 </div>
