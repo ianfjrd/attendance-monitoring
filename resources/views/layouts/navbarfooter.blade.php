@@ -41,7 +41,7 @@
                                         {{-- <a href="{{ url('/Contact') }}" class="text-[#FFFFFF] ml-4">Contact</a> --}}
                                         {{-- <a href="{{ url('/Attendance') }}" class="text-[#FFFFFF] ml-4">Attendance</a> --}}
                                         {{-- <a href="{{ url('user/profile') }}" class="text-[#FFFFFF] ml-4">Profile</a> --}}
-                                        <a href="{{ url('/dashboard') }}"><button class="ml-4 bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
+                                        <a href="{{ url('/dashboard/history') }}"><button class="ml-4 bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
                                             Dashboard
                                         </button></a>
                                         {{-- <a href="{{ url('/Profile') }}">Profile</a> --}}
