@@ -44,6 +44,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/admindashboard', function () {
         return view('admin.admindashboard');
     })->name('admindashboard');
+    Route::get('/announcements', function () {
+        return view('admin.announcements');
+    })->name('announcements');
     Route::get('/forgottotimeout', function () {
         return view('admin.forgot-timeout');
     })->name('forgottotimeout');
