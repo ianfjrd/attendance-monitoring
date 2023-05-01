@@ -19,12 +19,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $users = User::all();
-
-        return $users;
+        $users = User::where('id', '!=', Auth::user()->id)->get();
+        // dd($users);
+        return view('admin.employee.admin-employeeList', ['users' => $users])->with('status', $request->session()->get('status'));
     }
 
 
@@ -42,26 +42,12 @@ class UserController extends Controller
         }
 
 
-        // dd($filterExploded);
-        // For Filter
-        // $startDate = $filterExploded[1] . ' 00:00:00';
-        // $endDate = $filterExploded[1] . '23:59:00';
-        // $attendanceHistory->whereBetween('created_at', [$startDate, $endDate]);
-
-
         if ($filter != '') {
-            // $startDate = date_format(date_create($filterExploded[1].' 00:00:00'), 'Y-m-d H:i:s');
-            // $endDate = date_format(date_create($filterExploded[2].' 23:59:00'), 'Y-m-d H:i:s');
-            // dd($filterExploded[2]);
-            // dd(DateTime::createFromFormat($filterExploded[2], "F d, Y"));
             $filterExploded = explode("_", $filter);
             $startDateFormat = date_create_from_format('m-d-Y', $filterExploded[1]);
             $startDate = date_format($startDateFormat, 'Y-m-d 00:00:00');
-
-
             $endDateFormat = date_create_from_format('m-d-Y', $filterExploded[2]);
             $endDate = date_format($endDateFormat, 'Y-m-d 23:59:00');
-
             $attendanceHistory->whereBetween('created_at', [$startDate, $endDate]);
         }
 
@@ -72,12 +58,18 @@ class UserController extends Controller
         $dayEnd = date('Y/m/d') . ' 23:59:00';
         $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->first();
 
-
+        $firstItem = $attendanceHistory->get()->reverse()->first();
+        $firstDate = date_format(date_create($firstItem->created_at), 'M d, Y');
+        $lasttItem = $attendanceHistory->get()->first();
+        $lastDate = date_format(date_create($lasttItem->created_at), 'M d, Y');
+       
         return view('dashboard.home', [
             'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
             'status' => Auth::user()->status(),
             'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
-            'user_timestamp' => $user_timestamp
+            'user_timestamp' => $user_timestamp,
+            'firstDate' => $firstDate,
+            'lastDate'=> $lastDate
         ])->with('status', $request->session()->get('status'));
     }
 
@@ -101,6 +93,7 @@ class UserController extends Controller
     //Store User (*admin can only access) 
     public function store(StoreUserRequest $request)
     {
+        // dd($request);
         $validated = $request->validated();
 
         $user = new User();
@@ -114,6 +107,12 @@ class UserController extends Controller
         $user->valid_id_number = $validated['valid_id_number'];
         $user->role = $validated['role'];
         $user->password = Hash::make($validated['password']);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        // To add:
+        // workdays
+        // time_in_user
+        // break_duration
+        // time_out_user
 
         // Optional Fields (profile_photo_path)
 
@@ -124,7 +123,8 @@ class UserController extends Controller
         }
 
         $user->save();
-        return ($user);
+        $status = "New user added successfully";
+        return redirect()->route('employeelist')->with('status', $status);
     }
 
     /**
@@ -149,6 +149,9 @@ class UserController extends Controller
     public function edit($id)
     {
         //Redirect to display for adding new user or profile 
+
+        $user = User::where('id', '=', $id)->first();
+        return view('admin.employee.admin-editUser', ['user' => $user]);
     }
 
     /**
@@ -161,6 +164,7 @@ class UserController extends Controller
     //Update User (*admin and user can access) 
     public function update(UpdateUserRequest $request, $id)
     {
+        // dd($request);
         $validated = $request->validated();
         $user = User::where('id', '=', $id)->first();
 
@@ -173,7 +177,10 @@ class UserController extends Controller
         $user->address = $validated['address'];
         $user->valid_id_number = $validated['valid_id_number'];
         $user->role = $validated['role'];
-        $user->password = Hash::make($validated['password']);
+
+        if (isset($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
 
         // Optional Fields (profile_photo_path)
         if (isset($validated['image'])) {
@@ -183,8 +190,15 @@ class UserController extends Controller
             $user->profile_photo_path = $imageName;
         }
 
+        // To add:
+        // workdays
+        // time_in_user
+        // break_duration
+        // time_out_user
+
         $user->save();
-        return $user;
+        $status = "User updated successfully";
+        return redirect()->route('employeelist')->with('status', $status);
     }
 
 
@@ -206,18 +220,20 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::where('id', '=', $id)->delete();
-        return 'deleted successfully';
+        $status = "User updated successfully";
+        return redirect()->route('employeelist')->with('status', $status);
     }
 
-    public function usersDeleted()
+    public function usersDeleted(Request $request)
     {
         $users = User::withTrashed()->where('deleted_at', '!=', null)->get();
-        return $users;
+        return view('admin.employee.admin-employeeDeleted', ['users' => $users])->with('status', $request->session()->get('status'));
     }
 
     public function userRestore($id)
     {
         $user = User::withTrashed()->where('id', '=', $id)->restore();
-        return "restore successfully";
+        $status = "User restored successfully";
+        return redirect()->route('employeeDeleted')->with('status', $status);
     }
 }

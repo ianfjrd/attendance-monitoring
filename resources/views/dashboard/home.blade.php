@@ -21,6 +21,8 @@
 @endsection
 
 @section('content')
+    @include('logoBase64')
+
     @php
         
         function totalHour($time_in, $time_out, $break_in, $break_out)
@@ -96,6 +98,7 @@
             </button>
         </div>
     @endif
+
     <div class=" relative pt-4 ">
         {{-- <form> --}}
         <div class=" mx-auto relative flex justify-center  flex-col max-w-md md:max-w-5xl gap-5  ">
@@ -104,7 +107,7 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <div class=" flex justify-end" >
+            <div class=" flex justify-end">
                 <div class=" flex   w-fit   ">
                     <div class=" flex items-center px-2 ">
                         Filter By:
@@ -341,6 +344,7 @@
         {{-- </form> --}}
 
     </div>
+
     <script>
         $(document).ready(function() {
             $("#DateRangeFilter, #DateFilter, #MonthFilter, #YearFilter, #FilterSubmitBtn").hide();
@@ -437,6 +441,7 @@
 
         $(document).ready(function() {
 
+            
 
             $('#example').DataTable({
                 dom: 'Bfrtip',
@@ -468,13 +473,38 @@
                     'copyHtml5',
                     {
                         extend: 'pdfHtml5',
-                        title: 'Attendance History',
+                        title: '<?php echo Auth::user()->name; ?> Attendance History \n {{ $firstDate }} to {{ $lastDate }}',
+                        
                         text: 'PDF',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         customize: function(doc) {
-                            console.log("doc", doc)
-                            doc.content[1].table.widths = [
+                            console.log(doc.content);
+
+                            doc.content.splice(0, 0, {
+                                alignment:"center",
+                                width: 300,
+                               
+                                image: "{{ logo() }}"
+                            });
+
+                            doc.content.splice(1, 1, {
+                                // position: 'absolute',
+                                // right: 0,
+                                // top: 0,
+                                display: 'inline-block',
+                                border: [true, true, true, true],
+                                borderColor: '#000',
+                                borderStyle: 'solid',
+                                fontSize: 12,
+                                text:"Name: <?php echo Auth::user()->name; ?> \n From {{ $firstDate }} to {{ $lastDate }}"
+                            });
+
+
+
+
+
+                            doc.content[2].table.widths = [
                                 '20%',
                                 '16%',
                                 '16%',
@@ -482,18 +512,16 @@
                                 '16%',
                                 '16%'
                             ]
+
+
+
                         },
 
-
-                        styles: {
-                            tableHeader: {
-                                alignment: 'left'
-                            },
-                        }
                     },
 
                 ],
                 initComplete: function() {
+
                     var btns = $('.dt-button');
                     var btnsCon = $('.dt-buttons');
                     btns.removeClass('dt-button');

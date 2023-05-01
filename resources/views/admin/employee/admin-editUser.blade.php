@@ -36,12 +36,13 @@
     @endif
 
 
-    <form id="creatUserForm" method="POST" action="{{ route('user.store') }}">
+    <form id="updateUserForm" method="POST" action="{{ route('user.update', $user->id) }}">
 
         @csrf
+        @method('PUT')
 
         <div class="flex justify-center items-center">
-            <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-10">Add Employee Form</label>
+            <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-10">Edit Employee Form</label>
         </div>
 
         <div class="grid grid-cols-2 py-5">
@@ -49,8 +50,8 @@
                 <label class=" text-[#8EC33F] font-bold text-2xl">Name</label>
                 <input id="name"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
-                    type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
-                    placeholder="John Doe" />
+                    type="text" name="name" value="{{ old('name', $user->name) }}" required autofocus
+                    autocomplete="name" placeholder="John Doe" />
                 @error('name')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
@@ -61,7 +62,7 @@
                 <label class=" text-[#8EC33F] font-bold text-2xl">Email</label>
                 <input id="email"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
-                    type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
+                    type="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username"
                     placeholder="sample@sample.com" />
                 @error('email')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
@@ -72,18 +73,17 @@
         <div class="grid grid-cols-2 py-5">
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Password</label>
-                <input id="password" value=""
-                    class=" text-center block py-2.5 px-0 w-1/2 text-1xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
+                <input id="password" disabled value="12345678"
+                    class=" cursor-not-allowed text-center block py-2.5 px-0 w-1/2 text-1xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="password" name="password" required autocomplete="new-password"
                     placeholder="Must have atleast 6 characters" />
                 @error('password')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
             </div>
-
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Age</label>
-                <input type="number" name="age" value="{{ old('age') }}"
+                <input type="number" name="age" value="{{ old('age', $user->age) }}"
                     class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     placeholder="21" required />
                 @error('age')
@@ -98,9 +98,9 @@
                 <select id="countries" name="department"
                     class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#8EC33F] dark:focus:border-[#8EC33F]">
                     <option selected>Choose a Department</option>
-                    <option value="Admin" @selected(old('department') == 'Admin')>Admin</option>
-                    <option value="Marketing" @selected(old('department') == 'Marketing')>Marketing</option>
-                    <option value="Production" @selected(old('department') == 'Production')>Production</option>
+                    <option value="Admin" @selected(old('department', $user->department) == 'Admin')>Admin</option>
+                    <option value="Marketing" @selected(old('department', $user->department) == 'Marketing')>Marketing</option>
+                    <option value="Production" @selected(old('department', $user->department) == 'Production')>Production</option>
                 </select>
                 @error('department')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
@@ -112,11 +112,11 @@
                 <select name="role" id="countries"
                     class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#8EC33F] dark:focus:border-[#8EC33F]">
                     <option selected>Choose a Role</option>
-                    <option value="Admin" @selected(old('department') == 'Admin')>Admin</option>
-                    <option value="Intern" @selected(old('department') == 'Intern')>Intern</option>
-                    <option value="Marketing" @selected(old('department') == 'Marketing')>Marketing</option>
-                    <option value="Programmer" @selected(old('department') == 'Programmer')>Programmer</option>
-                    <option value="Web Designer" @selected(old('department') == 'Web Designer')>Web Designer</option>
+                    <option value="Admin" @selected(old('department', $user->role) == 'Admin')>Admin</option>
+                    <option value="Intern" @selected(old('department', $user->role) == 'Intern')>Intern</option>
+                    <option value="Marketing" @selected(old('department', $user->role) == 'Marketing')>Marketing</option>
+                    <option value="Programmer" @selected(old('department', $user->role) == 'Programmer')>Programmer</option>
+                    <option value="Web Designer" @selected(old('department', $user->role) == 'Web Designer')>Web Designer</option>
                 </select>
                 @error('role')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
@@ -129,7 +129,7 @@
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Phone Number</label>
 
-                <input id="phoneNumber" value="{{ old('phone_number') }}"
+                <input id="phoneNumber" value="{{ old('phone_number', $user->phone_number) }}"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="tel" name="phone_number" required placeholder="0905-123-4567" />
                 @error('phone_number')
@@ -139,7 +139,7 @@
 
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Valid ID Number</label>
-                <input type="number" value="{{ old('valid_id_number') }}" name="valid_id_number"
+                <input type="number" value="{{ old('valid_id_number',$user->valid_id_number) }}" name="valid_id_number"
                     class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     placeholder="001" required />
                 @error('valid_id_number')
@@ -152,7 +152,7 @@
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Address</label>
 
-                <input id="address" value="{{ old('address') }}"
+                <input id="address" value="{{ old('address',$user->valid_id_number) }}"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="text" name="address" required
                     placeholder="Unit ### Tower #, ** Condominium, St. Paul Street, San Antonio Village, Makati 1203" />
@@ -291,9 +291,9 @@
 
     </form>
     <script>
-        $('#formSubmit').click(function (e) { 
-            $('#creatUserForm')[0].reset();
-            
+        $('#formSubmit').click(function(e) {
+            $('#updateUserForm')[0].reset();
+
         });
     </script>
 @endsection

@@ -34,6 +34,10 @@ class StoreUserRequest extends FormRequest
             'address'=>'bail|required',
             'valid_id_number'=>'bail|required',
             'role'=>'bail|required',
+            'workdays'=>'bail|required',
+            'time_in_user'=>'bail|required',
+            'break_duration'=>'bail|required',
+            'time_out_user'=>'bail|required',
         ];
     }
 }

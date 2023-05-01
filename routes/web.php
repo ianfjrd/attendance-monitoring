@@ -30,7 +30,7 @@ Route::middleware([
     'verified',
     'nextTimestamp'
 ])->group(function () {
-    Route::get('/dashboard/history/{sort?}/{filter?}', [UserController::class, 'userDashboard'] )->name('dashboard');
+    Route::get('/dashboard/history/{sort?}/{filter?}', [UserController::class, 'userDashboard'])->name('dashboard');
 });
 
 
@@ -38,9 +38,9 @@ Route::middleware([
 Route::prefix('admin')->group(function () {
     Route::resource('user', UserController::class);
     Route::get('user/update-role', [UserController::class, 'updateRole'])->name('updateRole');
-    Route::delete('user,',[UserController::class, 'destroy'])->name('userDestroy');
-    Route::get('users/deleted', [UserController::class, 'usersDeleted'])->name('usersDeleted');
+    Route::get('/employeedeleted', [UserController::class, 'usersDeleted'])->name('employeeDeleted');
     Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
+
     Route::get('/admindashboard', function () {
         return view('admin.admindashboard');
     })->name('admindashboard');
@@ -50,9 +50,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/reqovertime', function () {
         return view('admin.request-overtime');
     })->name('reqovertime');
-    Route::get('/employeelist', function () {
-        return view('admin.employee.admin-employeeList');
-    })->name('employeelist');
+    Route::get('/employeelist', [UserController::class, 'index'])->name('employeelist');
     Route::get('/addnewuser', function () {
         return view('admin.employee.admin-addUser');
     })->name('addnewuser');
@@ -62,9 +60,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/employeedep', function () {
         return view('admin.employee.admin-employeeDepart');
     })->name('employeeDep');
-    Route::get('/employeedeleted', function () {
-        return view('admin.employee.admin-employeeDeleted');
-    })->name('employeeDeleted');
     Route::get('/admintimestamp', function () {
         return view('admin.timestamp.admin-timestamp');
     })->name('admintimestamp');

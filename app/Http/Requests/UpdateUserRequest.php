@@ -24,16 +24,20 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=>'bail|required',
-            'email'=>'bail|required|email',
-            'password'=>'bail|required',
+            "name" => 'bail|required',
+            'email' => 'bail|required|email',
+            // 'password' => 'bail|required',
             'image' => 'bail|nullable|image',
             'age' => 'bail|required|numeric',
-            'department'=>'bail|required',
-            'phone_number'=>'bail|required|numeric|digits:11',
-            'address'=>'bail|required',
-            'valid_id_number'=>'bail|required',
-            'role'=>'bail|required',
+            'department' => 'bail|required',
+            'phone_number' => 'bail|required|numeric|digits:11',
+            'address' => 'bail|required',
+            'valid_id_number' => 'bail|required',
+            'role' => 'bail|required',
+            'workdays' => 'bail|required',
+            'time_in_user' => 'bail|required',
+            'break_duration' => 'bail|required',
+            'time_out_user' => 'bail|required',
         ];
     }
 }
