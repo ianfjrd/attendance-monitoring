@@ -30,7 +30,7 @@
                         <th>End</th>
                         <th>Type</th>
                         <th>Reason</th>
-                        {{-- <th>Employee</th> --}}
+                        <th>Employee</th>
                         <th>Confirmation</th>
                         <th>Action</th>
                     </tr>
@@ -43,7 +43,7 @@
                             <td>{{ $leave->date_end }}</td>
                             <td>{{ $leave->type }}</td>
                             <td>{{ $leave->reason }}</td>
-                            {{-- <td>{{ $leave->name }}</td> --}}
+                            <td>{{ $leave->name }}</td>
                             <td>{{ $leave->leaves_status }}</td>
                             <td>
                                 <a href="{{ route('leaves.show', $leave->id) }}" class="underline">Show</a>
@@ -57,7 +57,19 @@
 
                         </tr>
                     @endforeach
-                    </tfoot>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Status</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Employee</th>
+                        <th>Confirmation</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
@@ -95,6 +107,4 @@
 
         });
     </script>
-
 @endsection
-

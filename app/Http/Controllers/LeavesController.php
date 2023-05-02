@@ -57,11 +57,9 @@ class LeavesController extends Controller
     public function index()
     {
         $this->updateStatus();
-        // $leaves = Leaves::join('users', 'users.id', '=', 'leaves.user_id')->get();
-        $leaves = Leaves::all();
-
-        // return $leaves;
-        // return $leaves;
+        $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
+            ->join('users', 'users.id', '=', 'leaves.user_id')->get();
+       
         return view('admin.leaves.admin-leaves', compact('leaves'));
     }
 
@@ -102,7 +100,8 @@ class LeavesController extends Controller
     public function show(string $id)
     {
         $this->updateStatus();
-        $leave = Leaves::where('id', '=', $id)->first();
+        $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
+        ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
 
         // return $leave;
         return view('admin.leaves.leaves-show', compact('leave'));
