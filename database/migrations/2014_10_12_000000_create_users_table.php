@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('address');
             $table->string('valid_id_number');
             $table->string('role');
+            $table->string('workdays')->nullable();
+            $table->string('time_in_user')->nullable();
+            $table->string('break_duration')->nullable();
+            $table->string('time_out_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

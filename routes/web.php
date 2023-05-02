@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\TimestampController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\LeavesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +44,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/admindashboard', function () {
         return view('admin.admindashboard');
     })->name('admindashboard');
+
+    Route::resource('announcement', AnnouncementController::class);
+    Route::resource('leaves', LeavesController::class);
+
     Route::get('/forgottotimeout', function () {
         return view('admin.forgot-timeout');
     })->name('forgottotimeout');
