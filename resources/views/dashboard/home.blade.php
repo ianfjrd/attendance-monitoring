@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    @include('logoBase64')
+    @include('attendanceHistoryBase64')
 
     @php
         
@@ -484,7 +484,6 @@
                             doc.content.splice(0, 0, {
                                 alignment:"center",
                                 width: 300,
-                               
                                 image: "{{ logo() }}"
                             });
 
@@ -496,7 +495,8 @@
                                 border: [true, true, true, true],
                                 borderColor: '#000',
                                 borderStyle: 'solid',
-                                fontSize: 12,
+                                fontSize: 10,
+                                margin:[15,0,0,10],
                                 text:"Name: <?php echo Auth::user()->name; ?> \n From {{ $firstDate }} to {{ $lastDate }}"
                             });
 

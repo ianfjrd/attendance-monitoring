@@ -14,6 +14,7 @@
 
 
 @section('content')
+    @include('employeeListBase64')
     <div class=" relative pt-4 ">
         {{-- {{dd($users)}} --}}
 
@@ -44,59 +45,78 @@
         @endif
 
 
-       
-            <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
-                <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
-                    EMPLOYEE LIST
-                </div>
-                {{-- <x-attendance-card/> --}}
 
-                <table id="example" class="table is-striped text-white " style="width:100%">
-                   
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($users as $key => $user)
-                
-                            <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->role }}</td>
-                                <td>{{ $user->department }}</td>
-                                <td>{{ date_format(date_create($user->created_at), 'M d, Y') }}</td>
-                                <td class=" flex flex-col ">
-                                    <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="underline">Update</a>
-                                 
-                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger underline">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Department</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </table>
+        <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
+            <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
+                EMPLOYEE LIST
             </div>
-        
+            {{-- <x-attendance-card/> --}}
+
+            <table id="example" class="table is-striped text-white " style="width:100%">
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach ($users as $key => $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->role }}</td>
+                            <td>{{ $user->department }}</td>
+                            <td>{{ date_format(date_create($user->created_at), 'M d, Y') }}</td>
+                            <td class=" flex flex-col ">
+                                <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="underline">Update</a>
+
+                                <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger underline">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </table>
+        </div>
+
 
     </div>
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
-
+                columns: [{
+                        data: 'name',
+                        title: 'Name'
+                    },
+                    {
+                        data: 'role',
+                        title: 'Role'
+                    },
+                    {
+                        data: 'department',
+                        title: 'Department'
+                    },
+                    {
+                        data: 'created_at',
+                        title: 'Created At'
+                    },
+                    {
+                        data: 'action',
+                        title: 'Action'
+                    }
+                ],
                 "order": [
                     [3, "desc"]
                 ],
@@ -110,7 +130,32 @@
                     'copyHtml5',
                     {
                         extend: 'pdfHtml5',
-                        title: 'attendance_report'
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        },
+                        text: 'PDF',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+
+                        customize: function(doc) {
+                            console.log(doc.content);
+
+                            doc.content.splice(0, 0, {
+                                alignment: "center",
+                                width: 300,
+                                image: "{{ logo() }}",
+                                margin: [0, 0, 0, 12]
+                            });
+
+                            doc.content.splice(1, 1);
+
+                            doc.content[1].table.widths = [
+                                '25%',
+                                '25%',
+                                '25%',
+                                '25%',
+                            ]
+                        }
                     },
 
                 ],
@@ -125,8 +170,6 @@
                     );
 
                     btnsCon.addClass(' w-full flex gap-2 mb-4')
-
-                    // $('#example_filter').addClass('hidden');
                 }
             });
 
