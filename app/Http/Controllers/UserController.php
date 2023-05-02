@@ -59,17 +59,28 @@ class UserController extends Controller
         $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->first();
 
         $firstItem = $attendanceHistory->get()->reverse()->first();
-        $firstDate = date_format(date_create($firstItem->created_at), 'M d, Y');
+        if ($firstItem != null) {
+            $firstDate = date_format(date_create($firstItem->created_at), 'M d, Y');
+        } else {
+            $firstDate = "--/--/--";
+        }
+
         $lasttItem = $attendanceHistory->get()->first();
-        $lastDate = date_format(date_create($lasttItem->created_at), 'M d, Y');
-       
+
+        if ($lasttItem != null) {
+            $lastDate = date_format(date_create($lasttItem->created_at), 'M d, Y');
+        } else {
+            $lastDate = "--/--/--";
+        }
+
+
         return view('dashboard.home', [
             'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
             'status' => Auth::user()->status(),
             'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
             'user_timestamp' => $user_timestamp,
             'firstDate' => $firstDate,
-            'lastDate'=> $lastDate
+            'lastDate' => $lastDate
         ])->with('status', $request->session()->get('status'));
     }
 
@@ -104,15 +115,15 @@ class UserController extends Controller
         $user->department = $validated['department'];
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
-        $user->valid_id_number = $validated['valid_id_number'];
+        // $user->valid_id_number = $validated['valid_id_number'];
         $user->role = $validated['role'];
         $user->password = Hash::make($validated['password']);
         $user->email_verified_at = date('Y-m-d H:i:s');
-        // To add:
-        // workdays
-        // time_in_user
-        // break_duration
-        // time_out_user
+        $user->workdays = serialize($validated['workdays']);
+        $user->time_in_user = $validated['time_in_user'];
+        $user->break_duration = $validated['break_duration'];
+        $user->time_out_user = $validated['time_out_user'];
+       
 
         // Optional Fields (profile_photo_path)
 
@@ -136,8 +147,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = User::where('id', '=', $id)->with('timestamp')->get();
-        return $user;
+        $user = User::where('id', '=', $id)->first();
+        return view('admin.employee.admin-showUser', ['user' => $user]);
     }
 
     /**
@@ -175,8 +186,12 @@ class UserController extends Controller
         $user->department = $validated['department'];
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
-        $user->valid_id_number = $validated['valid_id_number'];
+        // $user->valid_id_number = $validated['valid_id_number'];
         $user->role = $validated['role'];
+        $user->workdays = serialize($validated['workdays']);
+        $user->time_in_user = $validated['time_in_user'];
+        $user->break_duration = $validated['break_duration'];
+        $user->time_out_user = $validated['time_out_user'];
 
         if (isset($validated['password'])) {
             $user->password = Hash::make($validated['password']);

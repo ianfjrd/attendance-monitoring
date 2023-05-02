@@ -15,6 +15,7 @@
 
 @section('content')
     @include('employeeListBase64')
+   
     <div class=" relative pt-4 ">
         {{-- {{dd($users)}} --}}
 
@@ -52,7 +53,7 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <table id="example" class="table is-striped text-white " style="width:100%">
+            <table id="example" class="table is-striped text-white " style="width:70vw">
 
                 <thead>
                     <tr>
@@ -72,6 +73,7 @@
                             <td>{{ $user->department }}</td>
                             <td>{{ date_format(date_create($user->created_at), 'M d, Y') }}</td>
                             <td class=" flex flex-col ">
+                                <a href="{{ route('user.show', ['user' => $user->id]) }}" class="underline">Show</a>
                                 <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="underline">Update</a>
 
                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST">
@@ -98,7 +100,7 @@
             $('#example').DataTable({
                 columns: [{
                         data: 'name',
-                        title: 'Name'
+                        title: 'Name',
                     },
                     {
                         data: 'role',
@@ -170,6 +172,8 @@
                     );
 
                     btnsCon.addClass(' w-full flex gap-2 mb-4')
+
+                    $('#example_filter').addClass('absolute right-0 -top-12');
                 }
             });
 

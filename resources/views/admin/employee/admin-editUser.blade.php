@@ -34,7 +34,9 @@
             </button>
         </div>
     @endif
-
+    @php
+        $workdays = unserialize($user->workdays);
+    @endphp
 
     <form id="updateUserForm" method="POST" action="{{ route('user.update', $user->id) }}">
 
@@ -137,22 +139,19 @@
                 @enderror
             </div>
 
-            <div class="flex flex-col justify-center items-center text-center">
+            {{-- <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Valid ID Number</label>
-                <input type="number" value="{{ old('valid_id_number',$user->valid_id_number) }}" name="valid_id_number"
+                <input type="number" value="{{ old('valid_id_number', $user->valid_id_number) }}" name="valid_id_number"
                     class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     placeholder="001" required />
                 @error('valid_id_number')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
-            </div>
-        </div>
-
-        <div class="justify-center items-center text-center my-12">
+            </div> --}}
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Address</label>
 
-                <input id="address" value="{{ old('address',$user->valid_id_number) }}"
+                <input id="address" value="{{ old('address', $user->valid_id_number) }}"
                     class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="text" name="address" required
                     placeholder="Unit ### Tower #, ** Condominium, St. Paul Street, San Antonio Village, Makati 1203" />
@@ -161,6 +160,10 @@
                 @enderror
             </div>
         </div>
+
+        {{-- <div class="justify-center items-center text-center my-12">
+            
+        </div> --}}
 
         <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
 
@@ -173,7 +176,7 @@
                 class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-transparent dark:border-gray-600 dark:text-white">
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Sunday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Sunday', $workdays) ? 'checked' : '' }}
                             id="react-checkbox-list" name="workdays[]" type="checkbox" value="Sunday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="react-checkbox-list"
@@ -182,7 +185,7 @@
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Monday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Monday', $workdays) ? 'checked' : '' }}
                             id="vue-checkbox-list" name="workdays[]" type="checkbox" value="Monday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="vue-checkbox-list"
@@ -191,7 +194,7 @@
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Tuesday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Tuesday', $workdays) ? 'checked' : '' }}
                             id="react-checkbox-list" name="workdays[]" type="checkbox" value="Tuesday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="react-checkbox-list"
@@ -200,7 +203,7 @@
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Wednesday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Wednesday', $workdays) ? 'checked' : '' }}
                             id="angular-checkbox-list" name="workdays[]" type="checkbox" value="Wednesday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="angular-checkbox-list"
@@ -209,7 +212,7 @@
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Thursday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Thursday', $workdays) ? 'checked' : '' }}
                             id="react-checkbox-list" name="workdays[]" type="checkbox" value="Thursday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="react-checkbox-list"
@@ -219,7 +222,7 @@
 
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Friday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Friday', $workdays) ? 'checked' : '' }}
                             id="react-checkbox-list" name="workdays[]" type="checkbox" value="Friday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="react-checkbox-list"
@@ -228,7 +231,7 @@
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input {{ is_array(old('workdays')) && in_array('Saturday', old('workdays')) ? 'checked' : '' }}
+                        <input {{ is_array(old('workdays')) || in_array('Saturday', $workdays) ? 'checked' : '' }}
                             id="react-checkbox-list" name="workdays[]" type="checkbox" value="Saturday"
                             class="w-4 h-4 text-[#8EC33F] bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#8EC33F] dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="react-checkbox-list"
@@ -247,7 +250,7 @@
         <div class="grid grid-cols-3 pt-5 ">
             <div class="flex flex-col text-center items-center justify-center">
                 <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
-                <input type="time" name="time_in_user" value="{{ old('time_in_user') }}"
+                <input type="time" name="time_in_user" value="{{ old('time_in_user', $user->time_in_user) }}"
                     class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
                 @error('time_in_user')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
@@ -256,7 +259,7 @@
 
             <div class="flex flex-col text-center items-center justify-center">
                 <label class="text-[#8EC33F] font-bold text-2xl">Break Duration (mins)</label>
-                <input type="number" name="break_duration" value="{{ old('break_duration') }}"
+                <input type="number" name="break_duration" value="{{ old('break_duration', $user->break_duration) }}"
                     class=" text-center block py-2.5 px-0 w-1/4 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     placeholder="--" required />
                 @error('break_duration')
@@ -266,7 +269,7 @@
 
             <div class="flex flex-col text-center items-center justify-center">
                 <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
-                <input type="time" name="time_out_user" value="{{ old('time_out_user') }}"
+                <input type="time" name="time_out_user" value="{{ old('time_out_user', $user->time_out_user) }}"
                     class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
                 @error('time_out_user')
                     <small class=" italic text-red-400 ">{{ $message }}</small>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TimestampController;
 use App\Http\Controllers\UserController;
+use App\Models\Timestamp;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,12 +61,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/employeedep', function () {
         return view('admin.employee.admin-employeeDepart');
     })->name('employeeDep');
-    Route::get('/admintimestamp', function () {
-        return view('admin.timestamp.admin-timestamp');
-    })->name('admintimestamp');
-    Route::get('/admintimestamp/create', function () {
-        return view('admin.timestamp.timestamp-create');
-    })->name('timestampCreate');
+
+
+    Route::get('/admintimestamp', [TimestampController::class,'index'])->name('admintimestamp');
+    Route::delete('/admintimestamp/{id}', [TimestampController::class,'destroy'])->name('admintimestampDelete');
+
+
+    Route::get('/admintimestamp/create',[TimestampController::class,'createForAdmin'])->name('timestampCreate');
+    Route::post('/admintimestamp/store',[TimestampController::class,'storeForAdmin'])->name('timestampCreateAdmin');
+
+
     Route::get('/admintimestamp/update', function () {
         return view('admin.timestamp.timestamp-update');
     })->name('timestampEdit');

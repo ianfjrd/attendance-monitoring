@@ -32,7 +32,7 @@ class StoreUserRequest extends FormRequest
             'department'=>'bail|required',
             'phone_number'=>'bail|required|numeric|digits:11',
             'address'=>'bail|required',
-            'valid_id_number'=>'bail|required',
+            // 'valid_id_number'=>'bail|required',
             'role'=>'bail|required',
             'workdays'=>'bail|required',
             'time_in_user'=>'bail|required',

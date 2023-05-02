@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimeStampFormRequest;
+use App\Http\Requests\TimestampRequest;
 use App\Models\Timestamp;
 use App\Models\User;
 use DateTime;
@@ -29,10 +30,11 @@ class TimestampController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-
+        $timestamps = Timestamp::with('user')->get();
+        return view('admin.timestamp.admin-timestamp', ['timestamps' => $timestamps])->with('status', $request->session()->get('status'));;
     }
 
     /**
@@ -55,6 +57,12 @@ class TimestampController extends Controller
         ]);
     }
 
+    public function createForAdmin()
+    {
+        $users = User::all()->pluck('name', 'id');
+        return view('admin.timestamp.timestamp-create', ['users' => $users]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,27 +75,73 @@ class TimestampController extends Controller
         $timestamp = Timestamp::findByTimeInToday(Auth::id());
 
 
+        $timeNow =  now();
         if ($timestamp && $timestamp->$nextColumn == null) {
-            $timestamp->update([$nextColumn => now()]);
+
+            if ($nextColumn == "time_out") {
+                $timestamp->update([
+                    $nextColumn => $timeNow,
+                    'time_out_comment' => $this->timeCompare(Auth::user()->time_out_user, $timeNow)
+                ]);
+            } elseif ($nextColumn == "break_out") {
+
+                $timestamp->update([
+                    $nextColumn => $timeNow,
+                    'break_time_comment' => $this->timeCompareDuration(Auth::user()->break_duration, $timestamp->break_in, $timeNow)
+                ]);
+            } else {
+
+                $timestamp->update([
+                    $nextColumn => $timeNow
+                ]);
+            }
         } else {
+
             $timestamp = Timestamp::create([
-                Auth::user()->nextTimestampColumn() => now(),
-                'user_id' => 1,
+                Auth::user()->nextTimestampColumn() => $timeNow,
+                'time_in_comment' => $this->timeCompare(Auth::user()->time_in_user, $timeNow),
+                'user_id' => Auth::user()->id,
             ]);
         }
 
+
+
         $status = "";
-        if($nextColumn == "time_in"){
+        if ($nextColumn == "time_in") {
             $status = "Time in has been recorded successfully.";
-        }elseif($nextColumn == "break_in"){
+        } elseif ($nextColumn == "break_in") {
             $status = "Break time has been recorded successfully.";
-        }elseif($nextColumn == "break_out"){
+        } elseif ($nextColumn == "break_out") {
             $status = "The end of break time has been recorded successfully.";
-        }elseif($nextColumn == "time_out"){
+        } elseif ($nextColumn == "time_out") {
             $status = "Time out has been recorded successfully.";
         }
 
+
+
         return redirect(route('dashboard'))->with('status', $status);
+    }
+
+
+    public function storeForAdmin(TimestampRequest $request)
+    {
+
+
+        $validated = $request->validated();
+        $timestamp = new Timestamp();
+        $timestamp->time_in = $validated['time_in'];
+        $timestamp->time_in_comment = $this->timeCompare(Auth::user()->time_in_user, $validated['time_in']);
+        $timestamp->time_out = $validated['time_out'];
+        $timestamp->time_out_comment = $this->timeCompare(Auth::user()->time_out_user, $validated['time_out']);
+        $timestamp->break_in = $validated['break_in'];
+        $timestamp->break_out = $validated['break_out'];
+        $timestamp->break_time_comment    = $this->timeCompareDuration(Auth::user()->break_duration, $validated['break_in'],  $validated['break_out']);
+        $timestamp->user_id = $validated['user_id'];
+
+
+        $timestamp->save();
+        $status = "New timestamp added successfully";
+        return redirect(route('admintimestamp'))->with('status', $status);
     }
 
 
@@ -134,5 +188,76 @@ class TimestampController extends Controller
     public function destroy($id)
     {
         //
+        Timestamp::where('id', '=', $id)->delete();
+        $status = "Timestamp deleted successfully";
+        return redirect(route('admintimestamp'))->with('status', $status);
+    }
+
+    private function timeCompare($timePolicy, $timestamp)
+    {
+        $time1 = $timePolicy;
+        $time2 = $timestamp;
+
+
+        $timestamp1 = strtotime($time1);
+        $timestamp2 = strtotime($time2);
+
+
+        $diff = $timestamp2 - $timestamp1;
+
+
+        $diff_minutes = abs(round($diff / 60));
+
+
+
+        if ($diff_minutes < 60) {
+            $timeValue = " $diff_minutes minutes";
+        } else {
+            $diff_hours = round($diff_minutes / 60);
+            $timeValue = " $diff_hours hours";
+        }
+
+
+        if ($timestamp1 < $timestamp2) {
+            return "$timeValue late";
+        } else if ($timestamp1 > $timestamp2) {
+            return "$timeValue early";
+        } else {
+            return "You are on time";
+        }
+    }
+
+
+    private function timeCompareDuration($durationPolicy, $timeStart, $timeEnd)
+    {
+
+        $date_obj1 = new DateTime($timeStart);
+        $hourMinute1 = $date_obj1->format('H:i');
+
+        $date_obj2 = new DateTime($timeEnd);
+        $hourMinute2 = $date_obj2->format('H:i');
+
+
+        $time1 = $hourMinute1;
+        $time2 = $hourMinute2;
+
+
+        $timestamp1 = strtotime($time1);
+        $timestamp2 = strtotime($time2);
+
+
+        $diff = $timestamp2 - $timestamp1;
+
+
+        $diff_minutes = intval(abs(round($diff / 60)));
+
+        $exceed = $durationPolicy - $diff_minutes;
+        if ($exceed < 1) {
+
+            return "Your break time has exceeded " . abs($exceed) . " minutes.";
+        } else {
+
+            return "Your breaktime takes " . abs($exceed) . " minutes only";
+        }
     }
 }

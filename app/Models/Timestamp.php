@@ -14,7 +14,10 @@ class Timestamp extends Model
         'time_out',
         'break_in',
         'break_out',
-        'user_id'
+        'user_id',
+        'time_in_comment',
+        'time_out_comment',
+        'break_time_comment'
     ];
 
 
@@ -23,7 +26,8 @@ class Timestamp extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function findByTimeInToday($user_id) {
+    public static function findByTimeInToday($user_id)
+    {
         return Timestamp::where('user_id', $user_id)
             ->whereDate('time_in', today())
             ->latest('time_in')

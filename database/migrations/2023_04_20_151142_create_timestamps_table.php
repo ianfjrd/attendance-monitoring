@@ -16,9 +16,15 @@ return new class extends Migration
 
             $table->id();
             $table->timestamp('time_in')->nullable();
+            $table->string('time_in_comment')->nullable();
+
             $table->timestamp('time_out')->nullable();
+            $table->string('time_out_comment')->nullable();
+            
             $table->timestamp('break_in')->nullable();
             $table->timestamp('break_out')->nullable();
+            $table->string('break_time_comment')->nullable();
+
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });

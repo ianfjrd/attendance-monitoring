@@ -58,7 +58,7 @@
                 </li>
                 </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('breakTime') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -69,8 +69,8 @@
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Break Time</span>
                     </a>
-                </li>
-                <li>
+                </li> --}}
+                {{-- <li>
                     <a href="{{ route('employeeDocs') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg fill="none"
@@ -83,8 +83,8 @@
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Employee Documents</span>
                     </a>
-                </li>
-                <li>
+                </li> --}}
+                {{-- <li>
                     <a href="{{ route('summaryAttendance') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg fill="none"
@@ -97,7 +97,7 @@
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Summary of Attendance</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('leaves') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

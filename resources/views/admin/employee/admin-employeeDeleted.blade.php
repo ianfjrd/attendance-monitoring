@@ -50,7 +50,7 @@
                 </div>
                 {{-- <x-attendance-card/> --}}
 
-                <table id="example" class="table is-striped text-white " style="width:100%">
+                <table id="example" class="table is-striped text-white " style="width:70vw">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -119,7 +119,7 @@
 
                     btnsCon.addClass(' w-full flex gap-2 mb-4')
 
-                    // $('#example_filter').addClass('hidden');
+                    $('#example_filter').addClass('absolute right-0 -top-12');
                 }
             });
 

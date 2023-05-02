@@ -295,6 +295,7 @@
 
                             @if ($sort == 'all' || $sort == 'time_in_out')
                                 <td>{{ $attendance->time_in != null ? date_format(date_create($attendance->time_in), 'h:i:s a') : '--:--:--' }}
+                                  <br/> <small class=" text-slate-400 " > {{ $attendance->time_in != null ? $attendance->time_in_comment : '--:--:--' }}</small>
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'break_in_out')
@@ -303,10 +304,13 @@
                             @endif
                             @if ($sort == 'all' || $sort == 'break_in_out')
                                 <td>{{ $attendance->break_out != null ? date_format(date_create($attendance->break_out), 'h:i:s a') : '--:--:--' }}
+                                    <br/> <small class=" text-slate-400 " > {{ $attendance->break_out != null ? $attendance->break_time_comment : '--:--:--' }}</small>
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'time_in_out')
                                 <td>{{ $attendance->time_out != null ? date_format(date_create($attendance->time_out), 'h:i:s a') : '--:--:--' }}
+                                    <br/> <small class=" text-slate-400 " > {{ $attendance->time_out != null ? $attendance->time_out_comment : '--:--:--' }}</small>
+                                
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'total_hour')
@@ -441,7 +445,7 @@
 
         $(document).ready(function() {
 
-            
+
 
             $('#example').DataTable({
                 dom: 'Bfrtip',
@@ -474,7 +478,7 @@
                     {
                         extend: 'pdfHtml5',
                         title: '<?php echo Auth::user()->name; ?> Attendance History \n {{ $firstDate }} to {{ $lastDate }}',
-                        
+
                         text: 'PDF',
                         orientation: 'landscape',
                         pageSize: 'A4',
@@ -482,7 +486,7 @@
                             console.log(doc.content);
 
                             doc.content.splice(0, 0, {
-                                alignment:"center",
+                                alignment: "center",
                                 width: 300,
                                 image: "{{ logo() }}"
                             });
@@ -496,8 +500,8 @@
                                 borderColor: '#000',
                                 borderStyle: 'solid',
                                 fontSize: 10,
-                                margin:[15,0,0,10],
-                                text:"Name: <?php echo Auth::user()->name; ?> \n From {{ $firstDate }} to {{ $lastDate }}"
+                                margin: [15, 0, 0, 10],
+                                text: "Name: <?php echo Auth::user()->name; ?> \n From {{ $firstDate }} to {{ $lastDate }}"
                             });
 
 

@@ -146,7 +146,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function nextTimestampColumn()
     {
         $status = $this->status();
-
         if ($status == User::STATUS['on_duty']
             && Timestamp::where('user_id', $this->id)
                 ->whereDate('break_in', Carbon::today())
