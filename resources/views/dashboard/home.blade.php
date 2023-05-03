@@ -100,16 +100,16 @@
     @endif
     <div class=" flex gap-2  ">
         <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl " >Time in must be</div>
-            <div class=" text-3xl font-semibold " >{{date('h:i A', strtotime(Auth::user()->time_in_user))}}</div>
+            <div class=" text-xl ">Time in must be</div>
+            <div class=" text-3xl font-semibold ">{{ date('h:i A', strtotime(Auth::user()->time_in_user)) }}</div>
         </div>
         <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl " >Breaktime must be</div>
-            <div class=" text-3xl font-semibold" >{{Auth::user()->break_duration}} mins</div>
+            <div class=" text-xl ">Breaktime must be</div>
+            <div class=" text-3xl font-semibold">{{ Auth::user()->break_duration }} mins</div>
         </div>
         <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl " >Time Out must be</div>
-            <div class=" text-3xl font-semibold" >{{date('h:i A', strtotime(Auth::user()->time_out_user))}}</div>
+            <div class=" text-xl ">Time Out must be</div>
+            <div class=" text-3xl font-semibold">{{ date('h:i A', strtotime(Auth::user()->time_out_user)) }}</div>
         </div>
     </div>
 
@@ -309,7 +309,8 @@
 
                             @if ($sort == 'all' || $sort == 'time_in_out')
                                 <td>{{ $attendance->time_in != null ? date_format(date_create($attendance->time_in), 'h:i:s a') : '--:--:--' }}
-                                  <br/> <small class=" text-slate-400 " > {{ $attendance->time_in != null ? $attendance->time_in_comment : '--:--:--' }}</small>
+                                    <br /> <small class=" text-slate-400 ">
+                                        {{ $attendance->time_in != null ? $attendance->time_in_comment : '--:--:--' }}</small>
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'break_in_out')
@@ -318,13 +319,15 @@
                             @endif
                             @if ($sort == 'all' || $sort == 'break_in_out')
                                 <td>{{ $attendance->break_out != null ? date_format(date_create($attendance->break_out), 'h:i:s a') : '--:--:--' }}
-                                    <br/> <small class=" text-slate-400 " > {{ $attendance->break_out != null ? $attendance->break_time_comment : '--:--:--' }}</small>
+                                    <br /> <small class=" text-slate-400 ">
+                                        {{ $attendance->break_out != null ? $attendance->break_time_comment : '--:--:--' }}</small>
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'time_in_out')
                                 <td>{{ $attendance->time_out != null ? date_format(date_create($attendance->time_out), 'h:i:s a') : '--:--:--' }}
-                                    <br/> <small class=" text-slate-400 " > {{ $attendance->time_out != null ? $attendance->time_out_comment : '--:--:--' }}</small>
-                                
+                                    <br /> <small class=" text-slate-400 ">
+                                        {{ $attendance->time_out != null ? $attendance->time_out_comment : '--:--:--' }}</small>
+
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'total_hour')
@@ -461,7 +464,7 @@
 
 
 
-            $('#example').DataTable({
+            var table = $('#example').DataTable({
                 dom: 'Bfrtip',
                 "ordering": false,
                 buttons: [{
@@ -471,13 +474,13 @@
                         }
                     },
                     {
-                        text: 'Time In - Time Out',
+                        text: 'Time In-Out',
                         action: function() {
                             window.location.href = "/dashboard/history/time_in_out";
                         }
                     },
                     {
-                        text: 'Break In - Break Out',
+                        text: 'Break In-Out',
                         action: function() {
                             window.location.href = "/dashboard/history/break_in_out";
                         }
@@ -501,36 +504,38 @@
 
                             doc.content.splice(0, 0, {
                                 alignment: "center",
-                                width: 300,
+                                width: 500,
                                 image: "{{ logo() }}"
                             });
 
                             doc.content.splice(1, 1, {
-                                // position: 'absolute',
-                                // right: 0,
-                                // top: 0,
-                                display: 'inline-block',
+                                alignment: "center",
                                 border: [true, true, true, true],
                                 borderColor: '#000',
                                 borderStyle: 'solid',
                                 fontSize: 10,
                                 margin: [15, 0, 0, 10],
-                                text: "Name: <?php echo Auth::user()->name; ?> \n From {{ $firstDate }} to {{ $lastDate }}"
+                                text: "From {{ $firstDate }} to {{ $lastDate }} \n Name: <?php echo Auth::user()->name; ?> "
                             });
 
 
 
+                            var numCols = table.columns().count();
 
+                            var columnWidth = 100 / numCols + "%"
+
+                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                                .length + 1).join('*').split('');
+                            doc.content[2].alignment = 'center';
 
                             doc.content[2].table.widths = [
-                                '20%',
-                                '16%',
-                                '16%',
-                                '16%',
-                                '16%',
-                                '16%'
+                                columnWidth,
+                                columnWidth,
+                                columnWidth,
+                                columnWidth,
+                                columnWidth,
+                                columnWidth
                             ]
-
 
 
                         },
@@ -544,7 +549,7 @@
                     var btnsCon = $('.dt-buttons');
                     btns.removeClass('dt-button');
                     btns.addClass(
-                        ' text-xs grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' text-md grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2')
                     $('#example_filter').addClass('hidden');
@@ -553,6 +558,9 @@
 
                 }
             });
+
+
+
 
         });
     </script>
