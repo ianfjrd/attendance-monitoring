@@ -22,7 +22,7 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <table id="example" class="table is-striped text-white " style="width:100%">
+            <table id="example" class="table is-striped text-white " style="width:70vw">
                 <thead>
                     <tr>
                         <th>Status</th>
@@ -101,7 +101,7 @@
                         ' grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2')
-                    $('#example_filter').addClass('hidden');
+                    $('#example_filter').addClass('absolute right-0 -top-12');
                 }
             });
 

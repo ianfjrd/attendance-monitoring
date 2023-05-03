@@ -98,6 +98,20 @@
             </button>
         </div>
     @endif
+    <div class="border flex gap-2  ">
+        <div class=" grow border p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-20 ">
+            <div class=" text-xl " >Time in must be</div>
+            <div>08:00am</div>
+        </div>
+        <div class="grow border">
+            <div>Breaktime Duration must be</div>
+            <div>08:00am</div>
+        </div>
+        <div class="grow border">
+            <div>Time out must be</div>
+            <div>08:00am</div>
+        </div>
+    </div>
 
     <div class=" relative pt-4 ">
         {{-- <form> --}}
