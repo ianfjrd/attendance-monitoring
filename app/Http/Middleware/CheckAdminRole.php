@@ -20,7 +20,14 @@ class CheckAdminRole
         // dd($role);
         if(Auth::user()->role == "Admin" && $role == "Admin"){
             return $next($request);
-        }else{
+        }
+        elseif(Auth::user()->role != "Admin" && $role == "User") {
+            return $next($request);
+        }
+        elseif(Auth::user()->role == "Admin" && $role == "User") {
+            return redirect()->back();
+        }
+        else{
             return redirect()->back();
         }
 

@@ -13,10 +13,13 @@ class LeavesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only('index');
-        $this->middleware('auth')->only('create');
+        $this->middleware('checkRole:User')->only('userIndex');
+        $this->middleware('checkRole:User')->only('userCreate');
+        $this->middleware('checkRole:User')->only('userShow');
+        $this->middleware('checkRole:Admin')->only('index');
+        $this->middleware('checkRole:Admin')->only('create');
         $this->middleware('auth')->only('store');
-        $this->middleware('auth')->only('show');
+        $this->middleware('checkRole:Admin')->only('show');
         $this->middleware('checkRole:Admin')->only('edit');
         $this->middleware('checkRole:Admin')->only('update');
         $this->middleware('checkRole:Admin')->only('destroy');
@@ -72,17 +75,17 @@ class LeavesController extends Controller
     {
         $this->updateStatus();
 
-        if(Auth::user()->role == 'Admin') {
-            $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
+        $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
             ->join('users', 'users.id', '=', 'leaves.user_id')->get();
             return view('admin.leaves.admin-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
-        }
-        else {
-            $leaves = Leaves::select('*')
+    }
+
+    public function userIndex(Request $request) {
+        $this->updateStatus();
+        
+        $leaves = Leaves::select('*')
             ->where('user_id', '=', Auth::user()->id)->get();
             return view('timestamp.leaves.dashboard-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
-        }
-        
     }
 
     /**
@@ -91,12 +94,15 @@ class LeavesController extends Controller
     public function create()
     {
         $this->updateStatus();
-        if(Auth::user()->role == 'Admin') {
-            return view('admin.leaves.leaves-create');
-        }
-        else {
-            return view('timestamp.leaves.leaves-create');
-        }
+        
+        return view('admin.leaves.leaves-create');
+    }
+
+    public function userCreate()
+    {
+        $this->updateStatus();
+        
+        return view('timestamp.leaves.leaves-create');
     }
 
     /**
@@ -120,7 +126,7 @@ class LeavesController extends Controller
             return Redirect::to('admin/leaves')->with('status', 'Employee leave request recorded successfully!');
         }
         else {
-            return Redirect::to('dashboard/leaves')->with('status', 'Leave request recorded successfully!');
+            return Redirect::to('dashboard/leaves/index')->with('status', 'Leave request recorded successfully!');
         }
     }
 
@@ -133,12 +139,16 @@ class LeavesController extends Controller
         $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
             ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
 
-        if(Auth::user()->role == 'Admin') {
-            return view('admin.leaves.leaves-show', compact('leave'));
-        }
-        else {
-            return view('timestamp.leaves.leaves-show', compact('leave'));
-        }
+        return view('admin.leaves.leaves-show', compact('leave'));
+    }
+
+    public function userShow(string $id)
+    {
+        $this->updateStatus();
+        $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
+            ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
+
+        return view('timestamp.leaves.leaves-show', compact('leave'));
     }
 
     /**

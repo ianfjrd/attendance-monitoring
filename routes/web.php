@@ -112,7 +112,11 @@ Route::prefix('dashboard')->middleware('nextTimestamp')->group(function () {
         return view('timestamp.reqleave');
     })->name('reqLeave');
 
-    Route::resource('leaves', LeavesController::class);
+    // Route::resource('leaves', LeavesController::class);
+
+    Route::get('/leaves/index',[LeavesController::class,'userIndex'])->name('userIndex');
+    Route::get('/leaves/create',[LeavesController::class,'userCreate'])->name('userCreate');
+    Route::get('/leaves/show/{id}',[LeavesController::class,'userShow'])->name('userShow');
 
     // POST
     Route::prefix('attend')->group(function () {
