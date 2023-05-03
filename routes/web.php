@@ -67,7 +67,7 @@ Route::prefix('admin')->group(function () {
 
 
     Route::get('/employeeleaves', function () {
-        retur   n view('admin.employee.admin-employeeLeaves');
+        return view('admin.employee.admin-employeeLeaves');
     })->name('employeeleaves');
     Route::get('/employeedep', function () {
         return view('admin.employee.admin-employeeDepart');
