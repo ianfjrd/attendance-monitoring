@@ -126,7 +126,7 @@
                 buttons: [{
                         text: '➕ Add New',
                         action: function() {
-                            window.location.href = "/admin/addnewuser"
+                            window.location.href = "/admin/user/create"
                         }
                     },
                     'copyHtml5',

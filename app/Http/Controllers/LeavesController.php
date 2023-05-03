@@ -9,13 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class LeavesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only('index');
+        $this->middleware('auth')->only('create');
+        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('show');
+        $this->middleware('checkRole:Admin')->only('edit');
+        $this->middleware('checkRole:Admin')->only('update');
+        $this->middleware('checkRole:Admin')->only('destroy');
+    }
+
+
     function status($date_start, $date_end)
     {
         if (date("m/d/Y", strtotime(($date_start))) > date("m/d/Y")) {
             $status = 'Upcoming';
-        } elseif (date("m/d/Y", strtotime(($date_start))) <= date("m/d/Y") && date("m/d/Y", strtotime(($date_end))) > date("m/d/Y")) {
+        }
+        elseif (date("m/d/Y", strtotime(($date_start))) <= date("m/d/Y") && date("m/d/Y", strtotime(($date_end))) > date("m/d/Y")) {
             $status = 'Ongoing';
-        } else {
+        } 
+        else {
             $status = 'Done';
         }
 
@@ -26,7 +42,8 @@ class LeavesController extends Controller
     {
         if ($role == 'Admin') {
             $leaves_status = 'Approved';
-        } else {
+        }
+        else {
             $leaves_status = 'Pending';
         }
 
@@ -51,19 +68,19 @@ class LeavesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->updateStatus();
 
         if(Auth::user()->role == 'Admin') {
             $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
             ->join('users', 'users.id', '=', 'leaves.user_id')->get();
-            return view('admin.leaves.admin-leaves', compact('leaves'));
+            return view('admin.leaves.admin-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
         }
         else {
             $leaves = Leaves::select('*')
             ->where('user_id', '=', Auth::user()->id)->get();
-            return view('timestamp.leaves.dashboard-leaves', compact('leaves'));
+            return view('timestamp.leaves.dashboard-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
         }
         
     }
@@ -100,10 +117,10 @@ class LeavesController extends Controller
         $leave->save();
 
         if(Auth::user()->role == 'Admin') {
-            return Redirect::to('admin/leaves')->with('success', 'New Announcement added!');
+            return Redirect::to('admin/leaves')->with('status', 'Employee leave request recorded successfully!');
         }
         else {
-            return Redirect::to('dashboard/leaves')->with('success', 'New Announcement added!');
+            return Redirect::to('dashboard/leaves')->with('status', 'Leave request recorded successfully!');
         }
     }
 
@@ -132,7 +149,6 @@ class LeavesController extends Controller
         $this->updateStatus();
         $leave = Leaves::where('id', '=', $id)->first();
 
-        // return $leave;
         return view('admin.leaves.leaves-update', compact('leave'));
     }
 
@@ -146,13 +162,11 @@ class LeavesController extends Controller
         $leave->date_end = $request->date_end;
         $leave->type = $request->type;
         $leave->reason = $request->reason;
-        // $leave->leaves_status = $this->leavesStatus(Auth::user()->role);
         $leave->leaves_status = $request->leaves_status;
         $leave->status = $this->status($request->date_start, $request->date_end);
         $leave->save();
 
-        // return $leave;
-        return Redirect::to('admin/leaves')->with('success', 'Leave updated!');
+        return Redirect::to('admin/leaves')->with('status', 'Employee leave request updated successfully!');
     }
 
     /**
@@ -162,7 +176,6 @@ class LeavesController extends Controller
     {
         $leave = Leaves::where('id', '=', $id)->delete();
 
-        // return $leave;
-        return Redirect::to('admin/leaves')->with('success', 'Leaves deleted!');
+        return Redirect::to('admin/leaves')->with('status', 'Employee leave request deleted successfully!');
     }
 }

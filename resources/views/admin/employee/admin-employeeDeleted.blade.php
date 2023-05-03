@@ -94,12 +94,7 @@
                     [3, "desc"]
                 ],
                 dom: 'Bfrtip',
-                buttons: [{
-                        text: '➕ Add New',
-                        action: function() {
-                            window.location.href = "/admin/addnewuser"
-                        }
-                    },
+                buttons: [
                     'copyHtml5',
                     {
                         extend: 'pdfHtml5',

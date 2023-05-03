@@ -44,7 +44,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/employeedeleted', [UserController::class, 'usersDeleted'])->name('employeeDeleted');
     Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
 
-    Route::get('/admindashboard', function () {
+
+
+
+    Route::middleware('checkRole:Admin')->get('/admindashboard', function () {
         return view('admin.admindash-content');
     })->name('admindashboard');
 
@@ -57,12 +60,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/reqovertime', function () {
         return view('admin.request-overtime');
     })->name('reqovertime');
+
     Route::get('/employeelist', [UserController::class, 'index'])->name('employeelist');
-    Route::get('/addnewuser', function () {
-        return view('admin.employee.admin-addUser');
-    })->name('addnewuser');
+
+
+
+
     Route::get('/employeeleaves', function () {
-        return view('admin.employee.admin-employeeLeaves');
+        retur   n view('admin.employee.admin-employeeLeaves');
     })->name('employeeleaves');
     Route::get('/employeedep', function () {
         return view('admin.employee.admin-employeeDepart');

@@ -69,7 +69,7 @@
                        <span class="flex-1 ml-3 whitespace-nowrap">Employee List</span></a>
                      </li>
                      <li>
-                        <a href="{{route('addnewuser')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{route('user.create')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                        <span class="flex-1 ml-3 whitespace-nowrap">Add New Employee</span></a>
                      </li>
                       <li>
