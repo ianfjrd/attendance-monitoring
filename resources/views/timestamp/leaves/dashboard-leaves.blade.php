@@ -70,7 +70,7 @@
                             <td>{{ $leave->reason }}</td>
                             <td>{{ $leave->leaves_status }}</td>
                             <td>
-                                <a href="{{ route('leaves.show', $leave->id) }}" class="underline">Show</a>
+                                <a href="{{ route('userShow', $leave->id) }}" class="underline">Show</a>
                             </td>
 
                         </tr>
