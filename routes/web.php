@@ -45,7 +45,7 @@ Route::prefix('admin')->group(function () {
     Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
 
     Route::get('/admindashboard', function () {
-        return view('admin.admindashboard');
+        return view('admin.admindash-content');
     })->name('admindashboard');
 
     Route::resource('announcement', AnnouncementController::class);
