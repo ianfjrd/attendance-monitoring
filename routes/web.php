@@ -94,9 +94,9 @@ Route::prefix('dashboard')->middleware('nextTimestamp')->group(function () {
     Route::get('/breaktime', function () {
         return view('timestamp.break');
     })->name('breakTime');
-    Route::get('/leaves', function () {
-        return view('timestamp.leaves');
-    })->name('leaves');
+    // Route::get('/leaves', function () {
+    //     return view('timestamp.leaves');
+    // })->name('leaves');
     Route::get('/employeedocs', function () {
         return view('timestamp.employeedocs');
     })->name('employeeDocs');
@@ -106,6 +106,8 @@ Route::prefix('dashboard')->middleware('nextTimestamp')->group(function () {
     Route::get('/reqleave', function () {
         return view('timestamp.reqleave');
     })->name('reqLeave');
+
+    Route::resource('leaves', LeavesController::class);
 
     // POST
     Route::prefix('attend')->group(function () {
