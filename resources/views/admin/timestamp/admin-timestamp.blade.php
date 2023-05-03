@@ -49,8 +49,8 @@
             <table id="example" class="table is-striped text-white " style="width:70vw">
                 <thead>
                     <tr>
-                        <th>Date</th>
                         <th>Employee</th>
+                        <th>Date</th>
                         <th>Time In</th>
                         <th>Break In</th>
                         <th>Break Out</th>
@@ -90,8 +90,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Date</th>
                         <th>Employee</th>
+                        <th>Date</th>
                         <th>Time In</th>
                         <th>Break In</th>
                         <th>Break Out</th>

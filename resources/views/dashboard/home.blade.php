@@ -98,18 +98,18 @@
             </button>
         </div>
     @endif
-    <div class="border flex gap-2  ">
-        <div class=" grow border p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-20 ">
+    <div class=" flex gap-2  ">
+        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
             <div class=" text-xl " >Time in must be</div>
-            <div>08:00am</div>
+            <div class=" text-3xl font-semibold " >{{date('h:i A', strtotime(Auth::user()->time_in_user))}}</div>
         </div>
-        <div class="grow border">
-            <div>Breaktime Duration must be</div>
-            <div>08:00am</div>
+        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
+            <div class=" text-xl " >Breaktime must be</div>
+            <div class=" text-3xl font-semibold" >{{Auth::user()->break_duration}} mins</div>
         </div>
-        <div class="grow border">
-            <div>Time out must be</div>
-            <div>08:00am</div>
+        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
+            <div class=" text-xl " >Time Out must be</div>
+            <div class=" text-3xl font-semibold" >{{date('h:i A', strtotime(Auth::user()->time_out_user))}}</div>
         </div>
     </div>
 
