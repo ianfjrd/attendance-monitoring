@@ -11,13 +11,11 @@ class LeavesController extends Controller
 {
     function status($date_start, $date_end)
     {
-        if(date("m/d/Y", strtotime(($date_start))) > date("m/d/Y")) {
+        if (date("m/d/Y", strtotime(($date_start))) > date("m/d/Y")) {
             $status = 'Upcoming';
-        }
-        elseif(date("m/d/Y", strtotime(($date_start))) <= date("m/d/Y") && date("m/d/Y", strtotime(($date_end))) > date("m/d/Y")) {
+        } elseif (date("m/d/Y", strtotime(($date_start))) <= date("m/d/Y") && date("m/d/Y", strtotime(($date_end))) > date("m/d/Y")) {
             $status = 'Ongoing';
-        }
-        else {
+        } else {
             $status = 'Done';
         }
 
@@ -26,10 +24,9 @@ class LeavesController extends Controller
 
     function leavesStatus($role)
     {
-        if($role == 'Admin') {
+        if ($role == 'Admin') {
             $leaves_status = 'Approved';
-        }
-        else {
+        } else {
             $leaves_status = 'Pending';
         }
 
@@ -57,10 +54,18 @@ class LeavesController extends Controller
     public function index()
     {
         $this->updateStatus();
-        $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
+
+        if(Auth::user()->role == 'Admin') {
+            $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
             ->join('users', 'users.id', '=', 'leaves.user_id')->get();
-       
-        return view('admin.leaves.admin-leaves', compact('leaves'));
+            return view('admin.leaves.admin-leaves', compact('leaves'));
+        }
+        else {
+            $leaves = Leaves::select('*')
+            ->where('user_id', '=', Auth::user()->id)->get();
+            return view('timestamp.leaves.dashboard-leaves', compact('leaves'));
+        }
+        
     }
 
     /**
@@ -69,7 +74,12 @@ class LeavesController extends Controller
     public function create()
     {
         $this->updateStatus();
-        return view('admin.leaves.leaves-create');
+        if(Auth::user()->role == 'Admin') {
+            return view('admin.leaves.leaves-create');
+        }
+        else {
+            return view('timestamp.leaves.leaves-create');
+        }
     }
 
     /**
@@ -86,12 +96,15 @@ class LeavesController extends Controller
         $leave->user_id = 1;
         $leave->user_id = Auth::user()->id;
         $leave->leaves_status = $this->leavesStatus(Auth::user()->role);
-        // $leave->leaves_status = 'Pending';
         $leave->status = $this->status($input['date_start'], $input['date_end']);
         $leave->save();
 
-        // return $leave;
-        return Redirect::to('admin/leaves')->with('success','New Announcement added!');
+        if(Auth::user()->role == 'Admin') {
+            return Redirect::to('admin/leaves')->with('success', 'New Announcement added!');
+        }
+        else {
+            return Redirect::to('dashboard/leaves')->with('success', 'New Announcement added!');
+        }
     }
 
     /**
@@ -101,10 +114,14 @@ class LeavesController extends Controller
     {
         $this->updateStatus();
         $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
-        ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
+            ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
 
-        // return $leave;
-        return view('admin.leaves.leaves-show', compact('leave'));
+        if(Auth::user()->role == 'Admin') {
+            return view('admin.leaves.leaves-show', compact('leave'));
+        }
+        else {
+            return view('timestamp.leaves.leaves-show', compact('leave'));
+        }
     }
 
     /**
@@ -135,7 +152,7 @@ class LeavesController extends Controller
         $leave->save();
 
         // return $leave;
-        return Redirect::to('admin/leaves')->with('success','Leave updated!');
+        return Redirect::to('admin/leaves')->with('success', 'Leave updated!');
     }
 
     /**
@@ -144,8 +161,8 @@ class LeavesController extends Controller
     public function destroy($id)
     {
         $leave = Leaves::where('id', '=', $id)->delete();
-        
+
         // return $leave;
-        return Redirect::to('admin/leaves')->with('success','Leaves deleted!');
+        return Redirect::to('admin/leaves')->with('success', 'Leaves deleted!');
     }
 }
