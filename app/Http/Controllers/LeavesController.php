@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LeavesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only('index');
+        $this->middleware('auth')->only('create');
+        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('show');
+        $this->middleware('checkRole:Admin')->only('edit');
+        $this->middleware('checkRole:Admin')->only('update');
+        $this->middleware('checkRole:Admin')->only('destroy');
+    }
+
+
     function status($date_start, $date_end)
     {
         if (date("m/d/Y", strtotime(($date_start))) > date("m/d/Y")) {

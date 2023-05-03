@@ -19,10 +19,27 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+    {
+        $this->middleware('checkRole:Admin')->only('create');
+        $this->middleware('checkRole:Admin')->only('index');
+        $this->middleware('checkRole:Admin')->only('store');
+
+        $this->middleware('auth')->only('userDashboard');
+        $this->middleware('checkRole:Admin')->only('show');
+        $this->middleware('checkRole:Admin')->only('edit');
+        $this->middleware('checkRole:Admin')->only('update');
+        $this->middleware('checkRole:Admin')->only('updaterole');
+        $this->middleware('checkRole:Admin')->only('destroy');
+        $this->middleware('checkRole:Admin')->only('usersDeleted');
+        $this->middleware('checkRole:Admin')->only('userRestore');
+    }
     public function index(Request $request)
     {
         //
         $users = User::where('id', '!=', Auth::user()->id)->get();
+        // $users = User::all();
         // dd($users);
         return view('admin.employee.admin-employeeList', ['users' => $users])->with('status', $request->session()->get('status'));
     }
@@ -31,6 +48,10 @@ class UserController extends Controller
     // Route for user's Dashboard or Home (Get user attendace history)
     public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
+
+        if(Auth::user()->role == "Admin"){
+            return redirect()->route('admindashboard');
+        }
 
         // dd($filter);
         if ($sort == 'time_in_out') {
@@ -89,9 +110,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Redirect to display for adding new user or profile 
+        return view('admin.employee.admin-addUser');
     }
 
     /**

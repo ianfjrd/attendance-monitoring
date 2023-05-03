@@ -24,6 +24,10 @@ class TimestampController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkRole:Admin')->only('index');
+        $this->middleware('checkRole:Admin')->only('createForAdmin');
+        $this->middleware('checkRole:Admin')->only('storeForAdmin');
+        $this->middleware('checkRole:Admin')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -247,17 +251,18 @@ class TimestampController extends Controller
 
 
         $diff = $timestamp2 - $timestamp1;
-
+       
 
         $diff_minutes = intval(abs(round($diff / 60)));
-
+       
         $exceed = $durationPolicy - $diff_minutes;
+        // dd($exceed);
         if ($exceed < 1) {
-
+            
             return "Your break time has exceeded " . abs($exceed) . " minutes.";
         } else {
-
-            return "Your breaktime takes " . abs($exceed) . " minutes only";
+           
+            return "Your breaktime takes " . abs($diff_minutes) . " minutes only";
         }
     }
 }
