@@ -4,6 +4,7 @@ use App\Http\Controllers\TimestampController;
 use App\Http\Controllers\UserController;
 use App\Models\Timestamp;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\LeavesController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,9 +48,7 @@ Route::prefix('admin')->group(function () {
 
 
 
-    Route::middleware('checkRole:Admin')->get('/admindashboard', function () {
-        return view('admin.admindash-content');
-    })->name('admindashboard');
+    Route::middleware('checkRole:Admin')->get('/admindashboard', [dashboardController::class, 'index'])->name('admindashboard');
 
     Route::resource('announcement', AnnouncementController::class);
     Route::resource('leaves', LeavesController::class);

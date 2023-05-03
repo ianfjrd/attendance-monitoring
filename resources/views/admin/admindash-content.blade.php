@@ -136,7 +136,7 @@
                     style="height: 199px; min-width: 352px;">
                     <div class="flex flex-1 items-center justify-center">
                         <div class="w-full lg:w-auto flex justify-between md:block">
-                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">0</h2>
+                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">{{$total_request_leave}}</h2>
                             <div
                                 class="hidden md:block text-2xl font-semibold leading-tight md:text-3xs text-white md:text-grey-600/50">
                                 Total Request Leave</div>
@@ -149,7 +149,7 @@
                     style="height: 199px; min-width: 352px;">
                     <div class="flex flex-1 items-center justify-center">
                         <div class="w-full lg:w-auto flex justify-between md:block">
-                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">0</h2>
+                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">{{$totalEmployee}}</h2>
                             <div
                                 class="hidden md:block text-2xl font-semibold leading-tight md:text-3xs text-white md:text-grey-600/50">
                                 Total Employee</div>
@@ -162,7 +162,7 @@
                     style="height: 199px; min-width: 352px;">
                     <div class="flex flex-1 items-center justify-center">
                         <div class="w-full lg:w-auto flex justify-between md:block">
-                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">0</h2>
+                            <h2 class=" text-8xl text-[#8EC33F] font-semibold leading-tight">{{$total_employee_leave}}</h2>
                             <div
                                 class="hidden md:block text-2xl font-semibold leading-tight md:text-3xs text-white md:text-grey-600/50">
                                 Total Employee on Leave</div>
