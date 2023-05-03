@@ -25,7 +25,7 @@ class GetNextTimestampColumn
 
             $dayStart = date('Y/m/d') . ' 00:00:01';
             $dayEnd = date('Y/m/d') . ' 23:59:00';
-            $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->first();
+            $user_timestamp = Timestamp::where('created_at', '>', $dayStart)->where('created_at', '<', $dayEnd)->where('user_id', '=', Auth::user()->id)->first();
 
             $hasleaves = Leaves::where('id', '=', Auth::user()->id)
                 ->where('leaves_status', '=', 'Approved')
@@ -46,6 +46,7 @@ class GetNextTimestampColumn
 
                     session(['nextTimestamp' => "No Work Today"]);
                 } else {
+                    // dd($user_timestamp->time_out);
                     if ($user_timestamp && $user_timestamp->time_out != null) {
                         session(['nextTimestamp' => "Work Done"]);
                     } else {

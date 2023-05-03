@@ -144,14 +144,26 @@
 
                             doc.content.splice(0, 0, {
                                 alignment: "center",
-                                width: 300,
+                                width: 500,
                                 image: "{{ logo() }}",
                                 margin: [0, 0, 0, 12]
                             });
 
-                            doc.content.splice(1, 1);
+                            doc.content.splice(1, 1, {
+                                alignment: "center",
+                                border: [true, true, true, true],
+                                borderColor: '#000',
+                                borderStyle: 'solid',
+                                fontSize: 10,
+                                margin: [15, 0, 0, 10],
+                                text: " Name: <?php echo Auth::user()->name; ?> "
+                            });
 
-                            doc.content[1].table.widths = [
+                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                                .length + 1).join('*').split('');
+                            doc.content[2].alignment = 'center';
+
+                            doc.content[2].table.widths = [
                                 '25%',
                                 '25%',
                                 '25%',
