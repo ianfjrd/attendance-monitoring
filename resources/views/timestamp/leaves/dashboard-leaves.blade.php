@@ -96,7 +96,12 @@
         $(document).ready(function() {
             $('#example').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
+                buttons: [{
+                        text: 'Request Leave',
+                        action: function() {
+                            window.location.href = "/dashboard/leaves/create";
+                        }
+                    },
                     'copyHtml5',
                     {
                         extend: 'pdfHtml5',

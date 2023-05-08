@@ -23,59 +23,327 @@
 @section('content')
     @include('attendanceHistoryBase64')
 
+
+
+
+    <div class="flex items-center justify-center w-full py-24 sm:py-8 px-4">
+        <div class="w-full relative flex items-center justify-center">
+            <button aria-label="slide backward"
+                class="absolute z-30 left-0 ml-10 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
+                id="prev">
+                <svg class="dark:text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+                <div id="slider"
+                    class="h-full flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700">
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                        <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
+                            class="object-cover object-center w-full" />
+                        <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 class="lg:text-xl leading-4 text-base lg:leading-5 text-white dark:text-white">Catalog 1
+                            </h2>
+                            <div class="flex h-full items-end pb-6">
+                                <h3
+                                    class="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white dark:text-white">
+                                    Minimal Interior</h3>
+                                <x-button type="submit" id="formSubmit">
+                                    Read more
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button aria-label="slide forward"
+                class="absolute z-30 right-0 mr-10 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                id="next">
+                <svg class="dark:text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+
+
+    <script>
+        let defaultTransform = 0;
+
+        function goNext() {
+            defaultTransform = defaultTransform - 398;
+            var slider = document.getElementById("slider");
+            if (Math.abs(defaultTransform) >= slider.scrollWidth / 1.7) defaultTransform = 0;
+            slider.style.transform = "translateX(" + defaultTransform + "px)";
+        }
+        next.addEventListener("click", goNext);
+
+        function goPrev() {
+            var slider = document.getElementById("slider");
+            if (Math.abs(defaultTransform) === 0) defaultTransform = 0;
+            else defaultTransform = defaultTransform + 398;
+            slider.style.transform = "translateX(" + defaultTransform + "px)";
+        }
+        prev.addEventListener("click", goPrev);
+    </script>
+
+
+
+
+
+
+
+
+
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
     @php
-        
+
         function totalHour($time_in, $time_out, $break_in, $break_out)
         {
             $totalMorningWorkTime = '--';
             $totalAfternoonWorkTime = '--';
-        
+
             if ($time_in != null && $break_in != null) {
                 $timeIn = new DateTime($time_in);
                 $breakIn = new DateTime($break_in);
                 $morningWorkTime = $timeIn->diff($breakIn);
                 $totalMorningWorkTime = $morningWorkTime->format('%H:%i:%s');
             }
-        
+
             if ($break_out != null && $time_out != null) {
                 $breakOut = new DateTime($break_out);
                 $timeOut = new DateTime($time_out);
                 $afternoonWorkTime = $breakOut->diff($timeOut);
                 $totalAfternoonWorkTime = $afternoonWorkTime->format('%H:%i:%s');
             }
-        
+
             if ($totalMorningWorkTime != '--' && $totalAfternoonWorkTime != '--') {
                 $timeOut = new DateTime($time_out);
                 $minusTime = $timeIn->diff($timeOut);
                 $totalTime = $minusTime->format('%H:%i:%s');
-        
+
                 $breakIn = new DateTime($break_in);
                 $breakOut = new DateTime($break_out);
                 $minusBreakTime = $breakIn->diff($breakOut);
                 $totalBreakTime = $minusBreakTime->format('%H:%i:%s');
-        
+
                 $totalBreakTime = new DateTime($totalBreakTime);
                 $totalTime = new DateTime($totalTime);
                 $minusTheBreakTime = $totalTime->diff($totalBreakTime);
                 $totalTimeFinal = $minusTheBreakTime->format('%H:%i:%s');
-        
+
                 return $totalTimeFinal;
             }
-        
+
             if ($totalMorningWorkTime != '--') {
                 return $totalMorningWorkTime;
             }
-        
+
             if ($totalAfternoonWorkTime != '--') {
                 return $totalAfternoonWorkTime;
             }
-        
+
             return '--:--:--';
         }
-        
+
     @endphp
     @if ($status != null)
-        <div id="alert-3" class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+        <div id="alert-3"
+            class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
             role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -130,8 +398,8 @@
                     <div date-rangepicker id="FilterPicker" class=" flex items-center w-fit gap-2 px-2 ">
                         <div class="relative w-44  ">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-funnel-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
                                     <path
                                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                                 </svg>
@@ -154,8 +422,8 @@
                         class="flex items-center w-fit px-2 border-l border-l-slate-700">
                         <div id="DPRStart" class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3  pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                         clip-rule="evenodd"></path>
@@ -170,8 +438,8 @@
 
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                         clip-rule="evenodd"></path>
