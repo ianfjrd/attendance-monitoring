@@ -122,6 +122,8 @@ Route::prefix('dashboard')->middleware('nextTimestamp')->group(function () {
     Route::get('/leaves/create',[LeavesController::class,'userCreate'])->name('userCreate');
     Route::get('/leaves/show/{id}',[LeavesController::class,'userShow'])->name('userShow');
 
+    Route::get('/announcements/show/{id}',[AnnouncementController::class,'show'])->name('announcementShow');
+
     // POST
     Route::prefix('attend')->group(function () {
         Route::get('/', [TimestampController::class, 'create'])->name('timestamp.create');

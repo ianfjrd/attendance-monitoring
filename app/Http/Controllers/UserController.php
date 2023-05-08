@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Announcement;
 use App\Models\Timestamp;
 use App\Models\User;
 use App\Models\Department;
@@ -96,7 +97,9 @@ class UserController extends Controller
             $lastDate = "--/--/--";
         }
 
-        return view('dashboard.home', [
+        $announcements = Announcement::all();
+
+        return view('dashboard.home', compact('announcements'), [
             'filter' => $filter,
             'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
             'status' => Auth::user()->status(),
