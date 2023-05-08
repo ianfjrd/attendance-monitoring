@@ -20,8 +20,7 @@
 
         <div class="gap-28">
             <div class="grid justify-items-center place-self-end pb-4">
-                
-                <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-96 dark:bg-gray-700" name="type" :value="old('type')"  id="type">
+                {{-- <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-96 dark:bg-gray-700" name="type" :value="old('type')"  id="type">
                     <option>Type of Leave</option>
                     <option value="Sick Leave">Sick Leave</option>
                     <option value="Casual Leave">Casual Leave</option>
@@ -29,6 +28,12 @@
                     <option value="Religious Holiday">Religious Holiday</option>
                     <option value="Maternity Leave">Maternity Leave</option>
                     <option value="Paternity Leave">Paternity Leave</option>
+                </select> --}}
+                <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700" name="leave_types_id" :value="old('type')"  id="leave_types_id">
+                    <option>Type of Leave</option>
+                    @foreach ($leavetypes as $leavetype)
+                        <option value="{{ $leavetype->id }}" @selected(old('leave_types_id') == $leavetype->id)>{{$leavetype->name}}</option>
+                    @endforeach
                 </select>
             </div>
             {{-- <div class="grid justify-items-center place-self-start">

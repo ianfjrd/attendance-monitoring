@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
             'password'=>'bail|required',
             'image' => 'bail|nullable|image',
             'age' => 'bail|required|numeric',
-            'department'=>'bail|required',
+            'department_id'=>'bail|required',
             'phone_number'=>'bail|required|numeric|digits:11',
             'address'=>'bail|required',
             // 'valid_id_number'=>'bail|required',

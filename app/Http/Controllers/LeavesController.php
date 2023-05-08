@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Leaves;
+use App\Models\LeaveTypes;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class LeavesController extends Controller
@@ -75,17 +77,21 @@ class LeavesController extends Controller
     {
         $this->updateStatus();
 
-        $leaves = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
-            ->join('users', 'users.id', '=', 'leaves.user_id')->get();
+        $leaves = Leaves::select('leaves.id', 'users.name', 'date_start', 'date_end', 'leaves_status', 'status', 'leave_types.name AS type', 'reason')
+            ->join('users', 'users.id', '=', 'leaves.user_id')
+            ->join('leave_types', 'leave_types.id', '=', 'leaves.leave_types_id')
+            ->get();
             return view('admin.leaves.admin-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
     }
 
     public function userIndex(Request $request) {
         $this->updateStatus();
         
-        $leaves = Leaves::select('*')
+        $leaves = Leaves::select('leaves.id', 'date_start', 'date_end', 'leaves_status', 'status', 'leave_types.name AS type', 'reason')
+            ->join('leave_types', 'leave_types.id', '=', 'leaves.leave_types_id')
             ->where('user_id', '=', Auth::user()->id)->get();
-            return view('timestamp.leaves.dashboard-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
+        
+        return view('timestamp.leaves.dashboard-leaves', compact('leaves'))->with('status', $request->session()->get('status'));
     }
 
     /**
@@ -94,15 +100,18 @@ class LeavesController extends Controller
     public function create()
     {
         $this->updateStatus();
+        $users = User::select('id', 'name')->orderBy('name', 'ASC')->get();
+        $leavetypes = LeaveTypes::select('id', 'name')->orderBy('name', 'ASC')->get();
         
-        return view('admin.leaves.leaves-create');
+        return view('admin.leaves.leaves-create', compact('users', 'leavetypes'));
     }
 
     public function userCreate()
     {
         $this->updateStatus();
+        $leavetypes = LeaveTypes::select('id', 'name')->orderBy('name', 'ASC')->get();
         
-        return view('timestamp.leaves.leaves-create');
+        return view('timestamp.leaves.leaves-create', compact('leavetypes'));
     }
 
     /**
@@ -114,10 +123,15 @@ class LeavesController extends Controller
         $leave = new Leaves();
         $leave->date_start = $input['date_start'];
         $leave->date_end = $input['date_end'];
-        $leave->type = $input['type'];
+        $leave->leave_types_id = $input['leave_types_id'];
         $leave->reason = $input['reason'];
         $leave->user_id = 1;
-        $leave->user_id = Auth::user()->id;
+        if(Auth::user()->role == 'Admin') {
+            $leave->user_id = $input['user_id'];
+        }
+        else {
+            $leave->user_id = Auth::user()->id;
+        }
         $leave->leaves_status = $this->leavesStatus(Auth::user()->role);
         $leave->status = $this->status($input['date_start'], $input['date_end']);
         $leave->save();
@@ -136,8 +150,10 @@ class LeavesController extends Controller
     public function show(string $id)
     {
         $this->updateStatus();
-        $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
-            ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
+        $leave = Leaves::select('leaves.id', 'users.name', 'date_start', 'date_end', 'leaves_status', 'status', 'leave_types.name AS type', 'reason')
+            ->join('leave_types', 'leave_types.id', '=', 'leaves.leave_types_id')
+            ->join('users', 'users.id', '=', 'leaves.user_id')
+            ->where('leaves.id', '=', $id)->first();
 
         return view('admin.leaves.leaves-show', compact('leave'));
     }
@@ -145,8 +161,10 @@ class LeavesController extends Controller
     public function userShow(string $id)
     {
         $this->updateStatus();
-        $leave = Leaves::select('leaves.id', 'name', 'date_start', 'date_end', 'leaves_status', 'status', 'type', 'reason')
-            ->join('users', 'users.id', '=', 'leaves.user_id')->where('leaves.id', '=', $id)->first();
+        $leave = Leaves::select('leaves.id', 'users.name', 'date_start', 'date_end', 'leaves_status', 'status', 'leave_types.name AS type', 'reason')
+            ->join('leave_types', 'leave_types.id', '=', 'leaves.leave_types_id')
+            ->join('users', 'users.id', '=', 'leaves.user_id')
+            ->where('leaves.id', '=', $id)->first();
 
         return view('timestamp.leaves.leaves-show', compact('leave'));
     }
@@ -158,8 +176,9 @@ class LeavesController extends Controller
     {
         $this->updateStatus();
         $leave = Leaves::where('id', '=', $id)->first();
+        $leavetypes = LeaveTypes::select('id', 'name')->orderBy('name', 'ASC')->get();
 
-        return view('admin.leaves.leaves-update', compact('leave'));
+        return view('admin.leaves.leaves-update', compact('leave', 'leavetypes'));
     }
 
     /**
@@ -170,7 +189,7 @@ class LeavesController extends Controller
         $leave = Leaves::where('id', '=', $id)->first();
         $leave->date_start = $request->date_start;
         $leave->date_end = $request->date_end;
-        $leave->type = $request->type;
+        $leave->leave_types_id = $request->leave_types_id;
         $leave->reason = $request->reason;
         $leave->leaves_status = $request->leaves_status;
         $leave->status = $this->status($request->date_start, $request->date_end);

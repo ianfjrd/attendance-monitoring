@@ -85,11 +85,15 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Department</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 

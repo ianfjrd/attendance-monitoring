@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('age');
-            $table->string('department');
+            $table->foreignId('department_id')->constrained('departments');
             $table->string('phone_number');
             $table->string('address');
             $table->string('valid_id_number')->nullable();
