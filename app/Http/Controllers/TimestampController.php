@@ -38,7 +38,7 @@ class TimestampController extends Controller
     {
         //
         $timestamps = Timestamp::with('user')->get();
-        return view('admin.timestamp.admin-timestamp', ['timestamps' => $timestamps])->with('status', $request->session()->get('status'));;
+        return view('admin.timestamp.admin-timestamp', ['timestamps' => $timestamps])->with('status', $request->session()->get('status'));
     }
 
     /**

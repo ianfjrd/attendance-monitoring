@@ -34,7 +34,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
-            'age' => $this->faker->numberBetween(18, 50) ,
+            'age' => $this->faker->numberBetween(18, 50),
             'department'=> $this->faker->randomElement(['Marketing', 'Production', 'Admin']),
             'phone_number' => '09123456789' ,
             'address'=>$this->faker->address(),

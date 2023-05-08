@@ -6,6 +6,7 @@ use App\Models\Timestamp;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,15 +42,14 @@ Route::middleware([
 
 Route::prefix('admin')->group(function () {
     Route::resource('user', UserController::class);
+    
     Route::get('user/update-role', [UserController::class, 'updateRole'])->name('updateRole');
     Route::get('/employeedeleted', [UserController::class, 'usersDeleted'])->name('employeeDeleted');
     Route::get('user/restore/{id}', [UserController::class, 'userRestore'])->name('userRestore');
 
-
-
-
     Route::middleware('checkRole:Admin')->get('/admindashboard', [dashboardController::class, 'index'])->name('admindashboard');
 
+    Route::resource('role', RoleController::class);
     Route::resource('announcement', AnnouncementController::class);
     Route::resource('leaves', LeavesController::class);
 
@@ -61,9 +61,6 @@ Route::prefix('admin')->group(function () {
     })->name('reqovertime');
 
     Route::get('/employeelist', [UserController::class, 'index'])->name('employeelist');
-
-
-
 
     Route::get('/employeeleaves', function () {
         return view('admin.employee.admin-employeeLeaves');
