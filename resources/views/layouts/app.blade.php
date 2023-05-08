@@ -16,8 +16,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <!-- Styles -->
+    <style>
+        td {
+            border-bottom: 1px solid #5e6a71;
+        }
+    </style>
     @livewireStyles
 </head>
 

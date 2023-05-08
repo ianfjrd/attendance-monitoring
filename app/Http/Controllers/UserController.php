@@ -48,23 +48,24 @@ class UserController extends Controller
     // Route for user's Dashboard or Home (Get user attendace history)
     public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
-
+        
         if(Auth::user()->role == "Admin"){
             return redirect()->route('admindashboard');
         }
 
         // dd($filter);
         if ($sort == 'time_in_out') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'time_in', 'time_out']);
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         } elseif ($sort == 'break_in_out') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'break_in', 'break_out']);
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         } else {
             $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         }
 
-
+       
         if ($filter != '') {
             $filterExploded = explode("_", $filter);
+            $filter = $filterExploded[0];
             $startDateFormat = date_create_from_format('m-d-Y', $filterExploded[1]);
             $startDate = date_format($startDateFormat, 'Y-m-d 00:00:00');
             $endDateFormat = date_create_from_format('m-d-Y', $filterExploded[2]);
@@ -94,8 +95,8 @@ class UserController extends Controller
             $lastDate = "--/--/--";
         }
 
-
         return view('dashboard.home', [
+            'filter' => $filter,
             'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
             'status' => Auth::user()->status(),
             'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],

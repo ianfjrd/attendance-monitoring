@@ -75,17 +75,22 @@ class TimestampController extends Controller
      */
     public function store(Request $request)
     {
+
         $nextColumn = Auth::user()->nextTimestampColumn();
         $timestamp = Timestamp::findByTimeInToday(Auth::id());
-
-
         $timeNow =  now();
+        if ($request->image) {
+
+            $imageFile = $request->image->store('public/images/timestamp');
+            $imageName = explode('/', $imageFile)[3];
+        }
         if ($timestamp && $timestamp->$nextColumn == null) {
 
             if ($nextColumn == "time_out") {
                 $timestamp->update([
                     $nextColumn => $timeNow,
-                    'time_out_comment' => $this->timeCompare(Auth::user()->time_out_user, $timeNow)
+                    'time_out_comment' => $this->timeCompare(Auth::user()->time_out_user, $timeNow),
+                    'time_out_image' => $imageName,
                 ]);
             } elseif ($nextColumn == "break_out") {
 
@@ -104,6 +109,7 @@ class TimestampController extends Controller
             $timestamp = Timestamp::create([
                 Auth::user()->nextTimestampColumn() => $timeNow,
                 'time_in_comment' => $this->timeCompare(Auth::user()->time_in_user, $timeNow),
+                'time_in_image' => $imageName,
                 'user_id' => Auth::user()->id,
             ]);
         }
@@ -132,11 +138,26 @@ class TimestampController extends Controller
 
 
         $validated = $request->validated();
+        if ($request->image) {
+            $imageFile = $request->image->store('public/images/timestamp');
+            $imageName = explode('/', $imageFile)[3];
+        }
+
+        if ($request->image1) {
+            $imageFile1 = $request->image->store('public/images/timestamp');
+            $imageName1 = explode('/', $imageFile1)[3];
+        }
+
+
         $timestamp = new Timestamp();
         $timestamp->time_in = $validated['time_in'];
         $timestamp->time_in_comment = $this->timeCompare(Auth::user()->time_in_user, $validated['time_in']);
+        $timestamp->time_in_image = $imageName;
+
         $timestamp->time_out = $validated['time_out'];
         $timestamp->time_out_comment = $this->timeCompare(Auth::user()->time_out_user, $validated['time_out']);
+        $timestamp->time_out_image = $imageName;
+
         $timestamp->break_in = $validated['break_in'];
         $timestamp->break_out = $validated['break_out'];
         $timestamp->break_time_comment    = $this->timeCompareDuration(Auth::user()->break_duration, $validated['break_in'],  $validated['break_out']);
@@ -251,17 +272,17 @@ class TimestampController extends Controller
 
 
         $diff = $timestamp2 - $timestamp1;
-       
+
 
         $diff_minutes = intval(abs(round($diff / 60)));
-       
+
         $exceed = $durationPolicy - $diff_minutes;
         // dd($exceed);
         if ($exceed < 1) {
-            
+
             return "Your break time has exceeded " . abs($exceed) . " minutes.";
         } else {
-           
+
             return "Your breaktime takes " . abs($diff_minutes) . " minutes only";
         }
     }

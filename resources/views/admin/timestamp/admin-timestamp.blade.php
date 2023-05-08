@@ -14,6 +14,57 @@
 
 
 @section('content')
+    @php
+        
+        function totalHour($time_in, $time_out, $break_in, $break_out)
+        {
+            $totalMorningWorkTime = '--';
+            $totalAfternoonWorkTime = '--';
+        
+            if ($time_in != null && $break_in != null) {
+                $timeIn = new DateTime($time_in);
+                $breakIn = new DateTime($break_in);
+                $morningWorkTime = $timeIn->diff($breakIn);
+                $totalMorningWorkTime = $morningWorkTime->format('%H:%i:%s');
+            }
+        
+            if ($break_out != null && $time_out != null) {
+                $breakOut = new DateTime($break_out);
+                $timeOut = new DateTime($time_out);
+                $afternoonWorkTime = $breakOut->diff($timeOut);
+                $totalAfternoonWorkTime = $afternoonWorkTime->format('%H:%i:%s');
+            }
+        
+            if ($totalMorningWorkTime != '--' && $totalAfternoonWorkTime != '--') {
+                $timeOut = new DateTime($time_out);
+                $minusTime = $timeIn->diff($timeOut);
+                $totalTime = $minusTime->format('%H:%i:%s');
+        
+                $breakIn = new DateTime($break_in);
+                $breakOut = new DateTime($break_out);
+                $minusBreakTime = $breakIn->diff($breakOut);
+                $totalBreakTime = $minusBreakTime->format('%H:%i:%s');
+        
+                $totalBreakTime = new DateTime($totalBreakTime);
+                $totalTime = new DateTime($totalTime);
+                $minusTheBreakTime = $totalTime->diff($totalBreakTime);
+                $totalTimeFinal = $minusTheBreakTime->format('%H:%i:%s');
+        
+                return $totalTimeFinal;
+            }
+        
+            if ($totalMorningWorkTime != '--') {
+                return $totalMorningWorkTime;
+            }
+        
+            if ($totalAfternoonWorkTime != '--') {
+                return $totalAfternoonWorkTime;
+            }
+        
+            return '--:--:--';
+        }
+        
+    @endphp
     @if ($status != null)
         <div id="alert-3" class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
             role="alert">
@@ -55,6 +106,7 @@
                         <th>Break In</th>
                         <th>Break Out</th>
                         <th>Time Out</th>
+                        <th>Total Hour</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,21 +115,54 @@
                         <tr>
                             <td>{{ $timestamp->user->name }}</td>
                             <td> {{ date_format(date_create($timestamp->created_at), 'M d, Y') }}</td>
-                            <td>{{ $timestamp->time_in != null ? date_format(date_create($timestamp->time_in), 'h:i:s a') : '--:--:--' }}
-                                <br /> <small class=" text-slate-400 ">
-                                    {{ $timestamp->time_in != null ? $timestamp->time_in_comment : '--:--:--' }}</small>
+
+
+                            <td class="flex gap-1 ">
+                                @if ($timestamp->time_in_image != null)
+                                    <a href="{{ asset('storage/images/timestamp/' . $timestamp->time_in_image) }}"
+                                        target="_blank">
+                                        <img class=" w-24 h-16 object-cover "
+                                            src="{{ asset('storage/images/timestamp/' . $timestamp->time_in_image) }}" />
+                                    </a>
+                                @endif
+                                <div class=" flex items-start flex-col justify-center ml-2 ">
+                                    {{ $timestamp->time_in != null ? date_format(date_create($timestamp->time_in), 'h:i:s a') : '--:--:--' }}
+                                    <br /> <small class=" text-slate-400 ">
+                                        {{ $timestamp->time_in != null ? $timestamp->time_in_comment : '' }}</small>
+                                </div>
                             </td>
+
+
+
+
                             <td>{{ $timestamp->break_in != null ? date_format(date_create($timestamp->break_in), 'h:i:s a') : '--:--:--' }}
                             </td>
                             <td>{{ $timestamp->break_out != null ? date_format(date_create($timestamp->break_out), 'h:i:s a') : '--:--:--' }}
                                 <br /> <small class=" text-slate-400 ">
                                     {{ $timestamp->break_out != null ? $timestamp->break_time_comment : '--:--:--' }}</small>
                             </td>
-                            <td>{{ $timestamp->time_out != null ? date_format(date_create($timestamp->time_out), 'h:i:s a') : '--:--:--' }}
-                                <br /> <small class=" text-slate-400 ">
-                                    {{ $timestamp->time_out != null ? $timestamp->time_out_comment : '--:--:--' }}</small>
 
+                            <td>
+                                <div class="flex gap-1">
+                                    @if ($timestamp->time_out_image != null)
+                                        <a href="{{ asset('storage/images/timestamp/' . $timestamp->time_out_image) }}"
+                                            target="_blank">
+                                            <img class=" w-24 h-16 object-cover "
+                                                src="{{ asset('storage/images/timestamp/' . $timestamp->time_out_image) }}" />
+                                        </a>
+                                    @endif
+                                    <div class=" flex items-start flex-col justify-center ml-2 ">
+                                        {{ $timestamp->time_out != null ? date_format(date_create($timestamp->time_out), 'h:i:s a') : '--:--:--' }}
+                                        <br /> <small class=" text-slate-400 ">
+                                            {{ $timestamp->time_out != null ? $timestamp->time_out_comment : '' }}</small>
+                                    </div>
+                                </div>
                             </td>
+
+                            <td>
+                                {{ totalHour($timestamp->time_in, $timestamp->time_out, $timestamp->break_in, $timestamp->break_out) }}
+                            </td>
+
                             <td>
                                 <form method="POST" action="{{ route('admintimestampDelete', $timestamp->id) }}">
                                     @csrf
@@ -96,6 +181,7 @@
                         <th>Break In</th>
                         <th>Break Out</th>
                         <th>Time Out</th>
+                        <th>Total Hour</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -127,10 +213,10 @@
                     btns.removeClass('dt-button');
                     console.log(btns.text())
                     btns.addClass(
-                        ' grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' w-fit p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2')
-                    $('#example_filter').addClass('absolute right-0 -top-12');
+                    $('#example_filter').addClass('absolute right-0 top-0');
                 }
             });
 

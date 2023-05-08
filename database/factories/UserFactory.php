@@ -40,7 +40,7 @@ class UserFactory extends Factory
             'address'=>$this->faker->address(),
             'valid_id_number'=>$this->faker->creditCardNumber(),
             'role'=> $this->faker->randomElement(['Marketing',' Web Designer', 'Admin', 'Programmer', 'Intern']),
-            'workdays' => 'a:3:{i:0;s:6:"Monday";i:1;s:7:"Tuesday";i:2;s:9:"Wednesday";}',
+            'workdays' => 'a:5:{i:0;s:6:"Monday";i:1;s:7:"Tuesday";i:2;s:9:"Wednesday";i:3;s:8:"Thursday";i:4;s:6:"Friday";}',
             'time_in_user' => '09:00',
             'break_duration'=>'60',
             'time_out_user' => '18:00',

@@ -17,6 +17,8 @@ class Timestamp extends Model
         'user_id',
         'time_in_comment',
         'time_out_comment',
+        'time_in_image',
+        'time_out_image',
         'break_time_comment'
     ];
 
