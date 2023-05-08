@@ -15,44 +15,59 @@
 
 @section('content')
     <div class=" relative pt-4 ">
-        <form>
-            <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
-                <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
-                    ANNOUNCEMENT LIST (Admin)
-                </div>
-                {{-- <x-attendance-card/> --}}
-
-                <table id="example" class="table is-striped text-white " style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($announcements as $announcement)
-                            <tr>
-                                <td>{{ $announcement->title }}</td>
-                                <td>{{ $announcement->description }}</td>
-                                <td>
-                                    <a href="{{ route('announcement.edit', $announcement->id) }}"
-                                        class="underline">Update</a>
-                                    
-                                    <form action="{{ route('announcement.destroy', $announcement->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="underline" type="submit">Delete</button>
-                                    </form>
-                                </td>
-
-                            </tr>
-                        @endforeach
-                        </tfoot>
-                </table>
+        <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
+            <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
+                ANNOUNCEMENT LIST (Admin)
             </div>
-        </form>
+            {{-- <x-attendance-card/> --}}
 
+            <table id="example" class="table is-striped text-white " style="width:70vw">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($announcements as $announcement)
+                        <tr>
+                            <td>
+                                <a href="{{ route('announcement.show', $announcement->id) }}" class="underline">
+                                    <div class="relative w-[100px] h-[90px] overflow-hidden" data-modal-target="image-modal"
+                                        data-modal-toggle="image-modal">
+                                        <img class="absolute inset-0 object-cover w-full h-full"
+                                            src="{{ asset('storage/announcements/' . $announcement->image) }}"
+                                            alt="{{ $announcement->title }}">
+                                    </div>
+                                </a>
+                            </td>
+                            <td>{{ $announcement->title }}</td>
+                            <td>{{ Str::limit($announcement->description, 40, '...') }}</td>
+                            <td>
+                                <a href="{{ route('announcement.show', $announcement->id) }}" class="underline">Show</a>
+                                <a href="{{ route('announcement.edit', $announcement->id) }}" class="underline">Update</a>
+
+                                <form action="{{ route('announcement.destroy', $announcement->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="underline" type="submit">Delete</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                <tfoot>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
     <script>
         $(document).ready(function() {

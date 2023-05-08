@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'profile_photo_path' => null,
             'current_team_id' => null,
             'age' => $this->faker->numberBetween(18, 50) ,
-            'department'=> $this->faker->randomElement(['Marketing', 'Production', 'Admin']),
+            'department_id'=> $this->faker->numberBetween(1, 3),
             'phone_number' => '09123456789' ,
             'address'=>$this->faker->address(),
             'valid_id_number'=>$this->faker->creditCardNumber(),

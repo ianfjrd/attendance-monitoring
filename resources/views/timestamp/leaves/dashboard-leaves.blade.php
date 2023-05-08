@@ -48,7 +48,7 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <table id="example" class="table is-striped text-white " style="width:100%">
+            <table id="example" class="table is-striped text-white " style="width:70vw">
                 <thead>
                     <tr>
                         <th>Status</th>
@@ -97,6 +97,12 @@
             $('#example').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
+                    {
+                        text: '➕leave',
+                        action: function() {
+                            window.location.href = "{{ route('userCreate') }}";
+                        }
+                    },
                     'copyHtml5',
                     {
                         extend: 'pdfHtml5',

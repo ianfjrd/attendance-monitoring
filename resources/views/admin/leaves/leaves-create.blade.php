@@ -18,10 +18,9 @@
                 FORM</h1>
         </div>
 
-        <div class="gap-28">
+        <div class="grid grid-cols-2 gap-28">
             <div class="grid justify-items-center place-self-end pb-4">
-                
-                <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-96 dark:bg-gray-700" name="type" :value="old('type')"  id="type">
+                {{-- <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700" name="type" :value="old('type')"  id="type">
                     <option>Type of Leave</option>
                     <option value="Sick Leave">Sick Leave</option>
                     <option value="Casual Leave">Casual Leave</option>
@@ -29,14 +28,23 @@
                     <option value="Religious Holiday">Religious Holiday</option>
                     <option value="Maternity Leave">Maternity Leave</option>
                     <option value="Paternity Leave">Paternity Leave</option>
+                </select> --}}
+                <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700" name="leave_types_id" :value="old('type')"  id="leave_types_id">
+                    <option>Type of Leave</option>
+                    @foreach ($leavetypes as $leavetype)
+                        <option value="{{ $leavetype->id }}" @selected(old('leave_types_id') == $leavetype->id)>{{$leavetype->name}}</option>
+                    @endforeach
                 </select>
             </div>
-            {{-- <div class="grid justify-items-center place-self-start">
-                <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remaining
-                    Days</label>
-                <p class="text-4xl font-black text-gray-900 dark:text-white">4</p>
-            </div> --}}
 
+            <div class="grid justify-items-center place-self-start pb-4">
+                <select class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700" name="user_id" :value="old('type')"  id="user_id">
+                    <option>Name of Employee</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>{{$user->name}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
 
         <div class="flex justify-center my-12">

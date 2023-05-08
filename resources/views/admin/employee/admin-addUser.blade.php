@@ -95,12 +95,12 @@
         <div class="grid grid-cols-2 py-5">
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Department</label>
-                <select id="countries" name="department"
+                <select id="countries" name="department_id"
                     class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#8EC33F] dark:focus:border-[#8EC33F]">
                     <option selected>Choose a Department</option>
-                    <option value="Admin" @selected(old('department') == 'Admin')>Admin</option>
-                    <option value="Marketing" @selected(old('department') == 'Marketing')>Marketing</option>
-                    <option value="Production" @selected(old('department') == 'Production')>Production</option>
+                    @foreach ($departments as $department)
+                        <option value="{{$department->id}}" @selected(old('department_id') == 'Admin')>{{$department->name}}</option>
+                    @endforeach
                 </select>
                 @error('department')
                     <small class=" italic text-red-400 ">{{ $message }}</small>

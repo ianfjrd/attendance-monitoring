@@ -13,12 +13,11 @@ class AnnouncementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $announcements = Announcement::all();
-        // dd($announcements);
-        // return $announcements;
-        return view('admin.announcement.admin-announcement', compact('announcements'));
+
+        return view('admin.announcement.admin-announcement', compact('announcements'))->with('status', $request->session()->get('status'));
     }
 
     /**
@@ -49,7 +48,7 @@ class AnnouncementController extends Controller
         $announcement->save();
         // dd($announcement);
         // return $announcement;
-        return Redirect::to('admin/announcement')->with('success','New Announcement added!');
+        return Redirect::to('admin/announcement')->with('success','Announcement recorded successfully!');
     }
 
     /**
@@ -59,7 +58,7 @@ class AnnouncementController extends Controller
     {
         $announcement = Announcement::where('id', '=', $id)->first();
 
-        // return view('admin.announcement.announcement-show');
+        return view('admin.announcement.announcement-show', compact('announcement'));
     }
 
     /**
@@ -77,26 +76,24 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($announcement);
         $announcement = Announcement::where('id', '=', $id)->first();
         $announcement->title = $request->title;
         $announcement->description = $request->description;
 
-        // $announcement->image = $request->image;
-        if (isset($input['image'])) {
+        if (isset($request->image)) {
             if(file_exists(storage_path('app/public/announcements/'.$announcement->image))) {
                 unlink(storage_path('app/public/announcements/'.$announcement->image));
             }
 
-            $image = $input['image']->storeAs('public/announcements');
+            $image = $request->image->store('public/announcements');
             $imageName = explode('/', $image)[2];
+            // dd($imageName);
             $announcement->image = $imageName;
         }
-        // dd($announcement);
 
         $announcement->save();
 
-        return Redirect::to('admin/announcement')->with('success','Announcement updated!');
+        return Redirect::to('admin/announcement')->with('success','Announcement updated successfully!');
     }
 
     /**
@@ -106,11 +103,11 @@ class AnnouncementController extends Controller
     {
         $announcement = Announcement::where('id', '=', $id)->first();
 
-        // if(file_exists(storage_path('app/public/announcements/'.$announcement->image))) {
-        //     unlink(storage_path('app/public/announcements/'.$announcement->image));
-        // }
+        if(file_exists(storage_path('app/public/announcements/'.$announcement->image))) {
+            unlink(storage_path('app/public/announcements/'.$announcement->image));
+        }
 
         Announcement::where('id', '=', $id)->delete();
-        return Redirect::to('admin/announcement')->with('success','Announcement deleted!');
+        return Redirect::to('admin/announcement')->with('success','Announcement deleted successfully!');
     }
 }

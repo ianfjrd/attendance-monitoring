@@ -54,6 +54,15 @@
                     {{-- <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span> --}}
                  </a>
               </li>
+              <li>
+               <a href="{{route('announcement.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                   </svg>
+                   
+                  <span class="flex-1 ml-3 whitespace-nowrap">Announcement</span>
+               </a>
+            </li>
              <li>
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                     <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -76,13 +85,17 @@
                          <a href="{{route('leaves.index')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                         <span class="flex-1 ml-3 whitespace-nowrap">Employee Leaves</span></a>
                       </li>
-                      {{-- <li>
-                        <a href="{{route('employeeDep')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                      <li>
+                        <a href="{{route('department.index')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                         <span class="flex-1 ml-3 whitespace-nowrap">Employee Department</span></a>
-                     </li> --}}
+                     </li>
                      <li>
                         <a href="{{route('employeeDeleted')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                        <span class="flex-1 ml-3 whitespace-nowrap">Employee Deleted List</span></a>
+                     </li>
+                     <li>
+                        <a href="{{route('leavetypes.index')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg ml-1 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Types of Leaves</span></a>
                      </li>
                 </ul>
              </li>
