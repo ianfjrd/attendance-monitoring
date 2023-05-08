@@ -25,10 +25,22 @@ class TimestampRequest extends FormRequest
     {
         return [
             'time_in' => 'bail|required|date',
+            'image' => 'bail|nullable|image',
+            'image1' => 'bail|nullable|image',
             'break_in' => 'bail|date',
             'break_out' => 'bail|date',
             'time_out' => 'bail|date',
             'user_id' => 'bail|required|numeric|exists:users,id'
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            
+            'image1.image' => 'Time out image must be an image.',
+            'image.image' => 'Time in image must be an image.',
         ];
     }
 }

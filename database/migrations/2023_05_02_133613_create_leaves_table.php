@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('date_end');
             $table->string('leaves_status'); //Pending or Approved
             $table->string('status'); // Ongoing, Upcoming, and Done
-            $table->string('type');
+            $table->foreignId('leave_types_id')->constrained('leave_types');
             $table->string('reason');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

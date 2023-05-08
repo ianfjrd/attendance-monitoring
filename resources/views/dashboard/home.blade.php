@@ -366,20 +366,44 @@
             </button>
         </div>
     @endif
-    <div class=" flex gap-2  ">
-        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl ">Time in must be</div>
-            <div class=" text-3xl font-semibold ">{{ date('h:i A', strtotime(Auth::user()->time_in_user)) }}</div>
+    @if (session()->get('nextTimestamp') == 'Work Done')
+        <div class=" flex gap-2 bg-black bg-opacity-40 rounded-xl shadow-xl">
+            <div
+                class=" text-transparent bg-clip-text bg-gradient-to-r to-[#02d397] from-[#06679b] font-semibold text-4xl py-12 text-center   w-full">
+                "Great job! Your work for today is already finished."
+            </div>
         </div>
-        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl ">Breaktime must be</div>
-            <div class=" text-3xl font-semibold">{{ Auth::user()->break_duration }} mins</div>
+    @elseif(session()->get('nextTimestamp') == 'On Leave')
+        <div class=" flex gap-2 bg-black bg-opacity-40 rounded-xl shadow-xl">
+            <div
+                class=" text-transparent bg-clip-text bg-gradient-to-r to-[#02d397] from-[#06679b] font-semibold text-4xl py-12 text-center   w-full">
+                "You're on leave today, enjoy your day off and take some time to relax and recharge!"
+            </div>
         </div>
-        <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
-            <div class=" text-xl ">Time Out must be</div>
-            <div class=" text-3xl font-semibold">{{ date('h:i A', strtotime(Auth::user()->time_out_user)) }}</div>
+    @elseif(session()->get('nextTimestamp') == 'No Work Today')
+        <div class=" flex gap-2 bg-black bg-opacity-40 rounded-xl shadow-xl">
+            <div
+                class=" text-transparent bg-clip-text bg-gradient-to-r to-[#02d397] from-[#06679b] font-semibold text-4xl py-12 text-center   w-full">
+                "You have no work scheduled for today! Enjoy your day off."
+            </div>
         </div>
-    </div>
+    @else
+        <div class=" flex gap-2  ">
+            <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
+                <div class=" Ftext-xl ">Time in must be</div>
+                <div class=" text-3xl font-semibold ">{{ date('h:i A', strtotime(Auth::user()->time_in_user)) }}</div>
+            </div>
+            <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
+                <div class=" text-xl ">Breaktime must be</div>
+                <div class=" text-3xl font-semibold">{{ Auth::user()->break_duration }} mins</div>
+            </div>
+            <div class=" grow  p-12 text-center rounded-xl shadow-xl bg-black bg-opacity-40 ">
+                <div class=" text-xl ">Time Out must be</div>
+                <div class=" text-3xl font-semibold">{{ date('h:i A', strtotime(Auth::user()->time_out_user)) }}</div>
+            </div>
+        </div>
+    @endif
+
 
     <div class=" relative pt-4 ">
         {{-- <form> --}}
@@ -389,8 +413,34 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <div class=" flex justify-end">
+            <div
+                class=" md:flex flex flex-col items-end md:flex-row 
+            @if (session()->get('nextTimestamp') != 'Work Done' &&
+                    session()->get('nextTimestamp') != 'On Leave' &&
+                    session()->get('nextTimestamp') != 'No Work Today') md:justify-between 
+            @else
+            md:justify-end @endif
+            ">
+
+                @if (session()->get('nextTimestamp') != 'Work Done' &&
+                        session()->get('nextTimestamp') != 'On Leave' &&
+                        session()->get('nextTimestamp') != 'No Work Today')
+                    <div data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                        class=" cursor-pointer md:mb-0 mb-4 md:relative md:top-[61px] z-30 text-center text-md font-semibold w-32 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all">
+                        <div class=" relative  inline-block mx-2">
+                            <div class=" absolute inline-block h-3 w-3 bg-[#75B33E] rounded-full animate-ping  ">
+                            </div>
+                            <div class="  inline-block h-3 w-3 bg-[#75B33E] rounded-full animate-pulse  ">
+                            </div>
+                        </div>
+
+                        {{ session()->get('nextTimestamp') }}
+                    </div>
+                @endif
+
+
                 <div class=" flex   w-fit   ">
+
                     <div class=" flex items-center px-2 ">
                         Filter By:
                     </div>
@@ -404,18 +454,44 @@
                                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                                 </svg>
                             </div>
-
                             <select datepicker type="text"
                                 class=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Select date">
-                                <option value=""></option>
-                                <option value="Per Day">Per Day</option>
-                                <option value="Per Week">Per Week</option>
-                                <option value="Per Month">Per Month</option>
-                                <option value="Per Year">Per Year</option>
+                                @if ($filter != '' && $filter != 'all')
+                                    <option value="removeFilter">Remove Filter</option>
+                                @else
+                                    <option value=""></option>
+                                @endif
+                                <option value="Per Day" @selected($filter == 'Per Day')>Per Day</option>
+                                <option value="Per Week" @selected($filter == 'Per Week')>Per Week</option>
+                                <option value="Per Month" @selected($filter == 'Per Month')>Per Month</option>
+                                <option value="Per Year" @selected($filter == 'Per Year')>Per Year</option>
                             </select>
                         </div>
                     </div>
+
+                    {{-- Column Filter --}}
+                    <div date-rangepicker id="columnFilterCon" class=" flex items-center w-fit gap-2 px-2 ">
+                        <div class="relative w-44  ">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-layout-three-columns" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z" />
+                                </svg>
+                            </div>
+
+                            <select id="columnFilter" datepicker type="text"
+                                class=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Select date">
+                                <option value="all" selected>All column</option>
+                                <option value="time_in_out">Time in & out</option>
+                                <option value="break_in_out">Break in & out</option>
+                                <option value="total_hour">Total Hour</option>
+                            </select>
+                        </div>
+                    </div>
+
 
                     {{-- Date Range Picker --}}
                     <div id="DateRangeFilter" date-rangepicker
@@ -528,11 +604,13 @@
                     </div>
                 </div>
             </div>
+           
 
-            <table id="example" class="table is-striped text-white " style="width:100%">
+
+            <table id="example" class=" table is-striped text-white " style="width:100%">
                 <thead>
                     <tr>
-                        <th>Date</th>
+                        <th >Date</th>
                         @if ($sort == 'all' || $sort == 'time_in_out')
                             <th>Time In</th>
                         @endif
@@ -553,7 +631,8 @@
                 <tbody>
 
                     @foreach ($attendanceHistory as $key => $attendance)
-                        <tr>
+                        <tr class="table-bordered">
+                            {{-- {{dd($sort)}} --}}
                             <td class=" relative ">
                                 @if ($key == 0 && date('Y/m/d') == date_format(date_create($attendance->created_at), 'Y/m/d'))
                                     <span
@@ -576,11 +655,23 @@
                             </td>
 
                             @if ($sort == 'all' || $sort == 'time_in_out')
-                                <td>{{ $attendance->time_in != null ? date_format(date_create($attendance->time_in), 'h:i:s a') : '--:--:--' }}
-                                    <br /> <small class=" text-slate-400 ">
-                                        {{ $attendance->time_in != null ? $attendance->time_in_comment : '--:--:--' }}</small>
+                                <td class="flex gap-1 ">
+                                    @if ($attendance->time_in_image != null)
+                                        <a href="{{ asset('storage/images/timestamp/' . $attendance->time_in_image) }}"
+                                            target="_blank">
+                                            <img class=" w-24 h-16 object-cover "
+                                                src="{{ asset('storage/images/timestamp/' . $attendance->time_in_image) }}" />
+                                        </a>
+                                    @endif
+                                    <div class=" flex items-start flex-col justify-center ">
+                                        {{ $attendance->time_in != null ? date_format(date_create($attendance->time_in), 'h:i:s a') : '--:--:--' }}
+                                        <br /> <small class=" text-slate-400 ">
+                                            {{ $attendance->time_in != null ? $attendance->time_in_comment : '' }}</small>
+                                    </div>
                                 </td>
                             @endif
+
+
                             @if ($sort == 'all' || $sort == 'break_in_out')
                                 <td>{{ $attendance->break_in != null ? date_format(date_create($attendance->break_in), 'h:i:s a') : '--:--:--' }}
                                 </td>
@@ -588,14 +679,26 @@
                             @if ($sort == 'all' || $sort == 'break_in_out')
                                 <td>{{ $attendance->break_out != null ? date_format(date_create($attendance->break_out), 'h:i:s a') : '--:--:--' }}
                                     <br /> <small class=" text-slate-400 ">
-                                        {{ $attendance->break_out != null ? $attendance->break_time_comment : '--:--:--' }}</small>
+                                        {{ $attendance->break_out != null ? $attendance->break_time_comment : '' }}</small>
                                 </td>
                             @endif
-                            @if ($sort == 'all' || $sort == 'time_in_out')
-                                <td>{{ $attendance->time_out != null ? date_format(date_create($attendance->time_out), 'h:i:s a') : '--:--:--' }}
-                                    <br /> <small class=" text-slate-400 ">
-                                        {{ $attendance->time_out != null ? $attendance->time_out_comment : '--:--:--' }}</small>
 
+                            @if ($sort == 'all' || $sort == 'time_in_out')
+                                <td>
+                                    <div class="flex gap-1">
+                                        @if ($attendance->time_out_image != null)
+                                            <a href="{{ asset('storage/images/timestamp/' . $attendance->time_out_image) }}"
+                                                target="_blank">
+                                                <img class=" w-24 h-16 object-cover "
+                                                    src="{{ asset('storage/images/timestamp/' . $attendance->time_out_image) }}" />
+                                            </a>
+                                        @endif
+                                        <div class=" flex items-start flex-col justify-center ">
+                                            {{ $attendance->time_out != null ? date_format(date_create($attendance->time_out), 'h:i:s a') : '--:--:--' }}
+                                            <br /> <small class=" text-slate-400 ">
+                                                {{ $attendance->time_out != null ? $attendance->time_out_comment : '' }}</small>
+                                        </div>
+                                    </div>
                                 </td>
                             @endif
                             @if ($sort == 'all' || $sort == 'total_hour')
@@ -636,12 +739,13 @@
 
     <script>
         $(document).ready(function() {
-            $("#DateRangeFilter, #DateFilter, #MonthFilter, #YearFilter, #FilterSubmitBtn").hide();
+            $(" #columnFilterCon, #DateRangeFilter, #DateFilter, #MonthFilter, #YearFilter, #FilterSubmitBtn")
+                .hide();
         });
-
 
         $(document).ready(function() {
             var filterMode
+            var filterColumn = "all"
             var startDate
             var endDate
 
@@ -657,8 +761,21 @@
             $("#FilterPicker").change(function(e) {
                 $("#DateRangeFilter, #DateFilter, #MonthFilter, #YearFilter, #FilterSubmitBtn").hide();
                 e.preventDefault();
+
                 var filterValue = e.target.value;
+
+                if (filterValue != "") {
+                    $("#columnFilterCon").show();
+                } else {
+                    $("#columnFilterCon").hide();
+                }
+
                 filterMode = filterValue
+                console.log(filterValue)
+                if (filterValue == "removeFilter") {
+                    window.location.href = "/dashboard/history/all";
+                }
+
                 if (filterValue == "Per Day") {
                     $("#DateFilter, #FilterSubmitBtn").show("500");
                     $(".datepicker").on("click", function() {
@@ -708,11 +825,17 @@
 
             });
 
+            $("#columnFilter").change(function(e) {
+                e.preventDefault();
+                filterColumn = e.target.value
+                console.log(filterColumn)
+            });
+
             $("#FilterSubmitBtn").click(function(e) {
                 e.preventDefault();
                 startDateRemoveSlash = startDate.replace(/\//g, "-");
                 endDateRemoveSlash = endDate.replace(/\//g, "-");
-                var link = "/dashboard/history/<?php echo $sort; ?>/" + filterMode + "_" +
+                var link = "/dashboard/history/" + filterColumn + "/" + filterMode + "_" +
                     startDateRemoveSlash + "_" + endDateRemoveSlash;
                 window.location.href = link;
             });
@@ -733,38 +856,44 @@
 
 
             var table = $('#example').DataTable({
+                "rowCallback": function(row, data) {
+                    $(row).css('border', '1px solid white');
+                },
                 dom: 'Bfrtip',
                 "ordering": false,
-                buttons: [{
-                        text: 'All',
-                        action: function() {
-                            window.location.href = "/dashboard/history/all";
-                        }
-                    },
-                    {
-                        text: 'Time In-Out',
-                        action: function() {
-                            window.location.href = "/dashboard/history/time_in_out";
-                        }
-                    },
-                    {
-                        text: 'Break In-Out',
-                        action: function() {
-                            window.location.href = "/dashboard/history/break_in_out";
-                        }
-                    },
-                    {
-                        text: 'Total Hour',
-                        action: function() {
-                            window.location.href = "/dashboard/history/total_hour";
-                        }
-                    },
+                buttons: [
+                    // 'print',
+                    // {
+                    //     text: 'All',
+                    //     action: function() {
+                    //         window.location.href = "/dashboard/history/all";
+                    //     }
+                    // },
+                    // {
+                    //     text: 'Time In-Out',
+                    //     action: function() {
+                    //         window.location.href = "/dashboard/history/time_in_out";
+                    //     }
+                    // },
+                    // {
+                    //     text: 'Break In-Out',
+                    //     action: function() {
+                    //         window.location.href = "/dashboard/history/break_in_out";
+                    //     }
+                    // },
+                    // {
+                    //     text: 'Total Hour',
+                    //     action: function() {
+                    //         window.location.href = "/dashboard/history/total_hour";
+                    //     }
+                    // },
                     'copyHtml5',
                     {
+                        download: 'open',
                         extend: 'pdfHtml5',
                         title: '<?php echo Auth::user()->name; ?> Attendance History \n {{ $firstDate }} to {{ $lastDate }}',
 
-                        text: 'PDF',
+                        text: 'Export to PDF',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         customize: function(doc) {
@@ -812,14 +941,20 @@
 
                 ],
                 initComplete: function() {
-
+                    var rowOdd = $('.odd');
+                    var rowEven = $('.even');
                     var btns = $('.dt-button');
                     var btnsCon = $('.dt-buttons');
+
+                    rowOdd.removeClass('odd')
+                    rowEven.removeClass('even')
+
+
                     btns.removeClass('dt-button');
                     btns.addClass(
-                        ' text-md grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' text-md  w-32 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
-                    btnsCon.addClass(' w-full flex gap-2')
+                    btnsCon.addClass(' w-full flex gap-2 justify-end')
                     $('#example_filter').addClass('hidden');
 
 

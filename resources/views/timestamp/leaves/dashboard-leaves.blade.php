@@ -48,7 +48,7 @@
             </div>
             {{-- <x-attendance-card/> --}}
 
-            <table id="example" class="table is-striped text-white " style="width:100%">
+            <table id="example" class="table is-striped text-white " style="width:70vw">
                 <thead>
                     <tr>
                         <th>Status</th>
@@ -99,7 +99,7 @@
                 buttons: [{
                         text: 'Request Leave',
                         action: function() {
-                            window.location.href = "/dashboard/leaves/create";
+                            window.location.href = "{{ route('userCreate') }}";
                         }
                     },
                     'copyHtml5',

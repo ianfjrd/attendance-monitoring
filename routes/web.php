@@ -6,6 +6,8 @@ use App\Models\Timestamp;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LeaveTypesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,8 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('announcement', AnnouncementController::class);
     Route::resource('leaves', LeavesController::class);
+    Route::resource('department', DepartmentController::class);
+    Route::resource('leavetypes', LeaveTypesController::class);
 
     Route::get('/forgottotimeout', function () {
         return view('admin.forgot-timeout');

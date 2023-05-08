@@ -1,4 +1,5 @@
 @extends('admin.admindashboard')
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 @section('style')
     <style>
         input[type="datetime-local"]::-webkit-calendar-picker-indicator {
@@ -10,7 +11,7 @@
     <div class="flex justify-center items-center">
         <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-10">Add timestamp Form</label>
     </div>
-    <form action="{{ route('timestampCreateAdmin') }}" method="POST">
+    <form action="{{ route('timestampCreateAdmin') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col justify-center items-center text-center">
             <label class=" text-[#8EC33F] font-bold text-2xl">Name</label>
@@ -29,22 +30,67 @@
         </div>
 
         <div class="grid grid-cols-2">
-            <div class="flex flex-col text-center items-center justify-center">
-                <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
-                <input type="datetime-local" name="time_in" value="{{ old('time_in') }}"
-                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 mb-1 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
-                @error('time_in')
-                    <small class=" italic text-red-400 mb-4">{{ $message }}</small>
-                @enderror
+            <div>
+                {{-- Time In Image --}}
+                <div class="flex flex-col text-center items-center justify-center ">
+                    <img id="imgPreview" src="#" alt="pic" class=" mb-4 h-52 w-72 m-4 object-cover " />
+                    <input required id="image" name="image" type="file" class=" hidden "
+                        accept="image/png, image/gif, image/jpeg" />
+                    <div id="imageWarning" class=" text-center text-xl text-red-300 font-semibold ">
+                        *Please upload an image
+                    </div>
+                    <div for="image"
+                        class=" mt-8 px-6 hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full text-center transition-all hover:scale-110 hover:-translate-y-2 active:shadow active:scale-100 active:-translate-x-0 ">
+                        <label for="image" required class=" w-full block p-4 cursor-pointer ">
+                            Upload Image
+                            <small class="block">(For time in)</small>
+                        </label>
+                    </div>
+                    @error('image')
+                        <small class=" italic text-red-400 mb-4 text-lg">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div class="flex flex-col text-center items-center justify-center mt-8">
+                    <label class="text-[#8EC33F] font-bold text-2xl">Time In</label>
+                    <input type="datetime-local" name="time_in" value="{{ old('time_in') }}"
+                        class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 mb-1 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+                    @error('time_in')
+                        <small class=" italic text-red-400 mb-4">{{ $message }}</small>
+                    @enderror
+                </div>
             </div>
 
-            <div class="flex flex-col text-center items-center justify-center">
-                <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
-                <input type="datetime-local" name="time_out" value="{{ old('time_out') }}"
-                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 mb-1 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
-                @error('time_out')
-                    <small class=" italic text-red-400 mb-4">{{ $message }}</small>
-                @enderror
+            <div>
+                {{-- Time Out Image --}}
+                <div class="flex flex-col text-center items-center justify-center">
+                    <img id="imgPreview1" src="#" alt="pic" class=" mb-4 h-52 w-72 m-4 object-cover " />
+                    <input required id="image1" name="image1" type="file" class=" hidden "
+                        accept="image/png, image/gif, image/jpeg" />
+                    <div id="imageWarning1" class=" text-center text-xl text-red-300 font-semibold ">
+                        *Please upload an image
+                    </div>
+                    <div for="image1"
+                        class=" mt-8 px-6  hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full text-center transition-all hover:scale-110 hover:-translate-y-2 active:shadow active:scale-100 active:-translate-x-0 ">
+                        <label for="image1" required class=" w-full block p-4 cursor-pointer ">
+                            Upload Image
+                            <small class="block">(For time out)</small>
+                        </label>
+
+                    </div>
+                    @error('image1')
+                        <small class=" italic text-red-400 mb-4 text-lg">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div class="flex flex-col text-center items-center justify-center mt-8">
+                    <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
+                    <input type="datetime-local" name="time_out" value="{{ old('time_out') }}"
+                        class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 mb-1 px-0 block py-2.5 text-gray-900 appearance-none border-gray-300 dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+                    @error('time_out')
+                        <small class=" italic text-red-400 mb-4">{{ $message }}</small>
+                    @enderror
+                </div>
             </div>
         </div>
 
@@ -69,10 +115,80 @@
         </div>
 
         <div class="flex justify-center items-center py-10">
-            <button type="submit"
+            <button id="submitBtn" type="submit"
                 class="text-xl bg-[#8EC33F] hover:bg-[#7cb62f] text-white font-bold py-2 px-4 rounded-full">
                 Add Form
             </button>
         </div>
     </form>
+
+
+    <script>
+        $(document).ready(function() {
+
+            var hasImage = false
+
+            $("#imgPreview").hide();
+            $("#imageWarning").hide();
+            $("#image").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    $("#imgPreview").show();
+                    $("#imageWarning").hide();
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        hasImage = true
+                        $("#imgPreview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    hasImage = false
+                    $("#imgPreview").hide();
+                }
+            });
+
+
+
+            var hasImage1 = false
+
+            $("#imgPreview1").hide();
+            $("#imageWarning1").hide();
+            $("#image1").change(function() {
+                console.log("asdasd");
+                const file1 = this.files[0];
+                if (file1) {
+                    $("#imgPreview1").show();
+                    $("#imageWarning1").hide();
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        hasImage1 = true
+                        $("#imgPreview1")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file1);
+                } else {
+                    hasImage1 = false
+                    $("#imgPreview1").hide();
+                }
+            });
+
+
+            $('#submitBtn').click(function(e) {
+
+                if (hasImage == false) {
+                    $("#imageWarning").show();
+                    $("#imageWarning").addClass('animate-bounce');
+                    e.preventDefault();
+                }
+
+                if (hasImage1 == false) {
+                    $("#imageWarning1").show();
+                    $("#imageWarning1").addClass('animate-bounce');
+                    e.preventDefault();
+                }
+
+            });
+        });
+    </script>
 @endsection

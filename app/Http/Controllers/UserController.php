@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Timestamp;
 use App\Models\User;
+use App\Models\Department;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         //
-        $users = User::where('id', '!=', Auth::user()->id)->get();
+        $users = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'phone_number', 'address', 'valid_id_number', 'role', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
+            ->join('departments', 'departments.id', '=', 'users.department_id')->where('users.id', '!=', Auth::user()->id)->get();
         // $users = User::all();
         // dd($users);
         return view('admin.employee.admin-employeeList', ['users' => $users])->with('status', $request->session()->get('status'));
@@ -48,23 +50,24 @@ class UserController extends Controller
     // Route for user's Dashboard or Home (Get user attendace history)
     public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
-
+        
         if(Auth::user()->role == "Admin"){
             return redirect()->route('admindashboard');
         }
 
         // dd($filter);
         if ($sort == 'time_in_out') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'time_in', 'time_out']);
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         } elseif ($sort == 'break_in_out') {
-            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->select(['created_at', 'break_in', 'break_out']);
+            $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         } else {
             $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         }
 
-
+       
         if ($filter != '') {
             $filterExploded = explode("_", $filter);
+            $filter = $filterExploded[0];
             $startDateFormat = date_create_from_format('m-d-Y', $filterExploded[1]);
             $startDate = date_format($startDateFormat, 'Y-m-d 00:00:00');
             $endDateFormat = date_create_from_format('m-d-Y', $filterExploded[2]);
@@ -94,8 +97,8 @@ class UserController extends Controller
             $lastDate = "--/--/--";
         }
 
-
         return view('dashboard.home', [
+            'filter' => $filter,
             'attendanceHistory' => $attendanceHistory->get(), 'sort' => $sort,
             'status' => Auth::user()->status(),
             'action' => TimestampController::OUTPUT_TIMESTAMP_COLUMNS[Auth::user()->nextTimestampColumn()],
@@ -112,8 +115,9 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        //Redirect to display for adding new user or profile 
-        return view('admin.employee.admin-addUser');
+        //Redirect to display for adding new user or profile
+        $departments = Department::all();
+        return view('admin.employee.admin-addUser', compact('departments'));
     }
 
     /**
@@ -134,7 +138,7 @@ class UserController extends Controller
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         $user->age = $validated['age'];
-        $user->department = $validated['department'];
+        $user->department_id = $validated['department_id'];
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
         // $user->valid_id_number = $validated['valid_id_number'];
@@ -169,7 +173,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = User::where('id', '=', $id)->first();
+        $user = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'phone_number', 'address', 'valid_id_number', 'role', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
+            ->join('departments', 'departments.id', '=', 'users.department_id')->where('users.id', '=', $id)->first();
         return view('admin.employee.admin-showUser', ['user' => $user]);
     }
 
@@ -184,7 +189,9 @@ class UserController extends Controller
         //Redirect to display for adding new user or profile 
 
         $user = User::where('id', '=', $id)->first();
-        return view('admin.employee.admin-editUser', ['user' => $user]);
+        $departments = Department::all();
+
+        return view('admin.employee.admin-editUser', compact('user', 'departments'));
     }
 
     /**
@@ -205,7 +212,7 @@ class UserController extends Controller
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         $user->age = $validated['age'];
-        $user->department = $validated['department'];
+        $user->department_id = $validated['department_id'];
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
         // $user->valid_id_number = $validated['valid_id_number'];

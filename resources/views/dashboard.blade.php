@@ -19,8 +19,10 @@
                         <span class="ml-3  ">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    @if (session()->get('nextTimestamp') == 'Work Done' || session()->get('nextTimestamp') == 'On Leave' || session()->get('nextTimestamp') == 'No Work Today')
+                {{-- <li>
+                    @if (session()->get('nextTimestamp') == 'Work Done' ||
+                            session()->get('nextTimestamp') == 'On Leave' ||
+                            session()->get('nextTimestamp') == 'No Work Today')
                         <div
                             class=" cursor-not-allowed flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                             <svg aria-hidden="true"
@@ -55,7 +57,7 @@
                             </span>
                         </div>
                     @endif
-                </li>
+                </li> --}}
                 </a>
                 </li>
                 {{-- <li>
@@ -156,7 +158,8 @@
                         <div class="px-6 py-6 lg:px-8">
 
                             <div class=" relative ">
-                                <form action={{ route('timestamp.store') }} method="POST">
+                                <form action={{ route('timestamp.store') }} method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class=" mx-auto  flex justify-center flex-col items-center max-w-md gap-8 ">
                                         <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] ">
@@ -181,12 +184,30 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class=" flex gap-4 w-full justify-center ">
+                                        <div class=" gap-4 w-full justify-center ">
 
+                                            @if (session()->get('nextTimestamp') == 'Time In' || session()->get('nextTimestamp') == 'Time Out')
+                                                <img id="imgPreview" src="#" alt="pic" class=" mb-4 m-auto " />
+                                                <input required id="image" name="image" type="file"
+                                                    class=" hidden " accept="image/png, image/gif, image/jpeg" />
+                                                <div id="imageWarning"
+                                                    class=" text-center text-xl text-red-300 font-semibold ">
+                                                    *Please upload an image
+                                                </div>
+                                                <div for="image"
+                                                    class=" cursor-pointer mb-4 hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full grow text-center transition-all hover:scale-110 hover:-translate-y-2 active:shadow active:scale-100 active:-translate-x-0 ">
+                                                    <label for="image" required class=" w-full block ">
+                                                        Upload Image
+                                                    </label>
+
+                                                </div>
+                                            @endif
 
                                             <div
                                                 class=" hover:shadow-xl overflow-hidden bg-[#8EC33F] hover:bg-[#b3db77] font-[900] text-[25px] rounded-full grow text-center transition-all hover:scale-110 hover:-translate-y-2 active:shadow active:scale-100 active:-translate-x-0 ">
-                                                <button class=" p-1 w-full " type="submit">
+                                                <button type="submit"
+                                                    @if (session()->get('nextTimestamp') == 'Time In' || session()->get('nextTimestamp') == 'Time Out') id="submitBtn" @endif
+                                                    class=" p-1 w-full ">
                                                     @if (session()->get('nextTimestamp') == 'Time In')
                                                         Present!
                                                     @elseif (session()->get('nextTimestamp') == 'Break In')
@@ -212,6 +233,41 @@
         </div>
     </div>
     <script type="text/javascript">
+        $(document).ready(function() {
+
+            var hasImage = false
+
+            $("#imgPreview").hide();
+            $("#imageWarning").hide();
+            $("#image").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    $("#imgPreview").show();
+                    $("#imageWarning").hide();
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        hasImage = true
+                        $("#imgPreview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    hasImage = false
+                    $("#imgPreview").hide();
+                }
+            });
+
+            $('#submitBtn').click(function(e) {
+
+                if (hasImage == false) {
+                    $("#imageWarning").show();
+                    $("#imageWarning").addClass('animate-bounce');
+                    e.preventDefault();
+                }
+
+            });
+        });
+
         // set the modal menu element
         const $targetEl = document.getElementById('authentication-modal');
 

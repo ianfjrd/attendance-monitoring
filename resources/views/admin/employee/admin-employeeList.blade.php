@@ -85,11 +85,15 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Department</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
@@ -180,12 +184,12 @@
 
 
                     btns.addClass(
-                        ' text-white grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' text-white w-fit p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
 
                     btnsCon.addClass(' w-full flex gap-2 mb-4')
 
-                    $('#example_filter').addClass('absolute right-0 -top-12');
+                    $('#example_filter').addClass('absolute right-0 top-0');
                 }
             });
 
