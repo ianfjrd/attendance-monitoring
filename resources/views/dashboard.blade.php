@@ -2,16 +2,16 @@
     <aside id="default-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar">
-        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-800">
             <a class="flex items-center pl-2.5 mb-5 mt-1">
                 <img src="{{ asset('images/logo.png') }}" class="h-6 mr-3 sm:h-7" alt="Marvill Logo" />
             </a>
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="{{ route('dashboard') }}"
-                        class=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class=" flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
                         <svg aria-hidden="true"
-                            class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                             <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
@@ -102,9 +102,9 @@
                 </li> --}}
                 <li>
                     <a href="{{ route('userIndex') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
                             fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -137,15 +137,15 @@
 
 
 
-        <div class="p-4  dark:text-white ">
+        <div class="p-4 text-white ">
             <!-- Main modal -->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true"
                 class=" fixed left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-md max-h-full  ">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="relative rounded-lg shadow bg-gray-700">
                         <button type="button"
-                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
                             data-modal-hide="authentication-modal">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +275,7 @@
         const options = {
             placement: 'bottom-right',
             backdrop: 'dynamic',
-            backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+            backdropClasses: 'bg-gray-900 bg-opacity-80 fixed inset-0 z-40',
             closable: true,
             onHide: () => {
                 console.log('modal is hidden');

@@ -67,7 +67,7 @@
                             <td>{{ $leave->date_start }}</td>
                             <td>{{ $leave->date_end }}</td>
                             <td>{{ $leave->type }}</td>
-                            <td>{{ $leave->reason }}</td>
+                            <td>{{ Str::limit($leave->reason, 40, '...') }}</td>
                             <td>{{ $leave->leaves_status }}</td>
                             <td>
                                 <a href="{{ route('userShow', $leave->id) }}" class="underline">Show</a>

@@ -20,7 +20,7 @@
         <div class="border py-4 max-w-4xl mx-auto grid lg:grid-cols-2 lg:max-w-5xl lg:gap-x-20">
             <div class="border flex flex-col justify-center items-center text-center">
                 <textarea
-                    class="resize-none text-center block py-2.5 px-0 w-full text-2xl text-gray-900 bg-transparent border-none border-b-2 border-gray-300 appearance-none dark:text-[#8EC33F] dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
+                    class="resize-none text-center block py-2.5 px-0 w-full text-2xl bg-transparent border-none border-b-2 appearance-none text-[#8EC33F] border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="text" name="name" :value="old('name')" required autofocus autocomplete="name"
                     placeholder="Enter your title here"></textarea>
             </div>

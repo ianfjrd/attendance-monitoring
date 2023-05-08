@@ -438,10 +438,10 @@
             {{-- <x-attendance-card/> --}}
 
             <div
-                class=" md:flex flex flex-col items-end md:flex-row 
+                class=" md:flex flex flex-col items-end md:flex-row
             @if (session()->get('nextTimestamp') != 'Work Done' &&
                     session()->get('nextTimestamp') != 'On Leave' &&
-                    session()->get('nextTimestamp') != 'No Work Today') md:justify-between 
+                    session()->get('nextTimestamp') != 'No Work Today') md:justify-between
             @else
             md:justify-end @endif
             ">
@@ -628,7 +628,7 @@
                     </div>
                 </div>
             </div>
-           
+
 
 
             <table id="example" class=" table is-striped text-white " style="width:100%">

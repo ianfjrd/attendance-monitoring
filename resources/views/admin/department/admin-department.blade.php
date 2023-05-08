@@ -18,7 +18,7 @@
 
         @if ($status != null)
             <div id="alert-3"
-                class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                class="flex p-4 mb-4 rounded-lg bg-gray-800 text-green-400"
                 role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -29,7 +29,7 @@
                 <div class="ml-3 text-sm font-medium">
                     {{ $status }} </div>
                 <button type="button"
-                    class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                    class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 inline-flex h-8 w-8 bg-gray-800 text-green-400 hover:bg-gray-700"
                     data-dismiss-target="#alert-3" aria-label="Close">
                     <span class="sr-only">Close</span>
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -73,15 +73,15 @@
 
                         {{-- Show Modal --}}
                         <div class="p-4 sm:ml-64 my-auto absolute  ">
-                            <div class="p-4  dark:text-white ">
-                                
+                            <div class="p-4 text-white ">
+
                                 <div id="{{ $department->name }}" tabindex="-1" aria-hidden="true"
                                     class=" fixed left-0 right-0 z-50 hidden  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                     <div class="relative w-full max-w-md max-h-full  ">
-                                       
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+                                        <div class="relative rounded-lg shadow bg-gray-700">
                                             <button type="button"
-                                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
                                                 data-modal-hide="{{ $department->name }}">
                                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
                                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +132,7 @@
                             const options = {
                                 placement: 'bottom-right',
                                 backdrop: 'dynamic',
-                                backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+                                backdropClasses: 'bg-gray-900 bg-opacity-80 fixed inset-0 z-40',
                                 closable: true,
                                 onHide: () => {
                                     console.log('modal is hidden');

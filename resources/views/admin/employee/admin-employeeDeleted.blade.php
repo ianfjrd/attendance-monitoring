@@ -18,7 +18,7 @@
 
         @if ($status != null)
             <div id="alert-3"
-                class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                class="flex p-4 mb-4 rounded-lg bg-gray-800 text-green-400"
                 role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -29,7 +29,7 @@
                 <div class="ml-3 text-sm font-medium">
                     {{ $status }} </div>
                 <button type="button"
-                    class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                    class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 inline-flex h-8 w-8 bg-gray-800 text-green-400 hover:bg-gray-700"
                     data-dismiss-target="#alert-3" aria-label="Close">
                     <span class="sr-only">Close</span>
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -43,7 +43,7 @@
         @endif
 
 
-        
+
             <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
                 <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
                     DELETED EMPLOYEE LIST
@@ -83,7 +83,7 @@
                     <th>Actions</th>
                 </table>
             </div>
-      
+
 
     </div>
     <script>
