@@ -40,7 +40,7 @@
             <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
                 <div id="slider"
                     class="h-full flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700">
-                    <div class="flex flex-shrink-0 relative w-full sm:w-auto">
+                    {{-- <div class="flex flex-shrink-0 relative w-full sm:w-auto">
                         <img src="https://i.ibb.co/fDngH9G/carosel-1.png" alt="black chair and white table"
                             class="object-cover object-center w-full" />
                         <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
@@ -231,7 +231,31 @@
                                 </x-button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+                    @foreach ($announcements as $announcement)
+                        <div class="flex flex-shrink-0 relative w-[300px] h-[500px] overflow-hidden">
+                            <img src="{{ asset('storage/announcements/' . $announcement->image) }}" alt="{{ $announcement->title }}"
+                                class="object-cover object-center w-full  " />
+                            <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6 ">
+                                <h2 class="lg:text-2xl leading-4 font-semibold text-base lg:leading-5 text-white dark:text-white">{{ $announcement->title }}
+                                </h2>
+
+                                <div class="flex h-fit w-full items-end pb-6 absolute bottom-0 left-0 flex-col ">
+                                    <h3
+                                        class=" w-full truncate  left-0 text-xl lg:text-xl leading-5 lg:leading-6 text-white dark:text-white">
+                                        {{ Str::limit($announcement->description, 50, '...') }}</h3>
+
+                                    <div>
+                                        <form action="{{ route('announcementShow', $announcement->id) }}">
+                                            <x-button type="submit" id="formSubmit">
+                                                Read more
+                                            </x-button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <button aria-label="slide forward"

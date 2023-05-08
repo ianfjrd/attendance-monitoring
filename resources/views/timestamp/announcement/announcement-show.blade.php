@@ -1,4 +1,4 @@
-@extends('admin.admindashboard')
+@extends('dashboard')
 @section('style')
     <style>
         input[type="time"]::-webkit-calendar-picker-indicator {

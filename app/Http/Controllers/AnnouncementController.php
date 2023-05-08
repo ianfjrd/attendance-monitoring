@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\FlareClient\View;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
@@ -58,7 +59,12 @@ class AnnouncementController extends Controller
     {
         $announcement = Announcement::where('id', '=', $id)->first();
 
-        return view('admin.announcement.announcement-show', compact('announcement'));
+        if(Auth::user()->role == 'Admin') {
+            return view('admin.announcement.announcement-show', compact('announcement'));
+        }
+        else {
+            return view('timestamp.announcement.announcement-show', compact('announcement'));
+        }
     }
 
     /**
