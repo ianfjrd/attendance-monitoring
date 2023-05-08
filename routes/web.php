@@ -9,7 +9,7 @@ use App\Http\Controllers\LeavesController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeaveTypesController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,7 +51,8 @@ Route::prefix('admin')->group(function () {
 
 
     Route::middleware('checkRole:Admin')->get('/admindashboard', [dashboardController::class, 'index'])->name('admindashboard');
-
+    Route::resource('role', RoleController::class);
+    
     Route::resource('announcement', AnnouncementController::class);
     Route::resource('leaves', LeavesController::class);
     Route::resource('department', DepartmentController::class);

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('address');
             $table->string('valid_id_number')->nullable();
-            $table->string('role');
+            $table->foreignId('role_id')->constrained('roles');
             $table->string('workdays')->nullable();
             $table->string('time_in_user')->nullable();
             $table->string('break_duration')->nullable();

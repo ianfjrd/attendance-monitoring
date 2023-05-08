@@ -126,17 +126,17 @@ class LeavesController extends Controller
         $leave->leave_types_id = $input['leave_types_id'];
         $leave->reason = $input['reason'];
         $leave->user_id = 1;
-        if(Auth::user()->role == 'Admin') {
+        if(Auth::user()->role->name == 'Admin') {
             $leave->user_id = $input['user_id'];
         }
         else {
             $leave->user_id = Auth::user()->id;
         }
-        $leave->leaves_status = $this->leavesStatus(Auth::user()->role);
+        $leave->leaves_status = $this->leavesStatus(Auth::user()->role->name);
         $leave->status = $this->status($input['date_start'], $input['date_end']);
         $leave->save();
 
-        if(Auth::user()->role == 'Admin') {
+        if(Auth::user()->role->name == 'Admin') {
             return Redirect::to('admin/leaves')->with('status', 'Employee leave request recorded successfully!');
         }
         else {

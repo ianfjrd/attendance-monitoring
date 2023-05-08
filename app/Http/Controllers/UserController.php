@@ -50,8 +50,7 @@ class UserController extends Controller
     // Route for user's Dashboard or Home (Get user attendace history)
     public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
-        
-        if(Auth::user()->role == "Admin"){
+        if(Auth::user()->role->name == "Admin"){
             return redirect()->route('admindashboard');
         }
 

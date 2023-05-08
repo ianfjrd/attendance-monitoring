@@ -18,13 +18,13 @@ class CheckAdminRole
     public function handle(Request $request, Closure $next, string $role)
     {
         // dd($role);
-        if(Auth::user()->role == "Admin" && $role == "Admin"){
+        if(Auth::user()->role->name == "Admin" && $role == "Admin"){
             return $next($request);
         }
-        elseif(Auth::user()->role != "Admin" && $role == "User") {
+        elseif(Auth::user()->role->name != "Admin" && $role == "User") {
             return $next($request);
         }
-        elseif(Auth::user()->role == "Admin" && $role == "User") {
+        elseif(Auth::user()->role->name == "Admin" && $role == "User") {
             return redirect()->back();
         }
         else{
