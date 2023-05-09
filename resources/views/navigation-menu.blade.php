@@ -91,7 +91,23 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <div class="py-1 px-2 font-bold text-right text-base text-white">{{ Auth::user()->name }}</div><img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    {{-- {{dd(Auth::user())}} --}}
+                                    @php
+                                     $linkLenth = count(explode("/",Auth::user()->profile_photo_url ));
+                                     $imgName = Auth::user()->profile_photo_url;
+                                    if($linkLenth>=6){
+                                        $imgName = explode("/",Auth::user()->profile_photo_url )[5];
+                                    }
+
+                                        // dd($imgName )
+                                    @endphp
+                                    @if ($linkLenth>=6)
+                                    <div class="py-1 px-2 font-bold text-right text-base text-white">{{ Auth::user()->name }}</div><img class="h-8 w-8 rounded-full object-cover" src="{{ asset('storage/profile-photos/'.$imgName)  }}" alt="{{ Auth::user()->name }}" />
+                                    @else
+                                    <div class="py-1 px-2 font-bold text-right text-base text-white">{{ Auth::user()->name }}</div><img class="h-8 w-8 rounded-full object-cover" src="{{ $imgName  }}" alt="{{ Auth::user()->name }}" />
+
+                                    @endif
+
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
