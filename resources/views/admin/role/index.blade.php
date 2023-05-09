@@ -14,6 +14,7 @@
 
 
 @section('content')
+    @include('roleListBase64')
 
     <div class=" relative pt-4 ">
         @if ($status != null)
@@ -46,7 +47,7 @@
 
         <div class=" mx-auto  flex justify-center flex-col items-center max-w-md md:max-w-5xl gap-5 ">
             <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
-                ROLES
+                ROLE LIST (Admin)
             </div>
             {{-- <x-attendance-card/> --}}
 
@@ -91,7 +92,7 @@
                         data: 'id',
                         title: 'ID',
                     },
-                {
+                    {
                         data: 'name',
                         title: 'Name',
                     },
@@ -111,43 +112,47 @@
                             window.location.href = "/admin/role/create"
                         }
                     },
-                    // 'copyHtml5',
-                    // {
-                    //     extend: 'pdfHtml5',
-                    //     exportOptions: {
-                    //         columns: [0, 1, 2, 3]
-                    //     },
-                    //     text: 'PDF',
-                    //     orientation: 'landscape',
-                    //     pageSize: 'A4',
-                    //     customize: function(doc) {
-                    //         console.log(doc.content);
-                    //         doc.content.splice(0, 0, {
-                    //             alignment: "center",
-                    //             width: 500,
+                    'copyHtml5',
+                    {
+                        download: 'open',
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1]
+                        },
+                        text: 'Export To PDF',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
 
-                    //             margin: [0, 0, 0, 12]
-                    //         });
-                    //         doc.content.splice(1, 1, {
-                    //             alignment: "center",
-                    //             border: [true, true, true, true],
-                    //             borderColor: '#000',
-                    //             borderStyle: 'solid',
-                    //             fontSize: 10,
-                    //             margin: [15, 0, 0, 10],
-                    //             text: " Name: <?php echo Auth::user()->name; ?> "
-                    //         });
-                    //         doc.content[2].table.widths = Array(doc.content[2].table.body[0]
-                    //             .length + 1).join('*').split('');
-                    //         doc.content[2].alignment = 'center';
-                    //         doc.content[2].table.widths = [
-                    //             '25%',
-                    //             '25%',
-                    //             '25%',
-                    //             '25%',
-                    //         ]
-                    //     }
-                    // },
+                        customize: function(doc) {
+                            console.log(doc.content);
+
+                            doc.content.splice(0, 0, {
+                                alignment: "center",
+                                width: 500,
+                                image: "{{ logo() }}",
+                                margin: [0, 0, 0, 12]
+                            });
+
+                            doc.content.splice(1, 1, {
+                                alignment: "center",
+                                border: [true, true, true, true],
+                                borderColor: '#000',
+                                borderStyle: 'solid',
+                                fontSize: 10,
+                                margin: [15, 0, 0, 10],
+                                text: " Name: <?php echo Auth::user()->name; ?> "
+                            });
+
+                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                                .length + 1).join('*').split('');
+                            doc.content[2].alignment = 'center';
+
+                            doc.content[2].table.widths = [
+                                '50%',
+                                '50%'
+                            ]
+                        }
+                    },
                 ],
                 initComplete: function(settings, json) {
                     var btns = $('.dt-button');

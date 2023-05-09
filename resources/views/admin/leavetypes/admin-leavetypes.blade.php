@@ -14,6 +14,8 @@
 
 
 @section('content')
+    @include('typesOfLeavesListBase64')
+
     <div class=" relative pt-4 ">
 
         @if ($status != null)
@@ -51,6 +53,7 @@
             <table id="example" class="table is-striped text-white " style="width:70vw">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Action</th>
                     </tr>
@@ -58,6 +61,7 @@
                 <tbody>
                     @foreach ($leavetypes as $leavetype)
                         <tr>
+                            <td>{{ $leavetype->id }}</td>
                             <td>{{ $leavetype->name }}</td>
                             <td>
                                 <button data-modal-target="{{ $leavetype->name }}"
@@ -163,6 +167,24 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
+                columns: [
+                    {
+                        data: 'id',
+                        title: 'ID',
+                    },
+                    {
+                        data: 'name',
+                        title: 'Name',
+                    },
+                    
+                    {
+                        data: 'action',
+                        title: 'Action'
+                    }
+                ],
+                "order": [
+                    [0, "desc"]
+                ],
                 dom: 'Bfrtip',
                 buttons: [{
                         text: '➕Type of leave',
@@ -170,11 +192,47 @@
                             window.location.href = "{{ route('leavetypes.create') }}";
                         }
                     },
-                    // 'copyHtml5',
-                    // {
-                    //     extend: 'pdfHtml5',
-                    //     title: 'leaves_report'
-                    // },
+                    'copyHtml5',
+                    {
+                        download: 'open',
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1]
+                        },
+                        text: 'Export To PDF',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+
+                        customize: function(doc) {
+                            console.log(doc.content);
+
+                            doc.content.splice(0, 0, {
+                                alignment: "center",
+                                width: 500,
+                                image: "{{ logo() }}",
+                                margin: [0, 0, 0, 12]
+                            });
+
+                            doc.content.splice(1, 1, {
+                                alignment: "center",
+                                border: [true, true, true, true],
+                                borderColor: '#000',
+                                borderStyle: 'solid',
+                                fontSize: 10,
+                                margin: [15, 0, 0, 10],
+                                text: " Name: <?php echo Auth::user()->name; ?> "
+                            });
+
+                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                                .length + 1).join('*').split('');
+                            doc.content[2].alignment = 'center';
+
+                            doc.content[2].table.widths = [
+                                '50%',
+                                '50%'
+                            ]
+                        }
+                    },
 
                 ],
                 initComplete: function() {
