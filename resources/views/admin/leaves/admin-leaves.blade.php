@@ -14,6 +14,7 @@
 
 
 @section('content')
+@include('employeeLeavesBase64')
     <div class=" relative pt-4 ">
 
         @if ($status != null)
@@ -106,16 +107,55 @@
             $('#example').DataTable({
                 dom: 'Bfrtip',
                 buttons: [{
-                        text: '➕leave',
+                        text: '➕Leave',
                         action: function() {
                             window.location.href = "{{ route('leaves.create') }}";
                         }
                     },
                     'copyHtml5',
                     {
+                        download: 'open',
                         extend: 'pdfHtml5',
-                        title: 'leaves_report'
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        },
+                        text: 'Export To PDF',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+
+                        customize: function(doc) {
+                            console.log(doc.content);
+
+                            doc.content.splice(0, 0, {
+                                alignment: "center",
+                                width: 500,
+                                image: "{{ logo() }}",
+                                margin: [0, 0, 0, 12]
+                            });
+
+                            doc.content.splice(1, 1, {
+                                alignment: "center",
+                                border: [true, true, true, true],
+                                borderColor: '#000',
+                                borderStyle: 'solid',
+                                fontSize: 10,
+                                margin: [15, 0, 0, 10],
+                                text: " Name: <?php echo Auth::user()->name; ?> "
+                            });
+
+                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                                .length + 1).join('*').split('');
+                            doc.content[2].alignment = 'center';
+
+                            doc.content[2].table.widths = [
+                                '25%',
+                                '25%',
+                                '25%',
+                                '25%',
+                            ]
+                        }
                     },
+
 
                 ],
                 initComplete: function() {
@@ -124,10 +164,10 @@
                     btns.removeClass('dt-button');
                     console.log(btns.text())
                     btns.addClass(
-                        ' grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' w-fit p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2')
-                    $('#example_filter').addClass('absolute right-0 -top-12');
+                    $('#example_filter').addClass('absolute right-0 top-0');
                 }
             });
 

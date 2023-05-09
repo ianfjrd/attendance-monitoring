@@ -74,16 +74,16 @@
             $('#example').DataTable({
                 dom: 'Bfrtip',
                 buttons: [{
-                        text: '➕announcement',
+                        text: '➕Announcement',
                         action: function() {
                             window.location.href = "{{ route('announcement.create') }}";
                         }
                     },
-                    'copyHtml5',
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'attendance_report'
-                    },
+                    // 'copyHtml5',
+                    // {
+                    //     extend: 'pdfHtml5',
+                    //     title: 'attendance_report'
+                    // },
 
                 ],
                 initComplete: function() {
@@ -92,10 +92,10 @@
                     btns.removeClass('dt-button');
                     console.log(btns.text())
                     btns.addClass(
-                        ' grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' w-fit p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2')
-                    $('#example_filter').addClass('hidden');
+                    $('#example_filter').addClass('absolute right-0 top-0');
                 }
             });
 

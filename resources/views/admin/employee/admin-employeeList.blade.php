@@ -135,11 +135,12 @@
                     },
                     'copyHtml5',
                     {
+                        download: 'open',
                         extend: 'pdfHtml5',
                         exportOptions: {
                             columns: [0, 1, 2, 3]
                         },
-                        text: 'PDF',
+                        text: 'Export To PDF',
                         orientation: 'landscape',
                         pageSize: 'A4',
 

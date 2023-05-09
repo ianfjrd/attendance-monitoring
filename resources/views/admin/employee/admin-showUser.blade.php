@@ -142,7 +142,7 @@
 
         <div class=" mx-12">
             <ul
-                class="items-center w-full text-sm font-medium bg-white border rounded-lg sm:flex bg-transparent border-gray-600 text-white">
+                class="items-center w-full text-sm font-medium bg-gray-700 border rounded-lg sm:flex bg-transparent border-gray-600 text-white">
                 <li class="w-full border-b sm:border-b-0 sm:border-r border-gray-600">
                     <div class="flex items-center pl-3">
                         <input disabled {{ is_array(old('workdays')) || in_array('Sunday', $workdays) ? 'checked' : '' }}

@@ -48,12 +48,9 @@
             <div class=" w-full text-center text-3xl text-[#8EC33F] font-[900] mb-4 ">
                 ROLES
             </div>
-            <div class=" w-full mb-4">
-                <a href="{{route('role.create')}}" class="bg-green-900 p-4 text-white">Create Role</a>
-            </div>
             {{-- <x-attendance-card/> --}}
 
-            <table id="example" class="table is-striped table-auto text-white">
+            <table id="example" class="table is-striped table-auto text-white" style="width:70vw">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -86,89 +83,83 @@
 
 
     </div>
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             $('#example').DataTable({
-                columns: [{
+                columns: [
+                    {
+                        data: 'id',
+                        title: 'ID',
+                    },
+                {
                         data: 'name',
                         title: 'Name',
                     },
-                    {
-                        data: 'role',
-                        title: 'Role'
-                    },
-                    {
-                        data: 'department',
-                        title: 'Department'
-                    },
-                    {
-                        data: 'created_at',
-                        title: 'Created At'
-                    },
+                    
                     {
                         data: 'action',
                         title: 'Action'
                     }
                 ],
                 "order": [
-                    [3, "desc"]
+                    [0, "desc"]
                 ],
                 dom: 'Bfrtip',
                 buttons: [{
                         text: '➕ Add New',
                         action: function() {
-                            window.location.href = "/admin/user/create"
+                            window.location.href = "/admin/role/create"
                         }
                     },
-                    'copyHtml5',
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3]
-                        },
-                        text: 'PDF',
-                        orientation: 'landscape',
-                        pageSize: 'A4',
-                        customize: function(doc) {
-                            console.log(doc.content);
-                            doc.content.splice(0, 0, {
-                                alignment: "center",
-                                width: 500,
-                                image: "{{ logo() }}",
-                                margin: [0, 0, 0, 12]
-                            });
-                            doc.content.splice(1, 1, {
-                                alignment: "center",
-                                border: [true, true, true, true],
-                                borderColor: '#000',
-                                borderStyle: 'solid',
-                                fontSize: 10,
-                                margin: [15, 0, 0, 10],
-                                text: " Name: <?php echo Auth::user()->name; ?> "
-                            });
-                            doc.content[2].table.widths = Array(doc.content[2].table.body[0]
-                                .length + 1).join('*').split('');
-                            doc.content[2].alignment = 'center';
-                            doc.content[2].table.widths = [
-                                '25%',
-                                '25%',
-                                '25%',
-                                '25%',
-                            ]
-                        }
-                    },
+                    // 'copyHtml5',
+                    // {
+                    //     extend: 'pdfHtml5',
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3]
+                    //     },
+                    //     text: 'PDF',
+                    //     orientation: 'landscape',
+                    //     pageSize: 'A4',
+                    //     customize: function(doc) {
+                    //         console.log(doc.content);
+                    //         doc.content.splice(0, 0, {
+                    //             alignment: "center",
+                    //             width: 500,
+
+                    //             margin: [0, 0, 0, 12]
+                    //         });
+                    //         doc.content.splice(1, 1, {
+                    //             alignment: "center",
+                    //             border: [true, true, true, true],
+                    //             borderColor: '#000',
+                    //             borderStyle: 'solid',
+                    //             fontSize: 10,
+                    //             margin: [15, 0, 0, 10],
+                    //             text: " Name: <?php echo Auth::user()->name; ?> "
+                    //         });
+                    //         doc.content[2].table.widths = Array(doc.content[2].table.body[0]
+                    //             .length + 1).join('*').split('');
+                    //         doc.content[2].alignment = 'center';
+                    //         doc.content[2].table.widths = [
+                    //             '25%',
+                    //             '25%',
+                    //             '25%',
+                    //             '25%',
+                    //         ]
+                    //     }
+                    // },
                 ],
                 initComplete: function(settings, json) {
                     var btns = $('.dt-button');
                     var btnsCon = $('.dt-buttons');
                     btns.removeClass('dt-button');
                     btns.addClass(
-                        ' text-white grow w-24 p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
+                        ' text-white w-fit p-2 bg-gradient-to-t from-slate-800 hover:to-slate-800 hover:scale-110 hover:-translate-y-1 active:scale-100 active:translate-y-0 transition-all'
                     );
                     btnsCon.addClass(' w-full flex gap-2 mb-4')
-                    $('#example_filter').addClass('absolute right-0 -top-12');
+                    $('#example_filter').addClass('absolute right-0 top-0');
                 }
             });
         });
-    </script> --}}
+    </script> 
 @endsection

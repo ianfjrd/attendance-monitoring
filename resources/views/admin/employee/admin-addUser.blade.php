@@ -8,11 +8,11 @@
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 @endsection
 @section('content')
     @if ($errors->first())
-        <div id="alert-3" class="flex p-4 mb-4 rounded-lg bg-gray-800 text-red-400"
-            role="alert">
+        <div id="alert-3" class="flex p-4 mb-4 rounded-lg bg-gray-800 text-red-400" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                 <path
@@ -95,13 +95,25 @@
         <div class="grid grid-cols-2 py-5">
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Department</label>
-                <select id="countries" name="department_id"
+
+                <input type="text" list="department_id" name="department_id" value="{{ old('department_id') }}"
+                    class="text-center border text-1xl rounded-lg block w-1/2 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-[#8EC33F] focus:border-[#8EC33F]" />
+                <datalist id="department_id">
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->name }}" @selected(old('department_id') == 'Admin')>{{ $department->name }}
+                        </option>
+                    @endforeach
+                </datalist>
+
+                {{-- <select id="department_id" name="department_id"
                     class="text-center border text-1xl rounded-lg block w-1/2 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-[#8EC33F] focus:border-[#8EC33F]">
                     <option selected>Choose a Department</option>
                     @foreach ($departments as $department)
-                        <option value="{{$department->id}}" @selected(old('department_id') == 'Admin')>{{$department->name}}</option>
+                        <option value="{{ $department->id }}" @selected(old('department_id') == 'Admin')>{{ $department->name }}
+                        </option>
                     @endforeach
-                </select>
+                </select> --}}
+
                 @error('department')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
@@ -109,15 +121,26 @@
 
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Role</label>
+
+                <input type="text" list="role_id" name="role" value="{{ old('role') }}"
+                    class="text-center border text-1xl rounded-lg block w-1/2 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-[#8EC33F] focus:border-[#8EC33F]" />
+                <datalist id="role_id">
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}
+                        </option>
+                    @endforeach
+                </datalist>
+
+                {{-- <label class=" text-[#8EC33F] font-bold text-2xl">Role</label>
                 <select name="role" id="countries"
                     class="text-center border text-1xl rounded-lg block w-1/2 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-[#8EC33F] focus:border-[#8EC33F]">
                     <option selected>Choose a Role</option>
-                    <option value="Admin" @selected(old('department') == 'Admin')>Admin</option>
-                    <option value="Intern" @selected(old('department') == 'Intern')>Intern</option>
-                    <option value="Marketing" @selected(old('department') == 'Marketing')>Marketing</option>
-                    <option value="Programmer" @selected(old('department') == 'Programmer')>Programmer</option>
-                    <option value="Web Designer" @selected(old('department') == 'Web Designer')>Web Designer</option>
-                </select>
+
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" @selected(old('role_id') == 'Admin')>{{ $role->name }}
+                        </option>
+                    @endforeach
+                </select> --}}
                 @error('role')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
@@ -292,10 +315,5 @@
 
 
     </form>
-    <script>
-        $('#formSubmit').click(function(e) {
-            $('#creatUserForm')[0].reset();
-
-        });
-    </script>
+    <script></script>
 @endsection

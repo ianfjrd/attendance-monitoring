@@ -8,6 +8,7 @@ use App\Models\Announcement;
 use App\Models\Timestamp;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Role;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('checkRole:Admin')->only('create');
         $this->middleware('checkRole:Admin')->only('index');
@@ -37,6 +38,49 @@ class UserController extends Controller
         $this->middleware('checkRole:Admin')->only('usersDeleted');
         $this->middleware('checkRole:Admin')->only('userRestore');
     }
+
+
+    private function findAddDepartment($departmentName)
+    {
+        $department = Department::where('name', '=', $departmentName)->first();
+
+        $departmentID = 0;
+
+        if ($department != null) {
+            $departmentID = $department->id;
+        } else {
+            $newDepartment = new Department();
+            $newDepartment->name = $departmentName;
+            $newDepartment->save();
+
+            $departmentID = $newDepartment->id;
+        }
+
+        return $departmentID;
+    }
+
+
+    private function findAddRole($roleName)
+    {
+        $role = Role::where('name', '=', $roleName)->first();
+
+        $roleID = 0;
+
+        if ($role != null) {
+            $roleID = $role->id;
+        } else {
+            $newRole = new Role();
+            $newRole->name = $roleName;
+            $newRole->save();
+
+            $roleID = $newRole->id;
+        }
+
+        return $roleID;
+    }
+
+
+
     public function index(Request $request)
     {
         //
@@ -53,7 +97,7 @@ class UserController extends Controller
     // Route for user's Dashboard or Home (Get user attendace history)
     public function userDashboard(Request $request, $sort = 'all', $filter = '')
     {
-        if(Auth::user()->role->name == "Admin"){
+        if (Auth::user()->role->name == "Admin") {
             return redirect()->route('admindashboard');
         }
 
@@ -121,7 +165,8 @@ class UserController extends Controller
     {
         //Redirect to display for adding new user or profile
         $departments = Department::all();
-        return view('admin.employee.admin-addUser', compact('departments'));
+        $roles = Role::all();
+        return view('admin.employee.admin-addUser', compact('departments', 'roles'));
     }
 
     /**
@@ -134,19 +179,21 @@ class UserController extends Controller
     //Store User (*admin can only access)
     public function store(StoreUserRequest $request)
     {
-        // dd($request);
+
         $validated = $request->validated();
+
+
+
 
         $user = new User();
         // Required Fields (name, email, and password)
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         $user->age = $validated['age'];
-        $user->department_id = $validated['department_id'];
+
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
         // $user->valid_id_number = $validated['valid_id_number'];
-        $user->role = $validated['role'];
         $user->password = Hash::make($validated['password']);
         $user->email_verified_at = date('Y-m-d H:i:s');
         $user->workdays = serialize($validated['workdays']);
@@ -154,9 +201,10 @@ class UserController extends Controller
         $user->break_duration = $validated['break_duration'];
         $user->time_out_user = $validated['time_out_user'];
 
+        $user->department_id = $this->findAddDepartment($validated['department_id']);
+        $user->role_id = $this->findAddRole($validated['role']);
 
         // Optional Fields (profile_photo_path)
-
         if (isset($validated['image'])) {
             $image = $validated['image']->store('public/profile');
             $imageName = explode('/', $image)[2];
@@ -177,8 +225,10 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'phone_number', 'address', 'valid_id_number', 'role', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
-            ->join('departments', 'departments.id', '=', 'users.department_id')->where('users.id', '=', $id)->first();
+        $user = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'phone_number', 'address', 'valid_id_number', 'role_id', 'roles.name AS role', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->where('users.id', '=', $id)->first();
         return view('admin.employee.admin-showUser', ['user' => $user]);
     }
 
@@ -192,10 +242,14 @@ class UserController extends Controller
     {
         //Redirect to display for adding new user or profile
 
-        $user = User::where('id', '=', $id)->first();
+        $user = User::where('users.id', '=', $id)->select('users.id', 'users.break_duration', 'users.time_out_user', 'users.time_in_user', 'users.workdays', 'users.phone_number', 'users.address', 'users.age', 'users.email', 'users.name', 'departments.name AS department', 'roles.name AS role')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->first();
         $departments = Department::all();
-
-        return view('admin.employee.admin-editUser', compact('user', 'departments'));
+        $roles = Role::all();
+        // dd($user);
+        return view('admin.employee.admin-editUser', compact('user', 'departments', 'roles'));
     }
 
     /**
@@ -211,16 +265,16 @@ class UserController extends Controller
         // dd($request);
         $validated = $request->validated();
         $user = User::where('id', '=', $id)->first();
-
+        // dd($user);
         // Required Fields (name, email, and password)
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         $user->age = $validated['age'];
-        $user->department_id = $validated['department_id'];
+        $user->department_id = $this->findAddDepartment($validated['department_id']);
         $user->phone_number = $validated['phone_number'];
         $user->address = $validated['address'];
         // $user->valid_id_number = $validated['valid_id_number'];
-        $user->role = $validated['role'];
+        $user->role_id = $this->findAddRole($validated['role']);
         $user->workdays = serialize($validated['workdays']);
         $user->time_in_user = $validated['time_in_user'];
         $user->break_duration = $validated['break_duration'];
@@ -274,7 +328,13 @@ class UserController extends Controller
 
     public function usersDeleted(Request $request)
     {
-        $users = User::withTrashed()->where('deleted_at', '!=', null)->get();
+        $users = User::withTrashed()->select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'roles.name AS role', 'phone_number', 'address', 'valid_id_number', 'role_id', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->where('deleted_at', '!=', null)->get();
+
+
+
         return view('admin.employee.admin-employeeDeleted', ['users' => $users])->with('status', $request->session()->get('status'));
     }
 
