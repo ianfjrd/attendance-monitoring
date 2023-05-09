@@ -31,7 +31,7 @@
             <button aria-label="slide backward"
                 class="absolute z-30 left-0 ml-10 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
                 id="prev">
-                <svg class="dark:text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
+                <svg class="text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -237,12 +237,12 @@
                             <img src="{{ asset('storage/announcements/' . $announcement->image) }}" alt="{{ $announcement->title }}"
                                 class="object-cover object-center w-full  " />
                             <div class="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6 ">
-                                <h2 class="lg:text-2xl leading-4 font-semibold text-base lg:leading-5 text-white dark:text-white">{{ $announcement->title }}
+                                <h2 class="lg:text-2xl leading-4 font-semibold text-base lg:leading-5 text-white">{{ $announcement->title }}
                                 </h2>
 
                                 <div class="flex h-fit w-full items-end pb-6 absolute bottom-0 left-0 flex-col ">
                                     <h3
-                                        class=" w-full truncate  left-0 text-xl lg:text-xl leading-5 lg:leading-6 text-white dark:text-white">
+                                        class=" w-full truncate  left-0 text-xl lg:text-xl leading-5 lg:leading-6 text-white">
                                         {{ Str::limit($announcement->description, 50, '...') }}</h3>
 
                                     <div>
@@ -261,7 +261,7 @@
             <button aria-label="slide forward"
                 class="absolute z-30 right-0 mr-10 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                 id="next">
-                <svg class="dark:text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
+                <svg class="text-white" width="30" height="36" viewBox="0 0 8 14" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -367,7 +367,7 @@
     @endphp
     @if ($status != null)
         <div id="alert-3"
-            class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            class="flex p-4 mb-4 rounded-lg bg-gray-800 text-green-400"
             role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -378,7 +378,7 @@
             <div class="ml-3 text-sm font-medium">
                 {{ $status }} </div>
             <button type="button"
-                class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 inline-flex h-8 w-8 bg-gray-800 text-green-400 hover:bg-gray-700"
                 data-dismiss-target="#alert-3" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -479,7 +479,7 @@
                                 </svg>
                             </div>
                             <select datepicker type="text"
-                                class=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class=" w-full border text-sm rounded-lg block pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select date">
                                 @if ($filter != '' && $filter != 'all')
                                     <option value="removeFilter">Remove Filter</option>
@@ -506,7 +506,7 @@
                             </div>
 
                             <select id="columnFilter" datepicker type="text"
-                                class=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class=" w-full border text-sm rounded-lg block pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select date">
                                 <option value="all" selected>All column</option>
                                 <option value="time_in_out">Time in & out</option>
@@ -522,7 +522,7 @@
                         class="flex items-center w-fit px-2 border-l border-l-slate-700">
                         <div id="DPRStart" class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3  pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-400"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -530,7 +530,7 @@
                                 </svg>
                             </div>
                             <input id="DateRangeFilterStart" name="start" type="text"
-                                class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select date start">
                         </div>
 
@@ -538,7 +538,7 @@
 
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-400"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -546,7 +546,7 @@
                                 </svg>
                             </div>
                             <input id="DateRangeFilterEnd" name="end" type="text"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="border text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select date end">
                         </div>
                     </div>
@@ -554,7 +554,7 @@
                     {{-- Date Picker --}}
                     <div id="DateFilter" class="border-l border-l-slate-700 relative max-w-sm px-2 ">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-400" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -562,7 +562,7 @@
                             </svg>
                         </div>
                         <input datepicker id="DateFilterDay" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class=" border text-sm rounded-lg block w-full pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Select date">
                     </div>
 
@@ -572,7 +572,7 @@
                         <div class="relative w-44  ">
 
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-400"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -581,7 +581,7 @@
                             </div>
 
                             <select id="MonthFilterMonth" datepicker type="text"
-                                class=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class=" w-full border text-sm rounded-lg block pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select date">
                                 <option value="" selected class=" bg-slate-600 ">--Select month--</option>
                                 <option value="01">January</option>
@@ -603,7 +603,7 @@
                             </div>
                             <input id="MonthFilterYear" value="{{ date('Y') }}" min="1900" max="2099"
                                 maxlength="4" step="1" type="number"
-                                class=" no-arrow w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class=" no-arrow w-full border text-sm rounded-lg block pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Select year" />
                         </div>
                     </div>
@@ -615,7 +615,7 @@
                         </div>
                         <input value="" min="1900" max="2099" maxlength="4" step="1"
                             id="YearFilterYear" type="number"
-                            class=" no-arrow w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class=" no-arrow w-full border text-sm rounded-lg block pl-10 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Select year" />
                     </div>
 

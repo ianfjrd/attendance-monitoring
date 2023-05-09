@@ -40,8 +40,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         //
-        $users = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'phone_number', 'address', 'valid_id_number', 'role', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
-            ->join('departments', 'departments.id', '=', 'users.department_id')->where('users.id', '!=', Auth::user()->id)->get();
+        $users = User::select('users.id', 'users.name', 'email', 'email_verified_at', 'password', 'current_team_id', 'profile_photo_path', 'age', 'departments.name AS department', 'roles.name AS role', 'phone_number', 'address', 'valid_id_number', 'role_id', 'workdays', 'time_in_user', 'break_duration', 'time_out_user', 'users.created_at')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->where('users.id', '!=', Auth::user()->id)->get();
         // $users = User::all();
         // dd($users);
         return view('admin.employee.admin-employeeList', ['users' => $users])->with('status', $request->session()->get('status'));
@@ -64,7 +66,7 @@ class UserController extends Controller
             $attendanceHistory = Timestamp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc');
         }
 
-       
+
         if ($filter != '') {
             $filterExploded = explode("_", $filter);
             $filter = $filterExploded[0];
@@ -129,7 +131,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //Store User (*admin can only access) 
+    //Store User (*admin can only access)
     public function store(StoreUserRequest $request)
     {
         // dd($request);
@@ -151,7 +153,7 @@ class UserController extends Controller
         $user->time_in_user = $validated['time_in_user'];
         $user->break_duration = $validated['break_duration'];
         $user->time_out_user = $validated['time_out_user'];
-       
+
 
         // Optional Fields (profile_photo_path)
 
@@ -188,7 +190,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //Redirect to display for adding new user or profile 
+        //Redirect to display for adding new user or profile
 
         $user = User::where('id', '=', $id)->first();
         $departments = Department::all();
@@ -203,7 +205,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //Update User (*admin and user can access) 
+    //Update User (*admin and user can access)
     public function update(UpdateUserRequest $request, $id)
     {
         // dd($request);
@@ -248,7 +250,7 @@ class UserController extends Controller
     }
 
 
-    //Update User Role (*admin can only access) 
+    //Update User Role (*admin can only access)
     public function updateRole(Request $request, $id)
     {
         $user = User::where('id', '=', $id)->first();

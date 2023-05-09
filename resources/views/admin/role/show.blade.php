@@ -9,14 +9,14 @@
         <div class="flex flex-col justify-center items-center text-center">
             <label class=" text-[#8EC33F] font-bold text-2xl">ID</label>
             <input id="id" disabled
-                class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[transparent] dark:focus:border-[transparent] focus:outline-none focus:ring-0 focus:border-[transparent] peer"
+                class=" text-center block py-2.5 px-0 w-1/2 text-2xl bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white border-[transparent] focus:outline-none focus:ring-0 focus:border-[transparent] peer"
                 type="text" name="id" value="{{ old('name', $role->id) }}" required autofocus placeholder="1"/>
         </div>
 
         <div class="flex flex-col justify-center items-center text-center">
             <label class=" text-[#8EC33F] font-bold text-2xl">Name</label>
             <input id="name" disabled
-                class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[transparent] dark:focus:border-[transparent] focus:outline-none focus:ring-0 focus:border-[transparent] peer"
+                class=" text-center block py-2.5 px-0 w-1/2 text-2xl bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white border-[transparent] focus:outline-none focus:ring-0 focus:border-[transparent] peer"
                 type="text" name="name" value="{{ old('name', $role->name) }}" required autofocus placeholder="Admin" />
         </div>
 

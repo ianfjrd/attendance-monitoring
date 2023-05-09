@@ -10,7 +10,7 @@
             <div class="flex flex-col justify-center items-center text-center">
                 <label class=" text-[#8EC33F] font-bold text-2xl">Name</label>
                 <input id="name"
-                    class=" text-center block py-2.5 px-0 w-1/2 text-2xl text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-[#8EC33F] dark:focus:border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
+                    class=" text-center block py-2.5 px-0 w-1/2 text-2xl bg-transparent border-0 border-b-2 appearance-none text-white border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer"
                     type="text" name="name" required autofocus
                     placeholder="Admin" />
                 @error('name')

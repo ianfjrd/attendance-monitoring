@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     <div class="flex justify-center items-center">
-        <label for="title" class="text-4xl font-bold dark:text-white pt-5 pb-5">{{ $announcement->title }}</label>
+        <label for="title" class="text-4xl font-bold text-white pt-5 pb-5">{{ $announcement->title }}</label>
     </div>
 
     <div class="relative w-100% h-[300px] overflow-hidden" data-modal-target="image-modal" data-modal-toggle="image-modal">
@@ -18,20 +18,20 @@
 
     <div class="flex justify-center items-center" wid>
         <label for="title"
-            class="text-4x1 text-xl lg:text-xl font-lite text-justify dark:text-white pt-5 pb-10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $announcement->description }}
+            class="text-4x1 text-xl lg:text-xl font-lite text-justify text-white pt-5 pb-10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $announcement->description }}
         </label>
     </div>
 
     {{-- Image Modal --}}
     <div class="p-4 sm:ml-64 my-auto relative">
-        <div class="p-4  dark:text-white ">
+        <div class="p-4  text-white ">
             <!-- Image modal -->
             <div id="image-modal" tabindex="-1" aria-hidden="true"
                 class=" fixed left-0 right-0 z-50 hidden  w-full p-4 overflow-x-hidden overflow-y-auto sm:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-[80%] max-h-[80%]  ">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        
+                    <div class="relative rounded-lg shadow bg-gray-700">
+
                         <div class="px-6 py-6 lg:px-8">
                             <div class=" relative ">
                                 <div class=" mx-auto  flex justify-center flex-col items-center max-w-[80%] max-h-[80%] gap-8 ">
@@ -45,7 +45,7 @@
                         </div>
 
                         <button type="button"
-                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
                             data-modal-hide="image-modal">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +72,7 @@
         const options = {
             placement: 'bottom-right',
             backdrop: 'dynamic',
-            backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+            backdropClasses: 'bg-gray-900 bg-opacity-80 fixed inset-0 z-40',
             closable: true,
             onHide: () => {
                 console.log('modal is hidden');

@@ -172,7 +172,7 @@
 
         <div class=" mx-12">
             <ul
-                class="items-center w-full text-sm font-medium bg-white border rounded-lg sm:flex bg-transparent border-gray-600 text-white">
+                class="items-center w-full text-sm font-medium bg-gray-700 border rounded-lg sm:flex bg-transparent border-gray-600 text-white">
                 <li class="w-full border-b sm:border-b-0 sm:border-r border-gray-600">
                     <div class="flex items-center pl-3">
                         <input {{ is_array(old('workdays')) && in_array('Sunday', old('workdays')) ? 'checked' : '' }}
@@ -269,7 +269,7 @@
             <div class="flex flex-col text-center items-center justify-center">
                 <label class="text-[#8EC33F] font-bold text-2xl">Time Out</label>
                 <input type="time" name="time_out_user" value="{{ old('time_out_user') }}"
-                    class="border-0 border-b-2 dark:text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 text-gray-900 appearance-none border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
+                    class="border-0 border-b-2 text-white bg-transparent text-2xl w-1/2 px-0 block py-2.5 appearance-none border-[#8EC33F] focus:outline-none focus:ring-0 focus:border-[#8EC33F] peer" />
                 @error('time_out_user')
                     <small class=" italic text-red-400 ">{{ $message }}</small>
                 @enderror
